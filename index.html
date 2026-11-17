@@ -98,6 +98,51 @@ nav ol button.chead .cnt.all{color:var(--good)}
 nav ol button.chead .chev{flex:none;font-size:.7rem;color:var(--muted);width:1em}
 nav ol.sub{padding:0 4px 6px;gap:2px}
 nav ol.sub button{font-size:.95rem;padding:6px 8px}
+.story{border:1px solid var(--line);border-top:4px solid var(--accent);background:var(--panel);border-radius:12px;padding:14px 16px 16px;margin:1.2em 0}
+.story-map{position:sticky;top:calc(var(--headh,96px) + 8px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:4px;margin:4px 0 22px;padding:14px 16px;background:var(--bg);border:1px solid var(--line);border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.10);overflow:visible}
+.story-map::before{content:"";position:absolute;left:64px;right:64px;top:50%;border-top:2px solid var(--line);z-index:0}
+.story-map button{position:relative;z-index:1;flex:none;display:flex;align-items:center;gap:6px;border:2px solid var(--line);background:var(--panel);color:var(--ink);font:700 .82rem var(--body);border-radius:999px;padding:3px;cursor:pointer;white-space:nowrap;transition:transform .4s cubic-bezier(.2,1.5,.4,1),box-shadow .35s,background .25s,color .25s,padding .25s}
+.story-map button .n{flex:none;width:21px;height:21px;border-radius:50%;background:var(--accent-soft);color:var(--accent-text);display:grid;place-items:center;font-size:.76rem}
+.story-map button .lab{display:none}
+.story-map button.arr{width:34px;height:34px;justify-content:center;font-size:1.3rem;line-height:1;background:var(--accent);color:var(--panel);border-color:var(--accent);padding:0 0 3px}
+.story-map button.arr[disabled]{opacity:.35;cursor:default}
+.story-map button.arr:first-child{margin-right:6px}
+.story-map button.arr:last-child{margin-left:6px}
+.story-map button.sys{border-style:dashed;border-color:var(--accent)}
+.story-map button.seen{border-color:var(--accent);border-style:solid}
+.story-map button.seen .n{background:var(--accent);color:var(--panel)}
+.story-map button:hover{transform:scale(1.12)}
+.story-map button[aria-selected="true"]{background:var(--accent);color:var(--panel);border-color:var(--accent);border-style:solid;padding:5px 14px 5px 5px;transform:scale(1.25);z-index:3;box-shadow:0 8px 22px rgba(0,112,242,.45)}
+.story-map button[aria-selected="true"] .lab{display:inline}
+.story-map button[aria-selected="true"] .n{background:var(--panel);color:var(--accent-text)}
+.story-map button .ring{display:none}
+.story-map button[aria-selected="true"] .ring{display:block;position:absolute;inset:-6px;border-radius:999px;border:2px solid var(--accent);animation:storyring 1.6s ease-out infinite;pointer-events:none}
+@keyframes storyring{from{opacity:.8;transform:scale(1)}to{opacity:0;transform:scale(1.18,1.7)}}
+.story-scene.pop{animation:storypop .6s cubic-bezier(.2,.9,.3,1.05)}
+@keyframes storypop{from{opacity:0;transform:scale(.05)}55%{opacity:1}to{opacity:1;transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.story-scene.pop{animation:none}.story-map button{transition:none}.story-map button[aria-selected="true"] .ring{animation:none;opacity:0}}
+@media (max-width:700px){.story-map{overflow-x:auto;border-radius:14px;justify-content:flex-start;gap:10px}}
+.story-stage{position:relative}
+.story-scene.pop{animation:storypop .55s cubic-bezier(.2,.9,.3,1.05)}
+@keyframes storypop{from{opacity:0;transform:scale(.08)}60%{opacity:1}to{opacity:1;transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.story-scene.pop{animation:none}.story-map button{transition:none}.story-map button[aria-selected="true"] .ring{animation:none;opacity:0}}
+.story-scene{display:block}
+.story-pic{border:1px solid var(--line);border-radius:10px;background:var(--panel);overflow:hidden}
+.story-pic svg{display:block;width:100%;max-width:720px;margin:0 auto;height:auto;color:var(--ink)}
+.story-step{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-text);font-weight:700;margin:0 0 4px}
+.story-info h3{margin:.1em 0 .4em;font-size:1.25rem}
+.story-info{margin-top:14px;min-height:18em}
+.story-info .app{color:var(--muted);font-size:.88rem}
+.story-info>p{max-width:62ch}
+.story-info dl{margin:.9em 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:auto 1fr;grid-auto-flow:column;gap:0 12px;font-size:.93rem}
+.story-info dt{font-size:.75rem;letter-spacing:.07em;text-transform:uppercase;font-weight:700;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-bottom:0;border-radius:8px 8px 0 0;padding:8px 12px 2px}
+.story-info dd{margin:0;background:var(--bg);border:1px solid var(--line);border-top:0;border-radius:0 0 8px 8px;padding:2px 12px 10px}
+.story-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px}
+.story-count{color:var(--muted);font-size:.9rem}
+.story-nav .btn[disabled]{opacity:.4;cursor:default}
+@media (max-width:1000px){.story-info dl{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto auto auto auto;gap:0 12px}.story-info dd{margin-bottom:10px}}
+@media (max-width:700px){.story-info dl{display:block}.story-info dt{margin-top:8px}.story-info{min-height:0}}
+
 .reset{margin-top:18px;font-size:.88rem;color:var(--muted);background:none;border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer}
 .note{font-size:.88rem;color:var(--muted);margin-top:14px}
 
@@ -1961,7 +2006,7 @@ This chapter covers steps 1 to 11 of the end-to-end flow. <a href="#process-flow
 <p class="eyebrow">AATP · AATP · Open any time</p>
 <h1>End-to-end process flow in SAP</h1>
 <p class="lead">From the planner&#x27;s preparation to the invoice: every step that runs in SAP when an order is promised with Advanced ATP.</p>
-<p>Use this page as a map. The picture shows the order of the steps and who does them. The table under it gives, for every step, the app or transaction, what SAP creates, and what to check. The chapters explain each step in depth.</p>
+<p>Use this page as a map. The picture shows the order of the steps and who does them. The table under it gives, for every step, the team, the t-code and app, the reference document and what SAP creates. The walk-through also tells you what to check. The chapters explain each step in depth.</p>
 <h2>Order promising with Advanced ATP</h2>
 <figure>
 <div class="sv"><svg class="dg" viewBox="0 0 760 346" role="img" aria-label="Order promising with Advanced ATP: 1 Set the monthly quotas (Planner); 2 Reserve stock for a channel (Planner); 3 Set rules for other depots and products (Planner); 4 Enter the customer order (Riya, order desk); 5 Availability check runs (System); 6 Review the promise and save (Riya, order desk); 7 Re-share stock at night (System (job)); 8 Check the night&#x27;s result (Planner); 9 Tie exact stock to orders (System / planner); 10 Release and deliver (Dispatch); 11 Bill the customer (Billing)">
@@ -3682,7 +3727,7 @@ The exam opens after you pass all nine chapters of this course. You need 70% to 
 <p class="eyebrow">Intercompany · Open any time</p>
 <h1>End-to-end process flow in SAP</h1>
 <p class="lead">Two flows, step by step as they run in SAP: a customer sale delivered by the sister company, and a stock transfer between the two companies.</p>
-<p>Use this page as a map. The picture shows the order of the steps and who does them. The table under it gives, for every step, the app or transaction, what SAP creates, and what to check. The chapters explain each step in depth.</p>
+<p>Use this page as a map. The picture shows the order of the steps and who does them. The table under it gives, for every step, the team, the t-code and app, the reference document and what SAP creates. The walk-through also tells you what to check. The chapters explain each step in depth.</p>
 <h2>A. Intercompany sale to a customer</h2>
 <figure>
 <div class="sv"><svg class="dg" viewBox="0 0 760 346" role="img" aria-label="A. Intercompany sale to a customer: 1 Enter the customer order (Riya, Retail); 2 Purchase order is created (System); 3 Internal sales order is created (System); 4 Create the delivery (Arjun, Manufacturing); 5 Pick and post goods issue (Arjun, Manufacturing); 6 Confirm internal transfer of control (Dispatch or nobody (planned date)); 7 Ownership passes to Retail (System (job)); 8 Confirm external transfer of control (Dispatch, customer service or nobody); 9 Ownership passes to the customer (System (job)); 10 Intercompany invoice (Billing, Manufacturing); 11 Supplier invoice (System); 12 Customer invoice (Billing, Retail)">
@@ -3725,7 +3770,7 @@ The exam opens after you pass all nine chapters of this course. You need 70% to 
 <text x="402" y="156" text-anchor="middle" class="numt">6</text>
 <text x="418" y="156" class="sm bd">Confirm internal</text>
 <text x="418" y="170" class="sm bd">transfer of control</text>
-<text x="398" y="189" class="sm mu">Dispatch or nobody (plann…</text>
+<text x="398" y="189" class="sm mu">Dispatch or nobody (planned…</text>
 <rect class="ba" x="200" y="136" width="172" height="62" rx="8"/>
 <circle class="num" cx="216" cy="152" r="10"/>
 <text x="216" y="156" text-anchor="middle" class="numt">7</text>
@@ -3737,7 +3782,7 @@ The exam opens after you pass all nine chapters of this course. You need 70% to 
 <text x="30" y="156" text-anchor="middle" class="numt">8</text>
 <text x="46" y="156" class="sm bd">Confirm external</text>
 <text x="46" y="170" class="sm bd">transfer of control</text>
-<text x="26" y="189" class="sm mu">Dispatch, customer servic…</text>
+<text x="26" y="189" class="sm mu">Dispatch, customer service …</text>
 <rect class="ba" x="14" y="228" width="172" height="62" rx="8"/>
 <circle class="num" cx="30" cy="244" r="10"/>
 <text x="30" y="248" text-anchor="middle" class="numt">9</text>
@@ -5122,7 +5167,7 @@ The exam opens after you pass all nine chapters of this course. You need 70% to 
 <p class="eyebrow">Settlement · Open any time</p>
 <h1>End-to-end process flow in SAP</h1>
 <p class="lead">A sales rebate from the signed deal to the last credit, step by step as it runs in SAP.</p>
-<p>Use this page as a map. The picture shows the order of the steps and who does them. The table under it gives, for every step, the app or transaction, what SAP creates, and what to check. The chapters explain each step in depth.</p>
+<p>Use this page as a map. The picture shows the order of the steps and who does them. The table under it gives, for every step, the team, the t-code and app, the reference document and what SAP creates. The walk-through also tells you what to check. The chapters explain each step in depth.</p>
 <h2>Sales rebate with a condition contract</h2>
 <figure>
 <div class="sv"><svg class="dg" viewBox="0 0 760 346" role="img" aria-label="Sales rebate with a condition contract: 1 Enter the deal (Priya, sales admin); 2 Release the contract (Sales head or Priya); 3 Sell and bill as usual (Order desk, dispatch, billing); 4 Accrual is posted (System); 5 Look at the business volume (Priya); 6 Month-end: top up accruals (System (job) or Priya); 7 Quarter-end: check run (Priya); 8 Quarter-end: partial settlement (System (job) or Priya); 9 Send the credit note (System); 10 Year-end: final settlement (System (job) or Priya); 11 Late correction (Priya); 12 Renew for next year (Priya)">
@@ -5145,7 +5190,7 @@ The exam opens after you pass all nine chapters of this course. You need 70% to 
 <circle class="num" cx="402" cy="60" r="10"/>
 <text x="402" y="64" text-anchor="middle" class="numt">3</text>
 <text x="418" y="64" class="sm bd">Sell and bill as usual</text>
-<text x="398" y="97" class="sm mu">Order desk, dispatch, bil…</text>
+<text x="398" y="97" class="sm mu">Order desk, dispatch, billi…</text>
 <rect class="ba" x="572" y="44" width="172" height="62" rx="8"/>
 <circle class="num" cx="588" cy="60" r="10"/>
 <text x="588" y="64" text-anchor="middle" class="numt">4</text>
@@ -6511,7 +6556,7 @@ The exam opens after you pass all nine chapters of this course. You need 70% to 
 <p class="eyebrow">Returns · Open any time</p>
 <h1>End-to-end process flow in SAP</h1>
 <p class="lead">A customer return from the phone call to the credit, and on to the supplier, step by step as it runs in SAP.</p>
-<p>Use this page as a map. The picture shows the order of the steps and who does them. The table under it gives, for every step, the app or transaction, what SAP creates, and what to check. The chapters explain each step in depth.</p>
+<p>Use this page as a map. The picture shows the order of the steps and who does them. The table under it gives, for every step, the team, the t-code and app, the reference document and what SAP creates. The walk-through also tells you what to check. The chapters explain each step in depth.</p>
 <h2>A. Customer return</h2>
 <figure>
 <div class="sv"><svg class="dg" viewBox="0 0 760 346" role="img" aria-label="A. Customer return: 1 Enter the returns order (Riya, order desk); 2 Returns delivery is created (System); 3 Replacement goes out (if immediate) (System, then dispatch); 4 Receive the goods (Depot gate and warehouse); 5 Inspect (Kavita, inspector); 6 Goods are moved (System); 7 Decide the refund (Riya or returns clerk); 8 Approve (Sales head); 9 Create the credit memo (Billing); 10 Follow and close (Anyone)">
@@ -7992,7 +8037,488 @@ The exam opens after you pass all nine chapters of this course. You need 70% to 
 <p class="eyebrow">Transportation · Open any time</p>
 <h1>End-to-end process flow in SAP</h1>
 <p class="lead">An outbound truck from the sales order to the paid carrier bill, step by step as it runs in SAP.</p>
-<p>Use this page as a map. The picture shows the order of the steps and who does them. The table under it gives, for every step, the app or transaction, what SAP creates, and what to check. The chapters explain each step in depth.</p>
+<p>Use this page as a map. The picture shows the order of the steps and who does them. The table under it gives, for every step, the team, the t-code and app, the reference document and what SAP creates. The walk-through also tells you what to check. The chapters explain each step in depth.</p>
+<h2>Walk through it, one step at a time</h2>
+<p>Press Next to follow one truck from the customer's order to the paid carrier bill. The chart at the top is the whole process; the step you are on lifts out of it, and its picture opens from there. Steps with a dashed edge are done by SAP itself. Use the arrows at the ends of the chart, or click any step in it. You can also use the arrow keys.</p>
+<div class="story" data-story="tm">
+<div class="story-map" role="tablist" aria-label="Process flow: choose a step"></div>
+<div class="story-stage">
+<div class="story-scene" data-kind="U" data-short="Sales order">
+<div class="story-pic">
+<div class="sv"><svg class="dg" viewBox="0 0 520 250" role="img" aria-label="Riya at her desk enters a sales order for Big Mart, 400 cartons.">
+<defs><marker id="d1501-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1501-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1501-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1501-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<rect class="band" x="0" y="206" width="520" height="44" rx="0"/>
+<line class="ln" x1="0" y1="206" x2="520" y2="206"/>
+<use href="#ic-person" x="30" y="96" width="60" height="60" class="ico"/>
+<text x="60" y="172" text-anchor="middle" class="bd">Riya</text>
+<text x="60" y="187" text-anchor="middle" class="sm mu">order desk</text>
+<rect class="card" x="130" y="50" width="210" height="120" rx="8"/>
+<rect class="ba" x="130" y="50" width="210" height="22" rx="8"/>
+<text x="140" y="65" class="sm bd">VA01 · Manage Sales Orders</text>
+<text x="142" y="92" class="sm">Customer: Big Mart</text>
+<text x="142" y="109" class="sm">Product: chocolate bars</text>
+<text x="142" y="126" class="sm">Quantity: 400 cartons</text>
+<text x="142" y="143" class="sm">Deliver by: 13 Oct</text>
+<line class="ln" x1="235" y1="170" x2="235" y2="184"/>
+<line class="ln" x1="205" y1="184" x2="265" y2="184"/>
+<rect class="bg" x="360" y="70" width="150" height="68" rx="6"/>
+<use href="#ic-order" x="366" y="75" width="20" height="20" class="ico"/>
+<text x="390" y="90" class="sm bd">Sales order</text>
+<text x="370" y="110" class="sm">Big Mart</text>
+<text x="370" y="125" class="sm">400 cartons</text>
+<line class="la" x1="342" y1="105" x2="358" y2="105" marker-end="url(#d1501-a)"/>
+<rect class="num" x="10" y="8" width="93.9" height="22" rx="11"/>
+<text x="56.95" y="23" text-anchor="middle" class="numt">T-code VA01</text>
+<rect class="ba" x="92.9" y="8" width="142.9" height="22" rx="0"/>
+<rect class="num" x="10" y="8" width="93.9" height="22" rx="11"/>
+<text x="56.95" y="23" text-anchor="middle" class="numt">T-code VA01</text>
+<text x="109.9" y="23" class="sm bd">Manage Sales Orders</text>
+</svg></div>
+</div>
+<div class="story-info"><p class="story-step">Step 1 of 15 · Sales / Order Desk team</p><h3>A customer orders</h3><p>Big Mart orders 400 cartons. Riya enters the order exactly as on any other day. She does nothing special for transport.</p>
+<dl><dt>T-code</dt><dd><b>VA01</b><br><span class="app">App: Manage Sales Orders</span></dd><dt>Reference document</dt><dd>None (a new document). The customer&#x27;s purchase order number is noted in it.</dd><dt>SAP creates</dt><dd>A sales order</dd><dt>Check</dt><dd>Shipping point and ship-to address are filled</dd></dl></div>
+</div>
+<div class="story-scene" data-kind="U" data-short="Delivery" hidden>
+<div class="story-pic">
+<div class="sv"><svg class="dg" viewBox="0 0 520 250" role="img" aria-label="The shipping clerk creates a delivery of 400 cartons weighing 4,000 kilograms.">
+<defs><marker id="d1502-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1502-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1502-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1502-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<rect class="band" x="0" y="206" width="520" height="44" rx="0"/>
+<line class="ln" x1="0" y1="206" x2="520" y2="206"/>
+<use href="#ic-person" x="30" y="96" width="60" height="60" class="ico"/>
+<text x="60" y="172" text-anchor="middle" class="bd">Shipping</text>
+<text x="60" y="187" text-anchor="middle" class="sm mu">clerk</text>
+<rect class="card" x="130" y="50" width="210" height="120" rx="8"/>
+<rect class="ba" x="130" y="50" width="210" height="22" rx="8"/>
+<text x="140" y="65" class="sm bd">VL10A · Create Deliveries</text>
+<text x="142" y="92" class="sm">Sales order: Big Mart</text>
+<text x="142" y="109" class="sm">400 cartons</text>
+<text x="142" y="126" class="sm">Gross weight: 4,000 kg</text>
+<text x="142" y="143" class="sm">Load on: 10 Oct</text>
+<line class="ln" x1="235" y1="170" x2="235" y2="184"/>
+<line class="ln" x1="205" y1="184" x2="265" y2="184"/>
+<rect class="bg" x="360" y="70" width="150" height="68" rx="6"/>
+<use href="#ic-order" x="366" y="75" width="20" height="20" class="ico"/>
+<text x="390" y="90" class="sm bd">Delivery</text>
+<text x="370" y="110" class="sm">400 cartons</text>
+<text x="370" y="125" class="sm">4,000 kg</text>
+<line class="la" x1="342" y1="105" x2="358" y2="105" marker-end="url(#d1502-a)"/>
+<rect class="num" x="10" y="8" width="100.8" height="22" rx="11"/>
+<text x="60.4" y="23" text-anchor="middle" class="numt">T-code VL10A</text>
+<rect class="ba" x="99.8" y="8" width="185.6" height="22" rx="0"/>
+<rect class="num" x="10" y="8" width="100.8" height="22" rx="11"/>
+<text x="60.4" y="23" text-anchor="middle" class="numt">T-code VL10A</text>
+<text x="116.8" y="23" class="sm bd">Create Outbound Deliveries</text>
+</svg></div>
+</div>
+<div class="story-info"><p class="story-step">Step 2 of 15 · Dispatch / Shipping team</p><h3>The delivery is created</h3><p>When the goods are due to leave, shipping creates the delivery. It carries the weight and volume from the product master.</p>
+<dl><dt>T-code</dt><dd><b>VL10A (or VL01N)</b><br><span class="app">App: Create Outbound Deliveries</span></dd><dt>Reference document</dt><dd>Sales order</dd><dt>SAP creates</dt><dd>An outbound delivery</dd><dt>Check</dt><dd>Weight and volume are not zero</dd></dl></div>
+</div>
+<div class="story-scene" data-kind="S" data-short="Freight unit" hidden>
+<div class="story-pic">
+<div class="sv"><svg class="dg" viewBox="0 0 520 250" role="img" aria-label="The system turns the delivery into a freight unit of 4,000 kilograms from the factory to Big Mart.">
+<defs><marker id="d1503-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1503-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1503-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1503-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<rect class="band" x="0" y="206" width="520" height="44" rx="0"/>
+<line class="ln" x1="0" y1="206" x2="520" y2="206"/>
+<rect class="card" x="40" y="70" width="150" height="68" rx="6"/>
+<use href="#ic-order" x="46" y="75" width="20" height="20" class="ico"/>
+<text x="70" y="90" class="sm bd">Delivery</text>
+<text x="50" y="110" class="sm">400 cartons</text>
+<text x="50" y="125" class="sm">4,000 kg</text>
+<line class="la" x1="196" y1="110" x2="300" y2="110" marker-end="url(#d1503-a)"/>
+<rect class="ba" x="205" y="80" width="86" height="24" rx="12"/>
+<text x="248" y="96" text-anchor="middle" class="sm ta">automatic</text>
+<rect class="ba" x="306" y="60" width="180" height="83" rx="6"/>
+<use href="#ic-order" x="312" y="65" width="20" height="20" class="ico"/>
+<text x="336" y="80" class="sm bd">Freight unit</text>
+<text x="316" y="100" class="sm">4,000 kg</text>
+<text x="316" y="115" class="sm">Factory → Big Mart</text>
+<text x="316" y="130" class="sm">Load 10 Oct, by 13 Oct</text>
+<text x="260" y="190" text-anchor="middle" class="sm mu">Sharma (3,000 kg) and Gupta (1,000 kg) get freight units the same way.</text>
+<rect class="num" x="10" y="8" width="114.6" height="22" rx="11"/>
+<text x="67.3" y="23" text-anchor="middle" class="numt">No user action</text>
+<rect class="ba" x="113.6" y="8" width="246.6" height="22" rx="0"/>
+<rect class="num" x="10" y="8" width="114.6" height="22" rx="11"/>
+<text x="67.3" y="23" text-anchor="middle" class="numt">No user action</text>
+<text x="130.6" y="23" class="sm bd">SAP builds it on saving the delivery</text>
+</svg></div>
+</div>
+<div class="story-info"><p class="story-step">Step 3 of 15 · SAP (automatic)</p><h3>A freight unit appears</h3><p>Nobody types this. The moment the delivery is saved, SAP builds a freight unit: the parcel the transport planner has to move.</p>
+<dl><dt>T-code</dt><dd><b>No user action</b><br><span class="app">App: Display: Freight Units worklist</span></dd><dt>Reference document</dt><dd>Outbound delivery</dd><dt>SAP creates</dt><dd>A freight unit with from, to, weight and dates</dd><dt>Check</dt><dd>One freight unit per delivery, with the right weight</dd></dl></div>
+</div>
+<div class="story-scene" data-kind="U" data-short="Plan the truck" hidden>
+<div class="story-pic">
+<div class="sv"><svg class="dg" viewBox="0 0 520 250" role="img" aria-label="Vikram the planner puts three freight units of 3,000, 4,000 and 1,000 kilograms on one truck of 8,000 kilograms.">
+<defs><marker id="d1504-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1504-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1504-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1504-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<rect class="band" x="0" y="206" width="520" height="44" rx="0"/>
+<line class="ln" x1="0" y1="206" x2="520" y2="206"/>
+<use href="#ic-person" x="24" y="96" width="60" height="60" class="ico"/>
+<text x="54" y="172" text-anchor="middle" class="bd">Vikram</text>
+<text x="54" y="187" text-anchor="middle" class="sm mu">planner</text>
+<rect class="ba" x="118" y="54" width="84" height="40" rx="5"/>
+<text x="160" y="71" text-anchor="middle" class="sm bd">3,000 kg</text>
+<text x="160" y="86" text-anchor="middle" class="sm">Sharma</text>
+<rect class="ba" x="210" y="54" width="106" height="40" rx="5"/>
+<text x="263" y="71" text-anchor="middle" class="sm bd">4,000 kg</text>
+<text x="263" y="86" text-anchor="middle" class="sm">Big Mart</text>
+<rect class="ba" x="324" y="54" width="60" height="40" rx="5"/>
+<text x="354" y="71" text-anchor="middle" class="sm bd">1,000 kg</text>
+<text x="354" y="86" text-anchor="middle" class="sm">Gupta</text>
+<line class="la" x1="250" y1="98" x2="330" y2="140" marker-end="url(#d1504-a)"/>
+<use href="#ic-truck" x="330" y="130" width="76" height="76" class="ico-g"/>
+<text x="420" y="150" class="tg">One truck</text>
+<text x="420" y="167" class="sm">8,000 of 8,000 kg</text>
+<rect class="bg" x="420" y="174" width="84" height="8" rx="3"/>
+<rect class="num" x="10" y="8" width="156" height="22" rx="11"/>
+<text x="88" y="23" text-anchor="middle" class="numt">Fiori app, no t-code</text>
+<rect class="ba" x="155" y="8" width="161.2" height="22" rx="0"/>
+<rect class="num" x="10" y="8" width="156" height="22" rx="11"/>
+<text x="88" y="23" text-anchor="middle" class="numt">Fiori app, no t-code</text>
+<text x="172" y="23" class="sm bd">Transportation Cockpit</text>
+</svg></div>
+</div>
+<div class="story-info"><p class="story-step">Step 4 of 15 · Transport Planning team</p><h3>Vikram plans the truck</h3><p>Vikram sees three freight units for the Delhi region. Together they weigh 8,000 kg, exactly one truck. He selects them and creates a freight order. He sets the drops: Big Mart, Sharma, Gupta.</p>
+<dl><dt>T-code</dt><dd><b>Fiori app, no t-code</b><br><span class="app">App: Transportation Cockpit</span></dd><dt>Reference document</dt><dd>Freight units (which point back to the deliveries)</dd><dt>SAP creates</dt><dd>A freight order: one trip with four stops</dd><dt>Check</dt><dd>Capacity bar is not over 100%</dd></dl></div>
+</div>
+<div class="story-scene" data-kind="U" data-short="Pick carrier" hidden>
+<div class="story-pic">
+<div class="sv"><svg class="dg" viewBox="0 0 520 250" role="img" aria-label="Two carriers: Speedy at 46,000 rupees per truck is chosen over Bharat at 52,000.">
+<defs><marker id="d1505-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1505-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1505-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1505-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<rect class="band" x="0" y="206" width="520" height="44" rx="0"/>
+<line class="ln" x1="0" y1="206" x2="520" y2="206"/>
+<use href="#ic-person" x="24" y="96" width="60" height="60" class="ico"/>
+<text x="54" y="172" text-anchor="middle" class="bd">Vikram</text>
+<text x="54" y="187" text-anchor="middle" class="sm mu">planner</text>
+<rect class="bg" x="130" y="50" width="170" height="84" rx="8"/>
+<use href="#ic-truck" x="140" y="58" width="34" height="34" class="ico-g"/>
+<text x="182" y="74" class="sm bd">Speedy Roadlines</text>
+<text x="142" y="106" class="sm">₹46,000 per truck</text>
+<text x="142" y="123" class="sm tg">chosen</text>
+<rect class="card" x="320" y="50" width="170" height="84" rx="8"/>
+<use href="#ic-truck" x="330" y="58" width="34" height="34" class="ico-m"/>
+<text x="372" y="74" class="sm bd">Bharat Cargo</text>
+<text x="332" y="106" class="sm">₹6.50 × 8,000 kg</text>
+<text x="332" y="123" class="sm">= ₹52,000</text>
+<text x="310" y="170" text-anchor="middle" class="sm mu">SAP reads both price contracts and shows the cost.</text>
+<rect class="num" x="10" y="8" width="156" height="22" rx="11"/>
+<text x="88" y="23" text-anchor="middle" class="numt">Fiori app, no t-code</text>
+<rect class="ba" x="155" y="8" width="155.1" height="22" rx="0"/>
+<rect class="num" x="10" y="8" width="156" height="22" rx="11"/>
+<text x="88" y="23" text-anchor="middle" class="numt">Fiori app, no t-code</text>
+<text x="172" y="23" class="sm bd">Manage Freight Orders</text>
+</svg></div>
+</div>
+<div class="story-info"><p class="story-step">Step 5 of 15 · Transport Planning team</p><h3>He picks the carrier</h3><p>Two transport companies serve this route. SAP works out the price of this trip from each contract. For a full truck Speedy is cheaper, so Vikram enters Speedy.</p>
+<dl><dt>T-code</dt><dd><b>Fiori app, no t-code</b><br><span class="app">App: Manage Freight Orders</span></dd><dt>Reference document</dt><dd>Freight order. SAP reads the carrier&#x27;s freight agreement for the price.</dd><dt>SAP creates</dt><dd>Carrier and planned cost on the freight order</dd><dt>Check</dt><dd>A freight agreement was found; charges are not zero</dd></dl></div>
+</div>
+<div class="story-scene" data-kind="U" data-short="Carrier confirms" hidden>
+<div class="story-pic">
+<div class="sv"><svg class="dg" viewBox="0 0 520 250" role="img" aria-label="Vikram sends the transport order to Speedy, who confirms with a truck number and driver.">
+<defs><marker id="d1506-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1506-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1506-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1506-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<rect class="band" x="0" y="206" width="520" height="44" rx="0"/>
+<line class="ln" x1="0" y1="206" x2="520" y2="206"/>
+<use href="#ic-person" x="40" y="96" width="60" height="60" class="ico"/>
+<text x="70" y="172" text-anchor="middle" class="bd">Vikram</text>
+<text x="70" y="187" text-anchor="middle" class="sm mu">planner</text>
+<use href="#ic-phone" x="400" y="96" width="60" height="60" class="ico-a"/>
+<text x="430" y="172" text-anchor="middle" class="bd">Speedy</text>
+<text x="430" y="187" text-anchor="middle" class="sm mu">carrier</text>
+<line class="la" x1="120" y1="90" x2="380" y2="90" marker-end="url(#d1506-a)"/>
+<text x="250" y="80" text-anchor="middle" class="sm">Transport order: Delhi, 10 Oct, 8,000 kg</text>
+<line class="lg" x1="380" y1="130" x2="120" y2="130" marker-end="url(#d1506-g)"/>
+<text x="250" y="148" text-anchor="middle" class="sm tg">Confirmed: truck number, driver&#x27;s phone</text>
+<rect class="num" x="10" y="8" width="156" height="22" rx="11"/>
+<text x="88" y="23" text-anchor="middle" class="numt">Fiori app, no t-code</text>
+<rect class="ba" x="155" y="8" width="155.1" height="22" rx="0"/>
+<rect class="num" x="10" y="8" width="156" height="22" rx="11"/>
+<text x="88" y="23" text-anchor="middle" class="numt">Fiori app, no t-code</text>
+<text x="172" y="23" class="sm bd">Manage Freight Orders</text>
+</svg></div>
+</div>
+<div class="story-info"><p class="story-step">Step 6 of 15 · Transport Planning team</p><h3>The carrier says yes</h3><p>Vikram sends the transport order to Speedy by print, e-mail or electronically. Speedy confirms and gives the truck number and the driver&#x27;s phone.</p>
+<dl><dt>T-code</dt><dd><b>Fiori app, no t-code</b><br><span class="app">App: Manage Freight Orders: Send to Carrier, Set to Confirmed</span></dd><dt>Reference document</dt><dd>Freight order</dd><dt>SAP creates</dt><dd>A transport order for the carrier; status &quot;confirmed&quot;</dd><dt>Check</dt><dd>Truck number is on the freight order for the gate</dd></dl></div>
+</div>
+<div class="story-scene" data-kind="U" data-short="Pick and load" hidden>
+<div class="story-pic">
+<div class="sv"><svg class="dg" viewBox="0 0 520 250" role="img" aria-label="At the factory the warehouse picks 800 cartons and loads the truck.">
+<defs><marker id="d1507-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1507-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1507-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1507-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<rect class="band" x="0" y="206" width="520" height="44" rx="0"/>
+<line class="ln" x1="0" y1="206" x2="520" y2="206"/>
+<line class="ln ds" x1="20" y1="240" x2="500" y2="240"/>
+<use href="#ic-factory" x="20" y="146" width="60" height="60" class="ico-a"/>
+<text x="50" y="224" text-anchor="middle" class="sm bd">Factory</text>
+<use href="#ic-truck" x="150" y="146" width="62" height="62" class="ico"/>
+<rect class="ba" x="96" y="120" width="17" height="17" rx="3"/>
+<rect class="ba" x="116" y="120" width="17" height="17" rx="3"/>
+<rect class="ba" x="136" y="120" width="17" height="17" rx="3"/>
+<line class="la" x1="128" y1="146" x2="160" y2="158" marker-end="url(#d1507-a)"/>
+<text x="250" y="70" class="sm">Loading order = reverse of the drops:</text>
+<text x="250" y="88" class="sm bd">Gupta first in, Big Mart last in.</text>
+<rect class="bg" x="250" y="104" width="150" height="24" rx="12"/>
+<text x="325" y="120" text-anchor="middle" class="sm tg">800 cartons loaded</text>
+<rect class="num" x="10" y="8" width="100.8" height="22" rx="11"/>
+<text x="60.4" y="23" text-anchor="middle" class="numt">T-code VL02N</text>
+<rect class="ba" x="99.8" y="8" width="185.6" height="22" rx="0"/>
+<rect class="num" x="10" y="8" width="100.8" height="22" rx="11"/>
+<text x="60.4" y="23" text-anchor="middle" class="numt">T-code VL02N</text>
+<text x="116.8" y="23" class="sm bd">Outbound delivery, picking</text>
+</svg></div>
+</div>
+<div class="story-info"><p class="story-step">Step 7 of 15 · Warehouse team</p><h3>Picking and loading</h3><p>The warehouse picks the three deliveries. The freight order tells them these go on one truck and in which order to load: the last drop goes in first.</p>
+<dl><dt>T-code</dt><dd><b>VL02N (picking)</b><br><span class="app">App: Outbound delivery; loading reported in Manage Freight Orders</span></dd><dt>Reference document</dt><dd>Outbound deliveries listed on the freight order</dd><dt>SAP creates</dt><dd>Picked deliveries; cargo status &quot;loaded&quot;</dd><dt>Check</dt><dd>All three deliveries are fully picked</dd></dl></div>
+</div>
+<div class="story-scene" data-kind="U" data-short="Truck leaves" hidden>
+<div class="story-pic">
+<div class="sv"><svg class="dg" viewBox="0 0 520 250" role="img" aria-label="The truck leaves the factory at 4 pm and goods issue is posted for all three deliveries.">
+<defs><marker id="d1508-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1508-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1508-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1508-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<rect class="band" x="0" y="206" width="520" height="44" rx="0"/>
+<line class="ln" x1="0" y1="206" x2="520" y2="206"/>
+<line class="ln ds" x1="20" y1="240" x2="500" y2="240"/>
+<use href="#ic-factory" x="20" y="146" width="60" height="60" class="ico-a"/>
+<text x="50" y="224" text-anchor="middle" class="sm bd">Factory</text>
+<use href="#ic-truck" x="210" y="146" width="62" height="62" class="ico-g"/>
+<text x="241" y="140" text-anchor="middle" class="sm bd">10 Oct, 16:00</text>
+<line class="lg" x1="290" y1="180" x2="360" y2="180" marker-end="url(#d1508-g)"/>
+<rect class="bg" x="236" y="60" width="250" height="24" rx="12"/>
+<text x="361" y="76" text-anchor="middle" class="sm tg">Goods issue posted for 3 deliveries</text>
+<rect class="ba" x="236" y="92" width="86" height="24" rx="12"/>
+<text x="279" y="108" text-anchor="middle" class="sm ta">automatic</text>
+<rect class="num" x="10" y="8" width="156" height="22" rx="11"/>
+<text x="88" y="23" text-anchor="middle" class="numt">Fiori app, no t-code</text>
+<rect class="ba" x="155" y="8" width="155.1" height="22" rx="0"/>
+<rect class="num" x="10" y="8" width="156" height="22" rx="11"/>
+<text x="88" y="23" text-anchor="middle" class="numt">Fiori app, no t-code</text>
+<text x="172" y="23" class="sm bd">Manage Freight Orders</text>
+</svg></div>
+</div>
+<div class="story-info"><p class="story-step">Step 8 of 15 · Dispatch / Shipping team (gate)</p><h3>The truck leaves</h3><p>The gate reports the departure on the freight order. In the same moment SAP posts goods issue for all three deliveries, so stock and sales figures are right.</p>
+<dl><dt>T-code</dt><dd><b>Fiori app, no t-code. If goods issue is posted per delivery instead: VL02N</b><br><span class="app">App: Manage Freight Orders: report Departure</span></dd><dt>Reference document</dt><dd>Freight order</dd><dt>SAP creates</dt><dd>Freight order &quot;in execution&quot;; goods issue documents</dd><dt>Check</dt><dd>Each delivery shows goods movement complete</dd></dl></div>
+</div>
+<div class="story-scene" data-kind="U" data-short="Bill customers" hidden>
+<div class="story-pic">
+<div class="sv"><svg class="dg" viewBox="0 0 520 250" role="img" aria-label="Billing creates the three customer invoices.">
+<defs><marker id="d1509-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1509-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1509-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1509-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<rect class="band" x="0" y="206" width="520" height="44" rx="0"/>
+<line class="ln" x1="0" y1="206" x2="520" y2="206"/>
+<use href="#ic-person" x="30" y="96" width="60" height="60" class="ico"/>
+<text x="60" y="172" text-anchor="middle" class="bd">Billing</text>
+<text x="60" y="187" text-anchor="middle" class="sm mu">clerk</text>
+<rect class="card" x="130" y="50" width="210" height="120" rx="8"/>
+<rect class="ba" x="130" y="50" width="210" height="22" rx="8"/>
+<text x="140" y="65" class="sm bd">VF04 · Create Billing Documents</text>
+<text x="142" y="92" class="sm">Big Mart: 400 cartons</text>
+<text x="142" y="109" class="sm">Sharma: 300 cartons</text>
+<text x="142" y="126" class="sm">Gupta: 100 cartons</text>
+<line class="ln" x1="235" y1="170" x2="235" y2="184"/>
+<line class="ln" x1="205" y1="184" x2="265" y2="184"/>
+<rect class="bg" x="360" y="62" width="150" height="53" rx="6"/>
+<use href="#ic-order" x="366" y="67" width="20" height="20" class="ico"/>
+<text x="390" y="82" class="sm bd">3 invoices</text>
+<text x="370" y="102" class="sm">to the customers</text>
+<line class="la" x1="342" y1="105" x2="358" y2="105" marker-end="url(#d1509-a)"/>
+<rect class="num" x="10" y="8" width="93.9" height="22" rx="11"/>
+<text x="56.95" y="23" text-anchor="middle" class="numt">T-code VF04</text>
+<rect class="ba" x="92.9" y="8" width="173.4" height="22" rx="0"/>
+<rect class="num" x="10" y="8" width="93.9" height="22" rx="11"/>
+<text x="56.95" y="23" text-anchor="middle" class="numt">T-code VF04</text>
+<text x="109.9" y="23" class="sm bd">Create Billing Documents</text>
+</svg></div>
+</div>
+<div class="story-info"><p class="story-step">Step 9 of 15 · Billing team</p><h3>Customers are invoiced</h3><p>Because goods issue is posted, the customers can be invoiced as usual. This does not wait for the trip to end or for the carrier&#x27;s bill.</p>
+<dl><dt>T-code</dt><dd><b>VF04 (or VF01)</b><br><span class="app">App: Create Billing Documents</span></dd><dt>Reference document</dt><dd>Outbound delivery, after goods issue</dd><dt>SAP creates</dt><dd>Customer invoices</dd><dt>Check</dt><dd>Runs as before; nothing transport-specific</dd></dl></div>
+</div>
+<div class="story-scene" data-kind="U" data-short="Drops reported" hidden>
+<div class="story-pic">
+<div class="sv"><svg class="dg" viewBox="0 0 520 250" role="img" aria-label="The truck delivers at Big Mart and Sharma on 12 October and waits six hours at Gupta Stores on 13 October.">
+<defs><marker id="d1510-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1510-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1510-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1510-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<rect class="band" x="0" y="206" width="520" height="44" rx="0"/>
+<line class="ln" x1="0" y1="206" x2="520" y2="206"/>
+<line class="ln ds" x1="20" y1="240" x2="500" y2="240"/>
+<use href="#ic-shop" x="40" y="152" width="54" height="54" class="ico-g"/>
+<text x="67" y="224" text-anchor="middle" class="sm bd">Big Mart</text>
+<text x="67" y="142" text-anchor="middle" class="sm bd">12 Oct ✓</text>
+<use href="#ic-shop" x="190" y="152" width="54" height="54" class="ico-g"/>
+<text x="217" y="224" text-anchor="middle" class="sm bd">Sharma</text>
+<text x="217" y="142" text-anchor="middle" class="sm bd">12 Oct ✓</text>
+<use href="#ic-shop" x="340" y="152" width="54" height="54" class="ico-w"/>
+<text x="367" y="224" text-anchor="middle" class="sm bd">Gupta</text>
+<text x="367" y="142" text-anchor="middle" class="sm bd">13 Oct</text>
+<use href="#ic-truck" x="410" y="146" width="62" height="62" class="ico"/>
+<rect class="bw" x="250" y="50" width="230" height="24" rx="12"/>
+<text x="365" y="66" text-anchor="middle" class="sm tw2">Gupta: 09:00 to 15:00 = 6 hours</text>
+<text x="254" y="96" class="sm">4 hours are free. 2 hours can be charged.</text>
+<rect class="num" x="10" y="8" width="156" height="22" rx="11"/>
+<text x="88" y="23" text-anchor="middle" class="numt">Fiori app, no t-code</text>
+<rect class="ba" x="155" y="8" width="155.1" height="22" rx="0"/>
+<rect class="num" x="10" y="8" width="156" height="22" rx="11"/>
+<text x="88" y="23" text-anchor="middle" class="numt">Fiori app, no t-code</text>
+<text x="172" y="23" class="sm bd">Manage Freight Orders</text>
+</svg></div>
+</div>
+<div class="story-info"><p class="story-step">Step 10 of 15 · Transport Planning team</p><h3>The drops are reported</h3><p>For each customer the arrival and departure times are recorded. At Gupta Stores the dock was busy and the truck stood six hours. That fact is now on record.</p>
+<dl><dt>T-code</dt><dd><b>Fiori app, no t-code</b><br><span class="app">App: Manage Freight Orders: report events, set Executed</span></dd><dt>Reference document</dt><dd>Freight order</dd><dt>SAP creates</dt><dd>Events with times; freight order &quot;executed&quot;</dd><dt>Check</dt><dd>Times are right, because money depends on them</dd></dl></div>
+</div>
+<div class="story-scene" data-kind="S" data-short="Final cost" hidden>
+<div class="story-pic">
+<div class="sv"><svg class="dg" viewBox="0 0 520 250" role="img" aria-label="The system recalculates the cost: base 46,000, extra drops 2,000, fuel 920, waiting 1,500, total 50,420 rupees.">
+<defs><marker id="d1511-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1511-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1511-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1511-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<rect class="band" x="0" y="206" width="520" height="44" rx="0"/>
+<line class="ln" x1="0" y1="206" x2="520" y2="206"/>
+<rect class="ba" x="120" y="30" width="280" height="160" rx="10"/>
+<text x="136" y="54" class="ta">Cost of this trip</text>
+<rect class="ba" x="300" y="38" width="86" height="24" rx="12"/>
+<text x="343" y="54" text-anchor="middle" class="sm ta">automatic</text>
+<text x="136" y="82" class="sm">Base freight</text>
+<text x="384" y="82" text-anchor="end" class="sm">₹46,000</text>
+<text x="136" y="102" class="sm">2 extra drops</text>
+<text x="384" y="102" text-anchor="end" class="sm">₹2,000</text>
+<text x="136" y="122" class="sm">Fuel 2%</text>
+<text x="384" y="122" text-anchor="end" class="sm">₹920</text>
+<text x="136" y="142" class="sm">Waiting, 2 hours</text>
+<text x="384" y="142" text-anchor="end" class="sm">₹1,500</text>
+<line class="ln" x1="136" y1="150" x2="384" y2="150"/>
+<text x="136" y="172" class="bd">Total</text>
+<text x="384" y="172" text-anchor="end" class="bd">₹50,420</text>
+<rect class="num" x="10" y="8" width="114.6" height="22" rx="11"/>
+<text x="67.3" y="23" text-anchor="middle" class="numt">No user action</text>
+<rect class="ba" x="113.6" y="8" width="185.6" height="22" rx="0"/>
+<rect class="num" x="10" y="8" width="114.6" height="22" rx="11"/>
+<text x="67.3" y="23" text-anchor="middle" class="numt">No user action</text>
+<text x="130.6" y="23" class="sm bd">SAP calculates the charges</text>
+</svg></div>
+</div>
+<div class="story-info"><p class="story-step">Step 11 of 15 · SAP (automatic)</p><h3>The final cost</h3><p>SAP applies Speedy&#x27;s contract to what really happened: one truck, three drops, two chargeable waiting hours. The cost is known before any bill arrives.</p>
+<dl><dt>T-code</dt><dd><b>No user action</b><br><span class="app">App: Display: Charges tab of the freight order</span></dd><dt>Reference document</dt><dd>Freight order and freight agreement</dd><dt>SAP creates</dt><dd>Charge lines on the freight order</dd><dt>Check</dt><dd>Each line can be explained from the contract</dd></dl></div>
+</div>
+<div class="story-scene" data-kind="U" data-short="Settlement" hidden>
+<div class="story-pic">
+<div class="sv"><svg class="dg" viewBox="0 0 520 250" role="img" aria-label="Vikram creates and posts the freight settlement document for 50,420 rupees.">
+<defs><marker id="d1512-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1512-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1512-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1512-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<rect class="band" x="0" y="206" width="520" height="44" rx="0"/>
+<line class="ln" x1="0" y1="206" x2="520" y2="206"/>
+<use href="#ic-person" x="30" y="96" width="60" height="60" class="ico"/>
+<text x="60" y="172" text-anchor="middle" class="bd">Vikram</text>
+<text x="60" y="187" text-anchor="middle" class="sm mu">planner</text>
+<rect class="card" x="130" y="50" width="210" height="120" rx="8"/>
+<rect class="ba" x="130" y="50" width="210" height="22" rx="8"/>
+<text x="140" y="65" class="sm bd">Freight Settlement (Fiori app)</text>
+<text x="142" y="92" class="sm">Carrier: Speedy</text>
+<text x="142" y="109" class="sm">Trip: Delhi, 10 Oct</text>
+<text x="142" y="126" class="sm">Amount: ₹50,420</text>
+<text x="142" y="143" class="sm">Post</text>
+<line class="ln" x1="235" y1="170" x2="235" y2="184"/>
+<line class="ln" x1="205" y1="184" x2="265" y2="184"/>
+<rect class="bg" x="360" y="62" width="150" height="68" rx="6"/>
+<use href="#ic-order" x="366" y="67" width="20" height="20" class="ico"/>
+<text x="390" y="82" class="sm bd">Settlement</text>
+<text x="370" y="102" class="sm">Speedy</text>
+<text x="370" y="117" class="sm">₹50,420</text>
+<line class="la" x1="342" y1="105" x2="358" y2="105" marker-end="url(#d1512-a)"/>
+<rect class="num" x="10" y="8" width="156" height="22" rx="11"/>
+<text x="88" y="23" text-anchor="middle" class="numt">Fiori app, no t-code</text>
+<rect class="ba" x="155" y="8" width="240.5" height="22" rx="0"/>
+<rect class="num" x="10" y="8" width="156" height="22" rx="11"/>
+<text x="88" y="23" text-anchor="middle" class="numt">Fiori app, no t-code</text>
+<text x="172" y="23" class="sm bd">Create Freight Settlement Documents</text>
+</svg></div>
+</div>
+<div class="story-info"><p class="story-step">Step 12 of 15 · Transport Planning team</p><h3>The trip is settled</h3><p>Vikram turns the finished trip into a settlement document: &quot;we owe Speedy ₹50,420 for this trip&quot;. He posts it.</p>
+<dl><dt>T-code</dt><dd><b>Fiori app, no t-code</b><br><span class="app">App: Create Freight Settlement Documents</span></dd><dt>Reference document</dt><dd>Freight order (executed, with charges)</dd><dt>SAP creates</dt><dd>A posted freight settlement document</dd><dt>Check</dt><dd>Cost is split over the three deliveries by weight</dd></dl></div>
+</div>
+<div class="story-scene" data-kind="S" data-short="Purchase order" hidden>
+<div class="story-pic">
+<div class="sv"><svg class="dg" viewBox="0 0 520 250" role="img" aria-label="The system creates a purchase order and a service entry for the carrier from the settlement document.">
+<defs><marker id="d1513-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1513-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1513-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1513-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<rect class="band" x="0" y="206" width="520" height="44" rx="0"/>
+<line class="ln" x1="0" y1="206" x2="520" y2="206"/>
+<rect class="card" x="30" y="70" width="150" height="68" rx="6"/>
+<use href="#ic-order" x="36" y="75" width="20" height="20" class="ico"/>
+<text x="60" y="90" class="sm bd">Settlement</text>
+<text x="40" y="110" class="sm">Speedy</text>
+<text x="40" y="125" class="sm">₹50,420</text>
+<line class="la" x1="186" y1="110" x2="270" y2="110" marker-end="url(#d1513-a)"/>
+<rect class="ba" x="186" y="80" width="86" height="24" rx="12"/>
+<text x="229" y="96" text-anchor="middle" class="sm ta">automatic</text>
+<rect class="ba" x="280" y="50" width="200" height="68" rx="6"/>
+<use href="#ic-order" x="286" y="55" width="20" height="20" class="ico"/>
+<text x="310" y="70" class="sm bd">Purchase order</text>
+<text x="290" y="90" class="sm">Transport service</text>
+<text x="290" y="105" class="sm">Speedy, ₹50,420</text>
+<rect class="ba" x="280" y="128" width="200" height="53" rx="6"/>
+<use href="#ic-order" x="286" y="133" width="20" height="20" class="ico"/>
+<text x="310" y="148" class="sm bd">Service entry</text>
+<text x="290" y="168" class="sm">&quot;Service received&quot;</text>
+<rect class="num" x="10" y="8" width="114.6" height="22" rx="11"/>
+<text x="67.3" y="23" text-anchor="middle" class="numt">No user action</text>
+<rect class="ba" x="113.6" y="8" width="179.5" height="22" rx="0"/>
+<rect class="num" x="10" y="8" width="114.6" height="22" rx="11"/>
+<text x="67.3" y="23" text-anchor="middle" class="numt">No user action</text>
+<text x="130.6" y="23" class="sm bd">display with T-code ME23N</text>
+</svg></div>
+</div>
+<div class="story-info"><p class="story-step">Step 13 of 15 · SAP (automatic)</p><h3>Purchasing documents appear</h3><p>Posting creates a purchase order for the transport service and confirms the service as received. The freight cost is now in the books of this month.</p>
+<dl><dt>T-code</dt><dd><b>No user action. Display: ME23N</b><br><span class="app">App: Display: Manage Purchase Orders</span></dd><dt>Reference document</dt><dd>Freight settlement document</dd><dt>SAP creates</dt><dd>Service purchase order and service entry sheet</dd><dt>Check</dt><dd>Both numbers appear in the document flow</dd></dl></div>
+</div>
+<div class="story-scene" data-kind="U" data-short="Carrier&#x27;s bill" hidden>
+<div class="story-pic">
+<div class="sv"><svg class="dg" viewBox="0 0 520 250" role="img" aria-label="Meera in accounts enters Speedy&#x27;s bill. 50,420 rupees matches. A bill of 52,420 would be blocked.">
+<defs><marker id="d1514-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1514-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1514-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1514-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<rect class="band" x="0" y="206" width="520" height="44" rx="0"/>
+<line class="ln" x1="0" y1="206" x2="520" y2="206"/>
+<use href="#ic-person" x="30" y="96" width="60" height="60" class="ico"/>
+<text x="60" y="172" text-anchor="middle" class="bd">Meera</text>
+<text x="60" y="187" text-anchor="middle" class="sm mu">accounts</text>
+<rect class="card" x="130" y="50" width="210" height="120" rx="8"/>
+<rect class="ba" x="130" y="50" width="210" height="22" rx="8"/>
+<text x="140" y="65" class="sm bd">MIRO · Create Supplier Invoice</text>
+<text x="142" y="92" class="sm">Supplier: Speedy</text>
+<text x="142" y="109" class="sm">Against the purchase order</text>
+<text x="142" y="126" class="sm">Bill: ₹50,420</text>
+<line class="ln" x1="235" y1="170" x2="235" y2="184"/>
+<line class="ln" x1="205" y1="184" x2="265" y2="184"/>
+<rect class="bg" x="356" y="62" width="150" height="24" rx="12"/>
+<text x="431" y="78" text-anchor="middle" class="sm tg">Matches: free to pay</text>
+<text x="356" y="112" class="sm">A bill of ₹52,420</text>
+<text x="356" y="128" class="sm">would be blocked for</text>
+<text x="356" y="144" class="sm">the ₹2,000 difference.</text>
+<rect class="num" x="10" y="8" width="93.9" height="22" rx="11"/>
+<text x="56.95" y="23" text-anchor="middle" class="numt">T-code MIRO</text>
+<rect class="ba" x="92.9" y="8" width="167.3" height="22" rx="0"/>
+<rect class="num" x="10" y="8" width="93.9" height="22" rx="11"/>
+<text x="56.95" y="23" text-anchor="middle" class="numt">T-code MIRO</text>
+<text x="109.9" y="23" class="sm bd">Create Supplier Invoice</text>
+</svg></div>
+</div>
+<div class="story-info"><p class="story-step">Step 14 of 15 · Finance / Accounts Payable team</p><h3>The carrier&#x27;s bill is checked</h3><p>Speedy&#x27;s bill arrives. Meera enters it against the purchase order. SAP compares it with the calculated cost. Equal: it is free for payment. Different: it is blocked until someone explains the difference.</p>
+<dl><dt>T-code</dt><dd><b>MIRO</b><br><span class="app">App: Create Supplier Invoice</span></dd><dt>Reference document</dt><dd>Purchase order and service entry sheet created in step 13</dd><dt>SAP creates</dt><dd>A supplier invoice, matched or blocked</dd><dt>Check</dt><dd>Difference is within the agreed tolerance</dd></dl></div>
+</div>
+<div class="story-scene" data-kind="U" data-short="Payment" hidden>
+<div class="story-pic">
+<div class="sv"><svg class="dg" viewBox="0 0 520 250" role="img" aria-label="Cocoa Crest pays Speedy 50,420 rupees. The trip is complete.">
+<defs><marker id="d1515-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1515-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1515-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1515-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<rect class="band" x="0" y="206" width="520" height="44" rx="0"/>
+<line class="ln" x1="0" y1="206" x2="520" y2="206"/>
+<use href="#ic-factory" x="60" y="110" width="64" height="64" class="ico-a"/>
+<text x="92" y="192" text-anchor="middle" class="sm bd">Cocoa Crest</text>
+<use href="#ic-truck" x="390" y="110" width="64" height="64" class="ico-g"/>
+<text x="422" y="192" text-anchor="middle" class="sm bd">Speedy</text>
+<line class="lg" x1="140" y1="140" x2="380" y2="140" marker-end="url(#d1515-g)"/>
+<rect class="bg" x="200" y="104" width="120" height="24" rx="12"/>
+<text x="260" y="120" text-anchor="middle" class="sm tg">₹50,420 paid</text>
+<text x="260" y="60" text-anchor="middle" class="sm bd">Freight per carton: ₹63. Known per customer.</text>
+<rect class="num" x="10" y="8" width="93.9" height="22" rx="11"/>
+<text x="56.95" y="23" text-anchor="middle" class="numt">T-code F110</text>
+<rect class="ba" x="92.9" y="8" width="94.1" height="22" rx="0"/>
+<rect class="num" x="10" y="8" width="93.9" height="22" rx="11"/>
+<text x="56.95" y="23" text-anchor="middle" class="numt">T-code F110</text>
+<text x="109.9" y="23" class="sm bd">Payment run</text>
+</svg></div>
+</div>
+<div class="story-info"><p class="story-step">Step 15 of 15 · Finance / Accounts Payable team</p><h3>The carrier is paid</h3><p>The payment run pays Speedy. The freight order shows &quot;completely invoiced&quot;. Finance can see what this trip cost per customer: ₹25,210 for Big Mart, ₹18,907.50 for Sharma, ₹6,302.50 for Gupta.</p>
+<dl><dt>T-code</dt><dd><b>F110</b><br><span class="app">App: Payment run</span></dd><dt>Reference document</dt><dd>Supplier invoice from step 14</dd><dt>SAP creates</dt><dd>Payment to the carrier</dd><dt>Check</dt><dd>Freight order status: completely invoiced</dd></dl></div>
+</div>
+</div>
+<div class="story-nav"><button class="btn story-back" type="button">Back</button><span class="story-count" aria-live="polite"></span><button class="btn story-next" type="button">Next</button></div></div>
+<p class="deepnote">The same steps as a single picture and a table follow below.</p>
 <h2>Outbound truck with basic TM</h2>
 <figure>
 <div class="sv"><svg class="dg" viewBox="0 0 760 438" role="img" aria-label="Outbound truck with basic TM: 1 Sales order (Riya, order desk); 2 Create the delivery (Shipping); 3 Freight unit is built (System); 4 Plan the truck (Vikram, planner); 5 Assign the carrier (Vikram); 6 Send and confirm (Vikram / carrier); 7 Pick and load (Warehouse); 8 Truck leaves (Gate / Vikram); 9 Bill the customers (Billing); 10 Deliveries arrive (Vikram / carrier); 11 Final cost (System); 12 Create and post settlement (Vikram or job); 13 Purchase order and service entry (System); 14 Carrier&#x27;s bill (Meera, accounts); 15 Pay the carrier (Accounts)">
@@ -8005,79 +8531,79 @@ The exam opens after you pass all nine chapters of this course. You need 70% to 
 <circle class="num" cx="30" cy="60" r="10"/>
 <text x="30" y="64" text-anchor="middle" class="numt">1</text>
 <text x="46" y="64" class="sm bd">Sales order</text>
-<text x="26" y="97" class="sm mu">Riya, order desk</text>
+<text x="26" y="97" class="sm mu">Sales / Order Desk team</text>
 <rect class="card" x="200" y="44" width="172" height="62" rx="8"/>
 <circle class="num" cx="216" cy="60" r="10"/>
 <text x="216" y="64" text-anchor="middle" class="numt">2</text>
 <text x="232" y="64" class="sm bd">Create the delivery</text>
-<text x="212" y="97" class="sm mu">Shipping</text>
+<text x="212" y="97" class="sm mu">Dispatch / Shipping team</text>
 <rect class="ba" x="386" y="44" width="172" height="62" rx="8"/>
 <circle class="num" cx="402" cy="60" r="10"/>
 <text x="402" y="64" text-anchor="middle" class="numt">3</text>
 <text x="418" y="64" class="sm bd">Freight unit is built</text>
-<text x="398" y="97" class="sm mu">System</text>
+<text x="398" y="97" class="sm mu">SAP (automatic)</text>
 <rect class="card" x="572" y="44" width="172" height="62" rx="8"/>
 <circle class="num" cx="588" cy="60" r="10"/>
 <text x="588" y="64" text-anchor="middle" class="numt">4</text>
 <text x="604" y="64" class="sm bd">Plan the truck</text>
-<text x="584" y="97" class="sm mu">Vikram, planner</text>
+<text x="584" y="97" class="sm mu">Transport Planning team</text>
 <rect class="card" x="572" y="136" width="172" height="62" rx="8"/>
 <circle class="num" cx="588" cy="152" r="10"/>
 <text x="588" y="156" text-anchor="middle" class="numt">5</text>
 <text x="604" y="156" class="sm bd">Assign the carrier</text>
-<text x="584" y="189" class="sm mu">Vikram</text>
+<text x="584" y="189" class="sm mu">Transport Planning team</text>
 <rect class="card" x="386" y="136" width="172" height="62" rx="8"/>
 <circle class="num" cx="402" cy="152" r="10"/>
 <text x="402" y="156" text-anchor="middle" class="numt">6</text>
 <text x="418" y="156" class="sm bd">Send and confirm</text>
-<text x="398" y="189" class="sm mu">Vikram / carrier</text>
+<text x="398" y="189" class="sm mu">Transport Planning team</text>
 <rect class="card" x="200" y="136" width="172" height="62" rx="8"/>
 <circle class="num" cx="216" cy="152" r="10"/>
 <text x="216" y="156" text-anchor="middle" class="numt">7</text>
 <text x="232" y="156" class="sm bd">Pick and load</text>
-<text x="212" y="189" class="sm mu">Warehouse</text>
+<text x="212" y="189" class="sm mu">Warehouse team</text>
 <rect class="card" x="14" y="136" width="172" height="62" rx="8"/>
 <circle class="num" cx="30" cy="152" r="10"/>
 <text x="30" y="156" text-anchor="middle" class="numt">8</text>
 <text x="46" y="156" class="sm bd">Truck leaves</text>
-<text x="26" y="189" class="sm mu">Gate / Vikram</text>
+<text x="26" y="189" class="sm mu">Dispatch / Shipping team</text>
 <rect class="card" x="14" y="228" width="172" height="62" rx="8"/>
 <circle class="num" cx="30" cy="244" r="10"/>
 <text x="30" y="248" text-anchor="middle" class="numt">9</text>
 <text x="46" y="248" class="sm bd">Bill the customers</text>
-<text x="26" y="281" class="sm mu">Billing</text>
+<text x="26" y="281" class="sm mu">Billing team</text>
 <rect class="card" x="200" y="228" width="172" height="62" rx="8"/>
 <circle class="num" cx="216" cy="244" r="10"/>
 <text x="216" y="248" text-anchor="middle" class="numt">10</text>
 <text x="232" y="248" class="sm bd">Deliveries arrive</text>
-<text x="212" y="281" class="sm mu">Vikram / carrier</text>
+<text x="212" y="281" class="sm mu">Transport Planning team</text>
 <rect class="ba" x="386" y="228" width="172" height="62" rx="8"/>
 <circle class="num" cx="402" cy="244" r="10"/>
 <text x="402" y="248" text-anchor="middle" class="numt">11</text>
 <text x="418" y="248" class="sm bd">Final cost</text>
-<text x="398" y="281" class="sm mu">System</text>
+<text x="398" y="281" class="sm mu">SAP (automatic)</text>
 <rect class="card" x="572" y="228" width="172" height="62" rx="8"/>
 <circle class="num" cx="588" cy="244" r="10"/>
 <text x="588" y="248" text-anchor="middle" class="numt">12</text>
 <text x="604" y="248" class="sm bd">Create and post</text>
 <text x="604" y="262" class="sm bd">settlement</text>
-<text x="584" y="281" class="sm mu">Vikram or job</text>
+<text x="584" y="281" class="sm mu">Transport Planning team</text>
 <rect class="ba" x="572" y="320" width="172" height="62" rx="8"/>
 <circle class="num" cx="588" cy="336" r="10"/>
 <text x="588" y="340" text-anchor="middle" class="numt">13</text>
 <text x="604" y="340" class="sm bd">Purchase order and</text>
 <text x="604" y="354" class="sm bd">service entry</text>
-<text x="584" y="373" class="sm mu">System</text>
+<text x="584" y="373" class="sm mu">SAP (automatic)</text>
 <rect class="card" x="386" y="320" width="172" height="62" rx="8"/>
 <circle class="num" cx="402" cy="336" r="10"/>
 <text x="402" y="340" text-anchor="middle" class="numt">14</text>
 <text x="418" y="340" class="sm bd">Carrier&#x27;s bill</text>
-<text x="398" y="373" class="sm mu">Meera, accounts</text>
+<text x="398" y="373" class="sm mu">Finance / Accounts Payable …</text>
 <rect class="card" x="200" y="320" width="172" height="62" rx="8"/>
 <circle class="num" cx="216" cy="336" r="10"/>
 <text x="216" y="340" text-anchor="middle" class="numt">15</text>
 <text x="232" y="340" class="sm bd">Pay the carrier</text>
-<text x="212" y="373" class="sm mu">Accounts</text>
+<text x="212" y="373" class="sm mu">Finance / Accounts Payable …</text>
 <line class="ln" x1="186" y1="75" x2="199" y2="75" marker-end="url(#d907-k)"/>
 <line class="ln" x1="372" y1="75" x2="385" y2="75" marker-end="url(#d907-k)"/>
 <line class="ln" x1="558" y1="75" x2="571" y2="75" marker-end="url(#d907-k)"/>
@@ -8096,22 +8622,22 @@ The exam opens after you pass all nine chapters of this course. You need 70% to 
 <figcaption>Read along the arrows. White boxes need a person. Blue boxes happen by themselves; if one does not happen, that is where to look.</figcaption>
 </figure>
 <div class="tw"><table>
-<tr><th>Step</th><th>What happens</th><th>Who</th><th>App or transaction</th><th>What SAP creates or posts</th><th>Check</th></tr>
-<tr><td>1</td><td>Sales order</td><td>Riya, order desk</td><td>Manage Sales Orders (VA01)</td><td>Sales order</td><td>Shipping point, ship-to address</td></tr>
-<tr><td>2</td><td>Create the delivery</td><td>Shipping</td><td>Create Outbound Deliveries (VL10A)</td><td>Outbound delivery</td><td>Weight and volume filled</td></tr>
-<tr><td>3</td><td>Freight unit is built</td><td>System</td><td>On saving the delivery</td><td>Freight unit: from, to, weight, dates</td><td>Freight Units worklist</td></tr>
-<tr><td>4</td><td>Plan the truck</td><td>Vikram, planner</td><td>Transportation Cockpit: select freight units, create freight order, set stop sequence</td><td>Freight order with stages and cargo</td><td>Capacity not exceeded</td></tr>
-<tr><td>5</td><td>Assign the carrier</td><td>Vikram</td><td>Manage Freight Orders: carrier; Calculate Charges</td><td>Carrier on the freight order; charges from the freight agreement</td><td>Charges tab</td></tr>
-<tr><td>6</td><td>Send and confirm</td><td>Vikram / carrier</td><td>Freight order: Send to Carrier; Set to Confirmed</td><td>Transport order output; subcontracting status confirmed; truck number</td><td>Status confirmed</td></tr>
-<tr><td>7</td><td>Pick and load</td><td>Warehouse</td><td>Delivery picking; freight order: report loading</td><td>Picked deliveries; cargo status loaded</td><td>All deliveries of the truck picked</td></tr>
-<tr><td>8</td><td>Truck leaves</td><td>Gate / Vikram</td><td>Freight order: report Departure</td><td>Freight order in execution; goods issue for all its deliveries (if designed so)</td><td>Deliveries: goods movement complete</td></tr>
-<tr><td>9</td><td>Bill the customers</td><td>Billing</td><td>Create Billing Documents (VF04)</td><td>Customer invoices</td><td>Runs independently of the carrier&#x27;s bill</td></tr>
-<tr><td>10</td><td>Deliveries arrive</td><td>Vikram / carrier</td><td>Freight order: report Arrival, Unloading, Departure per stop; set Executed</td><td>Events with times; freight order executed</td><td>Waiting times correct</td></tr>
-<tr><td>11</td><td>Final cost</td><td>System</td><td>Calculate Charges again after the events</td><td>Charges including event-based ones</td><td>Total on the Charges tab</td></tr>
-<tr><td>12</td><td>Create and post settlement</td><td>Vikram or job</td><td>Create Freight Settlement Document; Post</td><td>Freight settlement document, posted</td><td>Cost distribution per delivery</td></tr>
-<tr><td>13</td><td>Purchase order and service entry</td><td>System</td><td>On posting the settlement</td><td>Service purchase order and service entry sheet; freight cost and liability booked</td><td>Numbers in the document flow</td></tr>
-<tr><td>14</td><td>Carrier&#x27;s bill</td><td>Meera, accounts</td><td>Create Supplier Invoice (MIRO) with reference to the purchase order</td><td>Supplier invoice: matched, or blocked for a difference</td><td>Difference within tolerance</td></tr>
-<tr><td>15</td><td>Pay the carrier</td><td>Accounts</td><td>Payment run</td><td>Payment</td><td>Freight order: completely invoiced</td></tr>
+<tr><th>Step</th><th>What happens</th><th>Team</th><th>T-code and app</th><th>Reference document</th><th>What SAP creates or posts</th></tr>
+<tr><td>1</td><td>Sales order</td><td>Sales / Order Desk team</td><td><b>VA01</b><br>Manage Sales Orders</td><td>None (a new document). The customer&#x27;s purchase order number is noted in it.</td><td>Sales order</td></tr>
+<tr><td>2</td><td>Create the delivery</td><td>Dispatch / Shipping team</td><td><b>VL10A (or VL01N)</b><br>Create Outbound Deliveries</td><td>Sales order</td><td>Outbound delivery</td></tr>
+<tr><td>3</td><td>Freight unit is built</td><td>SAP (automatic)</td><td><b>No user action</b><br>Display: Freight Units worklist</td><td>Outbound delivery</td><td>Freight unit: from, to, weight, dates</td></tr>
+<tr><td>4</td><td>Plan the truck</td><td>Transport Planning team</td><td><b>Fiori app, no t-code</b><br>Transportation Cockpit</td><td>Freight units (which point back to the deliveries)</td><td>Freight order with stages and cargo</td></tr>
+<tr><td>5</td><td>Assign the carrier</td><td>Transport Planning team</td><td><b>Fiori app, no t-code</b><br>Manage Freight Orders</td><td>Freight order. SAP reads the carrier&#x27;s freight agreement for the price.</td><td>Carrier on the freight order; charges from the freight agreement</td></tr>
+<tr><td>6</td><td>Send and confirm</td><td>Transport Planning team</td><td><b>Fiori app, no t-code</b><br>Manage Freight Orders: Send to Carrier, Set to Confirmed</td><td>Freight order</td><td>Transport order output; subcontracting status confirmed; truck number</td></tr>
+<tr><td>7</td><td>Pick and load</td><td>Warehouse team</td><td><b>VL02N (picking)</b><br>Outbound delivery; loading reported in Manage Freight Orders</td><td>Outbound deliveries listed on the freight order</td><td>Picked deliveries; cargo status loaded</td></tr>
+<tr><td>8</td><td>Truck leaves</td><td>Dispatch / Shipping team (gate)</td><td><b>Fiori app, no t-code. If goods issue is posted per delivery instead: VL02N</b><br>Manage Freight Orders: report Departure</td><td>Freight order</td><td>Freight order in execution; goods issue for all its deliveries (if designed so)</td></tr>
+<tr><td>9</td><td>Bill the customers</td><td>Billing team</td><td><b>VF04 (or VF01)</b><br>Create Billing Documents</td><td>Outbound delivery, after goods issue</td><td>Customer invoices</td></tr>
+<tr><td>10</td><td>Deliveries arrive</td><td>Transport Planning team</td><td><b>Fiori app, no t-code</b><br>Manage Freight Orders: report events, set Executed</td><td>Freight order</td><td>Events with times; freight order executed</td></tr>
+<tr><td>11</td><td>Final cost</td><td>SAP (automatic)</td><td><b>No user action</b><br>Display: Charges tab of the freight order</td><td>Freight order and freight agreement</td><td>Charges including event-based ones</td></tr>
+<tr><td>12</td><td>Create and post settlement</td><td>Transport Planning team</td><td><b>Fiori app, no t-code</b><br>Create Freight Settlement Documents</td><td>Freight order (executed, with charges)</td><td>Freight settlement document, posted</td></tr>
+<tr><td>13</td><td>Purchase order and service entry</td><td>SAP (automatic)</td><td><b>No user action. Display: ME23N</b><br>Display: Manage Purchase Orders</td><td>Freight settlement document</td><td>Service purchase order and service entry sheet; freight cost and liability booked</td></tr>
+<tr><td>14</td><td>Carrier&#x27;s bill</td><td>Finance / Accounts Payable team</td><td><b>MIRO</b><br>Create Supplier Invoice</td><td>Purchase order and service entry sheet created in step 13</td><td>Supplier invoice: matched, or blocked for a difference</td></tr>
+<tr><td>15</td><td>Pay the carrier</td><td>Finance / Accounts Payable team</td><td><b>F110</b><br>Payment run</td><td>Supplier invoice from step 14</td><td>Payment</td></tr>
 </table></div>
 <div class="box care"><b>How to use this in a test or a demo</b>
 Run the steps in this order in a test system with the example values from the Worked example page. After each step, look at the "Check" column before moving on. If a blue step did not happen, do not do it by hand: find out why.</div>
@@ -8750,6 +9276,30 @@ setHead();
 rebuildQuizzes();
 window.addEventListener("hashchange",function(){var h=current()||firstOpen();if(h!==shown)show(h);});
 show(current()||firstOpen());
+
+(function(){var ss=document.querySelectorAll(".story");for(var k=0;k<ss.length;k++)(function(st){
+  var sc=st.querySelectorAll(".story-scene"),map=st.querySelector(".story-map"),stage=st.querySelector(".story-stage"),cur=0,seen={0:true},first=true;
+  var back=st.querySelector(".story-back"),next=st.querySelector(".story-next"),cnt=st.querySelector(".story-count");
+  for(var i=0;i<sc.length;i++)(function(i){var b=document.createElement("button");b.type="button";b.setAttribute("role","tab");
+    var n=document.createElement("span");n.className="n";n.textContent=String(i+1);b.appendChild(n);
+    var t=document.createElement("span");t.className="lab";b.setAttribute("aria-label","Step "+(i+1)+": "+sc[i].getAttribute("data-short"));b.title=sc[i].getAttribute("data-short");t.textContent=sc[i].getAttribute("data-short");b.appendChild(t);
+    var r=document.createElement("span");r.className="ring";r.setAttribute("aria-hidden","true");b.appendChild(r);
+    if(sc[i].getAttribute("data-kind")==="S")b.className="step sys";else b.className="step";b.addEventListener("click",function(){go(i);});map.appendChild(b);})(i);
+  function arrow(txt,lab,fn){var b=document.createElement("button");b.type="button";b.className="arr";b.textContent=txt;b.setAttribute("aria-label",lab);b.addEventListener("click",fn);return b;}
+  var pa=arrow("‹","Previous step",function(){go(cur-1);}),na=arrow("›","Next step",function(){go(cur===sc.length-1?0:cur+1);});
+  map.insertBefore(pa,map.firstChild);map.appendChild(na);
+  function go(n){if(n<0||n>=sc.length)return;cur=n;seen[n]=true;var ds=map.querySelectorAll("button.step");
+    for(var i=0;i<sc.length;i++){sc[i].hidden=i!==n;sc[i].classList.remove("pop");ds[i].setAttribute("aria-selected",i===n?"true":"false");ds[i].classList.toggle("seen",!!seen[i]&&i!==n);}
+    back.disabled=n===0;pa.disabled=n===0;next.textContent=n===sc.length-1?"Start again":"Next";cnt.textContent="Step "+(n+1)+" of "+sc.length+": "+sc[n].getAttribute("data-short");
+    if(!first){try{var a=ds[n].getBoundingClientRect(),s=stage.getBoundingClientRect();
+      sc[n].style.transformOrigin=(a.left+a.width/2-s.left)+"px "+(a.top+a.height/2-s.top)+"px";void sc[n].offsetWidth;sc[n].classList.add("pop");
+      var mb=map.getBoundingClientRect().bottom;if(s.top<mb-4||s.top>window.innerHeight*0.6){window.scrollBy({top:s.top-mb-14,behavior:"smooth"});}}catch(e){}}
+    first=false;}
+  back.addEventListener("click",function(){go(cur-1);});
+  next.addEventListener("click",function(){go(cur===sc.length-1?0:cur+1);});
+  st.addEventListener("keydown",function(e){if(e.key==="ArrowRight"){go(Math.min(cur+1,sc.length-1));}else if(e.key==="ArrowLeft"){go(cur-1);}});
+  go(0);
+})(ss[k]);})();
 </script>
 </body>
 </html>
