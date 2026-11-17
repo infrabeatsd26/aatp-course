@@ -36,6 +36,11 @@
   --bad:#f08a84; --bad-soft:#43201e;
   color-scheme:dark;
 }
+:root[data-theme="light"]{color-scheme:light}
+.theme{display:inline-flex;align-items:center;gap:8px;background:none;border:1px solid var(--line);border-radius:99px;padding:5px 12px 5px 6px;cursor:pointer;font-size:.9rem;color:var(--ink)}
+.theme .track{width:34px;height:18px;border-radius:99px;background:var(--line);position:relative;flex:none}
+.theme .track::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--accent);transition:left .2s}
+.theme[aria-checked="true"] .track::after{left:18px}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
@@ -154,6 +159,7 @@ details.deep table{font-size:.93rem}
 <header class="top">
   <div class="top-in">
     <div class="brand">AATP Course<small>Advanced Available-to-Promise in SAP S/4HANA, in plain English</small></div>
+    <button class="theme" id="theme" type="button" role="switch" aria-checked="false"><span class="track" aria-hidden="true"></span><span id="themetext">Dark mode</span></button>
     <div class="prog"><span id="who"></span><span id="ptext">0 of 9 chapters passed</span><div class="bar" aria-hidden="true"><i id="pbar"></i></div></div>
   </div>
 </header>
@@ -2118,6 +2124,19 @@ document.getElementById("verform").addEventListener("submit",function(ev){
   var o=document.getElementById("verres");o.innerHTML="";
   o.appendChild(el("div","res "+(ok?"pass":"fail"),ok?"The code matches. This row was produced by the course page.":"The code does not match. A value in this row was changed, or it was typed by hand."));
 });
+function sysDark(){try{return window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;}catch(e){return false;}}
+function applyTheme(t){
+  var root=document.documentElement;
+  if(t==="dark"||t==="light")root.setAttribute("data-theme",t);
+  var cur=root.getAttribute("data-theme");var dark=cur?cur==="dark":sysDark();
+  var b=document.getElementById("theme");b.setAttribute("aria-checked",dark?"true":"false");
+  document.getElementById("themetext").textContent=dark?"Dark mode on":"Dark mode off";
+}
+document.getElementById("theme").addEventListener("click",function(){
+  var next=this.getAttribute("aria-checked")==="true"?"light":"dark";
+  applyTheme(next);try{localStorage.setItem("aatpCourseTheme",next);}catch(e){}
+});
+(function(){var t=null;try{t=localStorage.getItem("aatpCourseTheme");}catch(e){}applyTheme(t);})();
 load();
 var qb=document.querySelectorAll(".quiz[data-quiz]");for(var i=0;i<qb.length;i++)buildQuiz(qb[i]);
 window.addEventListener("hashchange",function(){show(current()||firstOpen());});
