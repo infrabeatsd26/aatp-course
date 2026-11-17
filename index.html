@@ -57,12 +57,21 @@ button{font:inherit;color:inherit}
 .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
 
 .wrap{max-width:1120px;margin:0 auto;padding:24px 20px 80px;display:grid;grid-template-columns:270px minmax(0,1fr);gap:36px;align-items:start}
-nav{position:sticky;top:16px}
+nav{position:sticky;top:16px;background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:12px;padding:14px 12px 16px;max-height:calc(100vh - 32px);overflow-y:auto;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+nav li{margin:0}
+.navhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 2px 10px 6px}
+.navhead h2{margin:0}
+.navbtn{font-size:.85rem;background:none;border:1px solid var(--line);border-radius:8px;padding:4px 10px;cursor:pointer;color:var(--accent);font-weight:600}
+.navbtn:hover{background:var(--accent-soft)}
+#navshow{margin:0 0 16px}
+body.nav-hidden .wrap{grid-template-columns:minmax(0,1fr)}
+body.nav-hidden nav{display:none}
+body.nav-hidden main{max-width:800px;margin:0 auto;width:100%}
 nav h2{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;font-family:var(--body)}
 nav ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
-nav button{width:100%;text-align:left;border:1px solid transparent;background:none;border-radius:8px;padding:8px 10px;cursor:pointer;display:flex;gap:10px;align-items:baseline}
-nav button:hover{background:var(--accent-soft)}
-nav button[aria-current="true"]{background:var(--panel);border-color:var(--line);font-weight:600}
+nav ol button{width:100%;text-align:left;border:1px solid transparent;border-left:4px solid transparent;background:none;border-radius:8px;padding:7px 10px;cursor:pointer;display:flex;gap:10px;align-items:baseline}
+nav ol button:hover{background:var(--accent-soft)}
+nav ol button[aria-current="true"]{background:var(--accent-soft);border-left-color:var(--accent);font-weight:700}
 nav .st{flex:none;width:1.5em;font-size:.8rem;font-variant-numeric:tabular-nums;color:var(--muted)}
 nav .done .st{color:var(--good);font-weight:700}
 nav .locked{color:var(--muted)}
@@ -145,10 +154,10 @@ details.deep table{font-size:.93rem}
 
 @media (max-width:860px){
   .wrap{grid-template-columns:1fr;gap:18px}
-  nav{position:static}
+  nav{position:static;max-height:none}
   nav ol{flex-direction:row;overflow-x:auto;padding-bottom:6px}
   nav li{flex:none}
-  nav button{white-space:nowrap}
+  nav ol button{white-space:nowrap}
   h1{font-size:1.6rem}
   .bar{width:120px}
 }
@@ -165,14 +174,15 @@ details.deep table{font-size:.93rem}
 </header>
 
 <div class="wrap">
-<nav aria-label="Chapters">
-  <h2>Chapters</h2>
+<nav aria-label="Chapters" id="chapnav">
+  <div class="navhead"><h2>Chapters</h2><button class="navbtn" id="navhide" type="button" aria-controls="chapnav" aria-expanded="true">Hide</button></div>
   <ol id="navlist"></ol>
   <button class="reset" id="reset" type="button">Reset my progress</button>
   <p class="note">Pass the test at the end of a chapter (3 of 4 correct) to open the next one. The final exam opens after chapter 8. Progress is saved in this browser, so use the same device and browser each time.</p>
 </nav>
 
 <main id="main">
+<button class="navbtn" id="navshow" type="button" aria-controls="chapnav" aria-expanded="false" hidden>Show chapters</button>
 <div class="lock" id="lockmsg" hidden>
   <h1>This chapter is locked</h1>
   <p id="locktext"></p>
@@ -2124,6 +2134,14 @@ document.getElementById("verform").addEventListener("submit",function(ev){
   var o=document.getElementById("verres");o.innerHTML="";
   o.appendChild(el("div","res "+(ok?"pass":"fail"),ok?"The code matches. This row was produced by the course page.":"The code does not match. A value in this row was changed, or it was typed by hand."));
 });
+function setNav(hide){
+  document.body.classList.toggle("nav-hidden",hide);
+  document.getElementById("navshow").hidden=!hide;
+  try{localStorage.setItem("aatpCourseNav",hide?"hidden":"shown");}catch(e){}
+}
+document.getElementById("navhide").addEventListener("click",function(){setNav(true);document.getElementById("navshow").focus();});
+document.getElementById("navshow").addEventListener("click",function(){setNav(false);document.getElementById("navhide").focus();});
+(function(){var v=null;try{v=localStorage.getItem("aatpCourseNav");}catch(e){}if(v==="hidden")setNav(true);})();
 function sysDark(){try{return window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;}catch(e){return false;}}
 function applyTheme(t){
   var root=document.documentElement;
