@@ -10,8 +10,9 @@
 <style>
 /* Layout idea: fixed chapter list on the left, one chapter at a time on the right, test at the foot of each chapter. */
 :root{
-  --bg:#f3f5f4; --panel:#ffffff; --ink:#18242b; --muted:#566670; --line:#d5dcdb;
-  --accent:#0d6b63; --accent-soft:#dcefeb;
+  --bg:#edf3fa; --panel:#ffffff; --ink:#14233a; --muted:#4f6079; --line:#cbd8e8;
+  --accent:#0a5fb4; --accent-soft:#dbe9f9;
+  --head-bg:#0b4f97; --head-ink:#ffffff; --head-muted:#d5e4f6; --head-line:rgba(255,255,255,.38);
   --warn:#a45a00; --warn-soft:#fbeed9;
   --good:#22744a; --good-soft:#def2e6;
   --bad:#a8322d; --bad-soft:#f8e1df;
@@ -20,8 +21,9 @@
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#11191c; --panel:#18242a; --ink:#e6edec; --muted:#9db0b3; --line:#2c3c42;
-    --accent:#5cc7b8; --accent-soft:#17403c;
+    --bg:#0f1722; --panel:#172231; --ink:#e6edf5; --muted:#9bb0c6; --line:#2a394c;
+    --accent:#6db3f2; --accent-soft:#17365a;
+    --head-bg:#131d2b; --head-ink:#e6edf5; --head-muted:#9bb0c6; --head-line:#32455d;
     --warn:#e0a44c; --warn-soft:#3d2e14;
     --good:#6fcf97; --good-soft:#173826;
     --bad:#f08a84; --bad-soft:#43201e;
@@ -29,8 +31,9 @@
   }
 }
 :root[data-theme="dark"]{
-  --bg:#11191c; --panel:#18242a; --ink:#e6edec; --muted:#9db0b3; --line:#2c3c42;
-  --accent:#5cc7b8; --accent-soft:#17403c;
+  --bg:#0f1722; --panel:#172231; --ink:#e6edf5; --muted:#9bb0c6; --line:#2a394c;
+  --accent:#6db3f2; --accent-soft:#17365a;
+  --head-bg:#131d2b; --head-ink:#e6edf5; --head-muted:#9bb0c6; --head-line:#32455d;
   --warn:#e0a44c; --warn-soft:#3d2e14;
   --good:#6fcf97; --good-soft:#173826;
   --bad:#f08a84; --bad-soft:#43201e;
@@ -48,16 +51,27 @@ a{color:var(--accent)}
 button{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 
-.top{border-bottom:1px solid var(--line);background:var(--panel)}
-.top-in{max-width:1120px;margin:0 auto;padding:18px 20px;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between}
+.top{position:sticky;top:0;z-index:30;border-bottom:1px solid var(--line);background:var(--head-bg);color:var(--head-ink);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.top .brand small{color:var(--head-muted)}
+.top .right{display:flex;flex-direction:column;align-items:flex-end;gap:7px}
+.top .theme{color:inherit;border-color:var(--head-line);padding:3px 10px 3px 5px;font-size:.85rem}
+.top .theme .track{background:var(--head-line)}
+.top .theme .track::after{background:var(--head-ink)}
+.top .prog{color:var(--head-muted)}
+.top .prog #who{color:var(--head-ink);font-weight:600}
+.top .bar{background:var(--head-line)}
+.top .bar i{background:var(--head-ink)}
+.top .navbtn{color:inherit;border-color:var(--head-line);padding:2px 9px}
+.top .navbtn:hover{background:rgba(255,255,255,.14)}
+.top-in{max-width:1120px;margin:0 auto;padding:10px 20px;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between}
 .brand{font-family:var(--display);font-weight:700;font-size:1.35rem;line-height:1.2}
-.brand small{display:block;font-family:var(--body);font-weight:400;font-size:.92rem;color:var(--muted)}
+.brand small{display:block;font-family:var(--body);font-weight:400;font-size:.9rem;color:var(--muted)}
 .prog{display:flex;align-items:center;flex-wrap:wrap;gap:10px;font-size:.92rem;color:var(--muted);font-variant-numeric:tabular-nums}
 .bar{width:180px;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
 .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
 
 .wrap{max-width:1120px;margin:0 auto;padding:24px 20px 80px;display:grid;grid-template-columns:270px minmax(0,1fr);gap:36px;align-items:start}
-nav{position:sticky;top:16px;background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:12px;padding:14px 12px 16px;max-height:calc(100vh - 32px);overflow-y:auto;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+nav{position:sticky;top:calc(var(--headh,96px) + 16px);background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:12px;padding:14px 12px 16px;max-height:calc(100vh - var(--headh,96px) - 32px);overflow-y:auto;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 nav li{margin:0}
 .navhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 2px 10px 6px}
 .navhead h2{margin:0}
@@ -121,6 +135,13 @@ figcaption{font-size:.93rem;color:var(--muted);margin-top:8px}
 .dg .ah{fill:currentColor}
 .dg .aha{fill:var(--accent)}
 .dg .ta{fill:var(--accent);font-weight:700}
+.dg .tg{fill:var(--good);font-weight:700}
+.dg .ico{color:var(--ink)} .dg .ico-a{color:var(--accent)} .dg .ico-g{color:var(--good)} .dg .ico-w{color:var(--warn)} .dg .ico-m{color:var(--muted)}
+.dg .band{fill:var(--bg);stroke:var(--line);stroke-width:1}
+.dg .card{fill:var(--panel);stroke:var(--line);stroke-width:1.2}
+.dg .num{fill:var(--accent);stroke:none} .dg .numt{fill:var(--panel);font-weight:700;font-size:12px}
+.dg .lw{stroke:var(--warn);stroke-width:1.8;fill:none} .dg .lg{stroke:var(--good);stroke-width:2;fill:none}
+.dg .ahw{fill:var(--warn)} .dg .ahg{fill:var(--good)}
 .dg .tw2{fill:var(--warn);font-weight:700}
 
 .quiz{margin-top:2.4em;border-top:3px solid var(--ink);padding-top:.4em}
@@ -159,17 +180,36 @@ details.deep table{font-size:.93rem}
   nav li{flex:none}
   nav ol button{white-space:nowrap}
   h1{font-size:1.6rem}
-  .bar{width:120px}
+  .bar{width:110px}
+  .brand{font-size:1.1rem}
+  .brand small{display:none}
+  .top-in{padding:8px 16px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="ic-person" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><circle cx="24" cy="15" r="8" style="fill:var(--panel)"/><path d="M8 44c0-10 7-16 16-16s16 6 16 16z" style="fill:var(--accent-soft)"/></g></symbol>
+<symbol id="ic-desk" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><circle cx="15" cy="12" r="6" style="fill:var(--panel)"/><path d="M4 34c0-8 5-13 11-13s9 4 10 8" style="fill:var(--accent-soft)"/><rect x="24" y="22" width="20" height="14" rx="2" style="fill:var(--panel)"/><path d="M2 42h44M18 42v-6h28"/></g></symbol>
+<symbol id="ic-warehouse" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M4 44V20L24 6l20 14v24z" style="fill:var(--accent-soft)"/><rect x="14" y="26" width="20" height="18" style="fill:var(--panel)"/><path d="M14 32h20M14 38h20M24 26v18"/></g></symbol>
+<symbol id="ic-factory" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M4 44V24l11 6v-6l11 6v-6l10 6V6h8v38z" style="fill:var(--accent-soft)"/><rect x="10" y="34" width="6" height="6" style="fill:var(--panel)"/><rect x="21" y="34" width="6" height="6" style="fill:var(--panel)"/><rect x="32" y="34" width="6" height="6" style="fill:var(--panel)"/></g></symbol>
+<symbol id="ic-truck" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><rect x="2" y="12" width="26" height="22" rx="2" style="fill:var(--accent-soft)"/><path d="M28 19h9l8 9v6H28z" style="fill:var(--panel)"/><circle cx="12" cy="37" r="4.5" style="fill:var(--panel)"/><circle cx="36" cy="37" r="4.5" style="fill:var(--panel)"/></g></symbol>
+<symbol id="ic-shop" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><rect x="8" y="20" width="32" height="24" style="fill:var(--panel)"/><path d="M4 20l5-13h30l5 13z" style="fill:var(--accent-soft)"/><rect x="20" y="30" width="9" height="14"/><path d="M14 7l-2 13M24 7v13M34 7l2 13"/></g></symbol>
+<symbol id="ic-cart" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><path d="M3 8h7l5 22h22l5-16H12" style="fill:var(--accent-soft)"/><circle cx="18" cy="39" r="3.5" style="fill:var(--panel)"/><circle cx="34" cy="39" r="3.5" style="fill:var(--panel)"/></g></symbol>
+<symbol id="ic-order" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><rect x="9" y="8" width="30" height="36" rx="3" style="fill:var(--panel)"/><rect x="17" y="4" width="14" height="8" rx="2" style="fill:var(--accent-soft)"/><path d="M15 21h18M15 28h18M15 35h11"/></g></symbol>
+<symbol id="ic-quota" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><circle cx="24" cy="24" r="19" style="fill:var(--panel)"/><path d="M24 24V5a19 19 0 0 1 17 27z" style="fill:var(--accent-soft)"/><path d="M24 24L8 35"/></g></symbol>
+<symbol id="ic-moon" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M38 31A17 17 0 1 1 19 6a13 13 0 0 0 19 25z" style="fill:var(--accent-soft)"/></g></symbol>
+<symbol id="ic-lock" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"><rect x="9" y="21" width="30" height="22" rx="3" style="fill:var(--accent-soft)"/><path d="M15 21v-6a9 9 0 0 1 18 0v6"/><circle cx="24" cy="32" r="2.5"/></g></symbol>
+<symbol id="ic-phone" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><circle cx="17" cy="13" r="7" style="fill:var(--panel)"/><path d="M4 40c0-9 6-14 13-14s13 5 13 14z" style="fill:var(--accent-soft)"/><rect x="33" y="8" width="11" height="20" rx="2.5" style="fill:var(--panel)"/></g></symbol>
+</defs></svg>
 <header class="top">
   <div class="top-in">
     <div class="brand">AATP Course<small>Advanced Available-to-Promise in SAP S/4HANA, in plain English</small></div>
-    <button class="theme" id="theme" type="button" role="switch" aria-checked="false"><span class="track" aria-hidden="true"></span><span id="themetext">Dark mode</span></button>
-    <div class="prog"><span id="who"></span><button class="navbtn" id="switch" type="button" hidden>Switch learner</button><span id="ptext">0 of 9 chapters passed</span><div class="bar" aria-hidden="true"><i id="pbar"></i></div></div>
+    <div class="right">
+      <button class="theme" id="theme" type="button" role="switch" aria-checked="false"><span class="track" aria-hidden="true"></span><span id="themetext">Dark mode</span></button>
+      <div class="prog"><span id="who"></span><button class="navbtn" id="switch" type="button" hidden>Switch learner</button><span id="ptext">0 of 9 chapters passed</span><div class="bar" aria-hidden="true"><i id="pbar"></i></div></div>
+    </div>
   </div>
 </header>
 
@@ -256,25 +296,67 @@ details.deep table{font-size:.93rem}
 </table></div>
 
 <figure>
-<div class="sv"><svg class="dg" viewBox="0 0 760 285" role="img" aria-label="An order passes the availability check and the allocation check; the lower result is confirmed; if still short, alternatives are tried. Later, nightly jobs re-share and release stock.">
-<defs><marker id="a0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
-<rect class="b" x="10" y="30" width="120" height="56" rx="6"/><text x="70" y="54" text-anchor="middle" class="bd">Sales order</text><text x="70" y="72" text-anchor="middle" class="sm">is saved</text>
-<rect class="ba" x="160" y="30" width="120" height="56" rx="6"/><text x="220" y="54" text-anchor="middle" class="bd">Availability</text><text x="220" y="72" text-anchor="middle" class="sm">stock and receipts</text>
-<rect class="ba" x="310" y="30" width="120" height="56" rx="6"/><text x="370" y="54" text-anchor="middle" class="bd">Allocation</text><text x="370" y="72" text-anchor="middle" class="sm">quota left?</text>
-<rect class="b" x="460" y="30" width="120" height="56" rx="6"/><text x="520" y="54" text-anchor="middle" class="bd">Take the lower</text><text x="520" y="72" text-anchor="middle" class="sm">of the two results</text>
-<rect class="bg" x="620" y="30" width="130" height="56" rx="6"/><text x="685" y="54" text-anchor="middle" class="bd">Confirmed</text><text x="685" y="72" text-anchor="middle" class="sm">quantity and date</text>
-<line class="ln" x1="130" y1="58" x2="158" y2="58" marker-end="url(#a0)"/><line class="ln" x1="280" y1="58" x2="308" y2="58" marker-end="url(#a0)"/><line class="ln" x1="430" y1="58" x2="458" y2="58" marker-end="url(#a0)"/><line class="ln" x1="580" y1="58" x2="618" y2="58" marker-end="url(#a0)"/>
-<text x="220" y="104" text-anchor="middle" class="sm mu">minus stock protected for others</text>
-<line class="ln" x1="520" y1="86" x2="520" y2="128" marker-end="url(#a0)"/><text x="528" y="112" class="sm">still short?</text>
-<rect class="ba" x="460" y="130" width="120" height="56" rx="6"/><text x="520" y="154" text-anchor="middle" class="bd">Alternatives</text><text x="520" y="172" text-anchor="middle" class="sm">other plant or product</text>
-<polyline class="ln" points="580,158 685,158 685,88" marker-end="url(#a0)"/>
-<text x="10" y="222" class="sm mu">LATER, USUALLY EVERY NIGHT</text>
-<rect class="b" x="10" y="232" width="225" height="44" rx="6"/><text x="122" y="259" text-anchor="middle">Backorder processing re-shares</text>
-<rect class="b" x="267" y="232" width="225" height="44" rx="6"/><text x="379" y="259" text-anchor="middle">Supply assignment ties stock</text>
-<rect class="b" x="525" y="232" width="225" height="44" rx="6"/><text x="637" y="259" text-anchor="middle">Release for delivery</text>
-<line class="ln" x1="235" y1="254" x2="265" y2="254" marker-end="url(#a0)"/><line class="ln" x1="492" y1="254" x2="523" y2="254" marker-end="url(#a0)"/>
+<div class="sv"><svg class="dg" viewBox="0 0 760 345" role="img" aria-label="A distributor orders 5,000 briefs. Riya saves the order. The system checks the depot and the region&#x27;s quota, takes the lower answer, and promises 3,000. At night the system re-shares stock, ties cartons to orders and dispatch releases them.">
+<defs><marker id="d1-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<circle class="num" cx="42" cy="34" r="10"/>
+<text x="42" y="38" text-anchor="middle" class="numt">1</text>
+<use href="#ic-shop" x="55" y="28" width="46" height="46" class="ico"/>
+<text x="78" y="91" text-anchor="middle" class="bd">Sharma Distributors</text>
+<text x="78" y="107" text-anchor="middle" class="sm">order 5,000 briefs</text>
+<line class="ln" x1="112" y1="52" x2="179" y2="52" marker-end="url(#d1-k)"/>
+<circle class="num" cx="193" cy="34" r="10"/>
+<text x="193" y="38" text-anchor="middle" class="numt">2</text>
+<use href="#ic-desk" x="206" y="28" width="46" height="46" class="ico"/>
+<text x="229" y="91" text-anchor="middle" class="bd">Riya, order desk</text>
+<text x="229" y="107" text-anchor="middle" class="sm">saves the order</text>
+<line class="ln" x1="263" y1="52" x2="330" y2="52" marker-end="url(#d1-k)"/>
+<circle class="num" cx="344" cy="34" r="10"/>
+<text x="344" y="38" text-anchor="middle" class="numt">3</text>
+<use href="#ic-warehouse" x="357" y="28" width="46" height="46" class="ico-a"/>
+<text x="380" y="91" text-anchor="middle" class="bd">Delhi depot</text>
+<text x="380" y="107" text-anchor="middle" class="sm">How much is free</text>
+<text x="380" y="122" text-anchor="middle" class="sm">to promise?</text>
+<line class="ln" x1="414" y1="52" x2="481" y2="52" marker-end="url(#d1-k)"/>
+<circle class="num" cx="495" cy="34" r="10"/>
+<text x="495" y="38" text-anchor="middle" class="numt">4</text>
+<use href="#ic-quota" x="508" y="28" width="46" height="46" class="ico-a"/>
+<text x="531" y="91" text-anchor="middle" class="bd">North&#x27;s quota</text>
+<text x="531" y="107" text-anchor="middle" class="sm">How much may North</text>
+<text x="531" y="122" text-anchor="middle" class="sm">still take this month?</text>
+<line class="ln" x1="565" y1="52" x2="632" y2="52" marker-end="url(#d1-k)"/>
+<circle class="num" cx="646" cy="34" r="10"/>
+<text x="646" y="38" text-anchor="middle" class="numt">5</text>
+<use href="#ic-truck" x="659" y="28" width="46" height="46" class="ico-g"/>
+<text x="682" y="91" text-anchor="middle" class="tg">The promise</text>
+<text x="682" y="107" text-anchor="middle" class="sm">3,000 briefs</text>
+<text x="682" y="122" text-anchor="middle" class="sm">on 20 October</text>
+<polyline class="la" points="330,158 330,168 581,168 581,158"/>
+<text x="455" y="186" text-anchor="middle" class="ta">The system takes the lower of these two answers</text>
+<rect class="card" x="250" y="200" width="410" height="34" rx="8"/>
+<use href="#ic-warehouse" x="260" y="203" width="28" height="28" class="ico-m"/>
+<text x="296" y="222" class="sm">Still short? It tries another depot or a replacement product.</text>
+<rect class="band" x="10" y="250" width="740" height="86" rx="10"/>
+<use href="#ic-moon" x="22" y="262" width="34" height="34" class="ico-a"/>
+<text x="64" y="277" class="bd">Every night, for all open orders together</text>
+<rect class="card" x="64" y="288" width="208" height="40" rx="8"/>
+<circle class="num" cx="82" cy="308" r="10"/>
+<text x="82" y="312" text-anchor="middle" class="numt">1</text>
+<text x="100" y="304" class="sm">Stock is re-shared:</text>
+<text x="100" y="319" class="sm">key customers first</text>
+<line class="ln" x1="272" y1="308" x2="290" y2="308" marker-end="url(#d1-k)"/>
+<rect class="card" x="292" y="288" width="208" height="40" rx="8"/>
+<circle class="num" cx="310" cy="308" r="10"/>
+<text x="310" y="312" text-anchor="middle" class="numt">2</text>
+<text x="328" y="304" class="sm">Exact cartons are tied</text>
+<text x="328" y="319" class="sm">to each order</text>
+<line class="ln" x1="500" y1="308" x2="518" y2="308" marker-end="url(#d1-k)"/>
+<rect class="card" x="520" y="288" width="208" height="40" rx="8"/>
+<circle class="num" cx="538" cy="308" r="10"/>
+<text x="538" y="312" text-anchor="middle" class="numt">3</text>
+<text x="556" y="304" class="sm">Dispatch releases</text>
+<text x="556" y="319" class="sm">the orders to ship</text>
 </svg></div>
-<figcaption>The top row happens in seconds when the order is saved. The bottom row happens later, for all open orders together.</figcaption>
+<figcaption>Follow one order from left to right. Steps 3 and 4 happen in seconds when Riya saves it. The night steps happen later, for all open orders at once.</figcaption>
 </figure>
 
 <h2>How AATP is switched on</h2>
@@ -388,17 +470,53 @@ A distributor orders 800 vests today. The plant has 600 in stock. Production wil
 <p>Stock promised to someone else is gone, even if their delivery is a few days away.</p>
 
 <figure>
-<div class="sv"><svg class="dg" viewBox="0 0 760 230" role="img" aria-label="Timeline: 600 in stock today with 300 already promised leaves 300 free today; 400 more arrive on day 5, making 700 free from day 5.">
-<line class="ln" x1="50" y1="140" x2="720" y2="140"/>
-<line class="ln" x1="120" y1="134" x2="120" y2="146"/><line class="ln" x1="360" y1="134" x2="360" y2="146"/><line class="ln" x1="560" y1="134" x2="560" y2="146"/>
-<text x="120" y="164" text-anchor="middle" class="bd">Today</text><text x="360" y="164" text-anchor="middle" class="bd">Day 3</text><text x="560" y="164" text-anchor="middle" class="bd">Day 5</text>
-<rect class="bg" x="50" y="40" width="140" height="50" rx="6"/><text x="120" y="62" text-anchor="middle" class="bd">Stock +600</text><text x="120" y="79" text-anchor="middle" class="sm">in the plant</text>
-<rect class="bw" x="275" y="40" width="170" height="50" rx="6"/><text x="360" y="62" text-anchor="middle" class="bd">Promised −300</text><text x="360" y="79" text-anchor="middle" class="sm">other customer's order</text>
-<rect class="bg" x="490" y="40" width="140" height="50" rx="6"/><text x="560" y="62" text-anchor="middle" class="bd">Production +400</text><text x="560" y="79" text-anchor="middle" class="sm">expected receipt</text>
-<line class="ln ds" x1="120" y1="90" x2="120" y2="134"/><line class="ln ds" x1="360" y1="90" x2="360" y2="134"/><line class="ln ds" x1="560" y1="90" x2="560" y2="134"/>
-<text x="50" y="200" class="sm mu">FREE TO PROMISE</text>
-<text x="200" y="200" class="ta">300 from today</text><text x="250" y="218" class="sm mu">600 − 300</text>
-<text x="520" y="200" class="ta">700 from day 5</text><text x="520" y="218" class="sm mu">300 + 400</text>
+<div class="sv"><svg class="dg" viewBox="0 0 760 300" role="img" aria-label="The depot has 600 vests but 300 are held for another customer, so 300 are free today. The factory sends 400 on day 5. A new order for 800 gets 300 today, 400 on day 5, and 100 must wait.">
+<defs><marker id="d2-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d2-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d2-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d2-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<use href="#ic-warehouse" x="16" y="20" width="48" height="48" class="ico-a"/>
+<text x="78" y="34" class="bd">In the Delhi depot today: 600 vests</text>
+<rect class="bg" x="78" y="48" width="44" height="44" rx="3"/>
+<text x="100" y="74" text-anchor="middle" class="sm">100</text>
+<rect class="bg" x="128" y="48" width="44" height="44" rx="3"/>
+<text x="150" y="74" text-anchor="middle" class="sm">100</text>
+<rect class="bg" x="178" y="48" width="44" height="44" rx="3"/>
+<text x="200" y="74" text-anchor="middle" class="sm">100</text>
+<rect class="bw" x="228" y="48" width="44" height="44" rx="3"/>
+<text x="250" y="74" text-anchor="middle" class="sm">100</text>
+<rect class="bw" x="278" y="48" width="44" height="44" rx="3"/>
+<text x="300" y="74" text-anchor="middle" class="sm">100</text>
+<rect class="bw" x="328" y="48" width="44" height="44" rx="3"/>
+<text x="350" y="74" text-anchor="middle" class="sm">100</text>
+<text x="78" y="110" class="tg sm">free to promise</text>
+<text x="228" y="110" class="tw2 sm">held for Gupta Stores</text>
+<text x="228" y="125" class="sm">(his truck leaves on day 3)</text>
+<use href="#ic-factory" x="452" y="20" width="48" height="48" class="ico-a"/>
+<text x="514" y="34" class="bd">Coming from the factory</text>
+<rect class="ba ds" x="514" y="48" width="44" height="44" rx="3"/>
+<text x="536" y="74" text-anchor="middle" class="sm">100</text>
+<rect class="ba ds" x="564" y="48" width="44" height="44" rx="3"/>
+<text x="586" y="74" text-anchor="middle" class="sm">100</text>
+<rect class="ba ds" x="614" y="48" width="44" height="44" rx="3"/>
+<text x="636" y="74" text-anchor="middle" class="sm">100</text>
+<rect class="ba ds" x="664" y="48" width="44" height="44" rx="3"/>
+<text x="686" y="74" text-anchor="middle" class="sm">100</text>
+<text x="514" y="110" class="ta sm">400 arrive on day 5</text>
+<line class="ln ds" x1="20" y1="146" x2="740" y2="146"/>
+<use href="#ic-order" x="16" y="162" width="48" height="48" class="ico"/>
+<text x="78" y="178" class="bd">Sharma Distributors asks for 800 vests today</text>
+<text x="78" y="196" class="sm mu">What Riya can promise him:</text>
+<rect class="bg" x="78" y="212" width="32" height="32" rx="3"/>
+<rect class="bg" x="115" y="212" width="32" height="32" rx="3"/>
+<rect class="bg" x="152" y="212" width="32" height="32" rx="3"/>
+<text x="78" y="264" class="tg">300 today</text>
+<rect class="ba" x="250" y="212" width="32" height="32" rx="3"/>
+<rect class="ba" x="287" y="212" width="32" height="32" rx="3"/>
+<rect class="ba" x="324" y="212" width="32" height="32" rx="3"/>
+<rect class="ba" x="361" y="212" width="32" height="32" rx="3"/>
+<text x="250" y="264" class="ta">400 on day 5</text>
+<rect class="b ds" x="470" y="212" width="32" height="32" rx="3"/>
+<text x="512" y="233" class="tw2">100 cannot be promised yet</text>
+<text x="512" y="250" class="sm">nothing is free or coming for them</text>
+<text x="78" y="284" class="sm mu">Each box is 100 vests. Stock held for another customer is not free, even before it ships.</text>
 </svg></div>
 <figcaption>The new order for 800 gets 300 today and 400 on day 5. The last 100 cannot be confirmed yet.</figcaption>
 </figure>
@@ -435,22 +553,56 @@ A distributor orders 800 vests today. The plant has 600 in stock. Production wil
 <p>If stock is ready on that date, the wanted date is confirmed. If not, the system finds the first date stock is ready and works <b>forward</b>, adding the same times back.</p>
 
 <figure>
-<div class="sv"><svg class="dg" viewBox="0 0 760 250" role="img" aria-label="Backward scheduling from the 20th needs stock on the 15th. Stock is ready only on the 18th, so forward scheduling gives delivery on the 23rd.">
-<text x="20" y="28" class="bd">1. Work backward from the wanted date</text>
-<rect class="b" x="60" y="40" width="80" height="30"/><text x="100" y="60" text-anchor="middle" class="sm">pick, pack</text>
-<rect class="b" x="140" y="40" width="80" height="30"/><text x="180" y="60" text-anchor="middle" class="sm">loading</text>
-<rect class="b" x="220" y="40" width="240" height="30"/><text x="340" y="60" text-anchor="middle" class="sm">transit, 3 days</text>
-<text x="60" y="88" class="tw2 sm">stock needed on the 15th: not there</text><text x="470" y="60" class="sm">customer wants the 20th</text>
-<text x="20" y="122" class="bd">2. Work forward from the day stock is ready</text>
-<rect class="ba" x="300" y="134" width="80" height="30"/><text x="340" y="154" text-anchor="middle" class="sm">pick, pack</text>
-<rect class="ba" x="380" y="134" width="80" height="30"/><text x="420" y="154" text-anchor="middle" class="sm">loading</text>
-<rect class="ba" x="460" y="134" width="240" height="30"/><text x="580" y="154" text-anchor="middle" class="sm">transit, 3 days</text>
-<text x="300" y="182" class="sm">stock ready on the 18th</text><text x="700" y="182" text-anchor="end" class="ta sm">confirmed: the 23rd</text>
-<line class="ln" x1="40" y1="212" x2="720" y2="212"/>
-<g class="sm" text-anchor="middle"><text x="60" y="232">15</text><text x="140" y="232">16</text><text x="220" y="232">17</text><text x="300" y="232">18</text><text x="380" y="232">19</text><text x="460" y="232">20</text><text x="540" y="232">21</text><text x="620" y="232">22</text><text x="700" y="232">23</text></g>
-<g class="ln"><line x1="60" y1="207" x2="60" y2="217"/><line x1="140" y1="207" x2="140" y2="217"/><line x1="220" y1="207" x2="220" y2="217"/><line x1="300" y1="207" x2="300" y2="217"/><line x1="380" y1="207" x2="380" y2="217"/><line x1="460" y1="207" x2="460" y2="217"/><line x1="540" y1="207" x2="540" y2="217"/><line x1="620" y1="207" x2="620" y2="217"/><line x1="700" y1="207" x2="700" y2="217"/></g>
+<div class="sv"><svg class="dg" viewBox="0 0 760 300" role="img" aria-label="The customer wants delivery on the 20th, which needs stock on the 15th, but the shelf is empty then. Stock arrives on the 18th, so after one day of picking, one day of loading and three days on the road, delivery is on the 23rd.">
+<defs><marker id="d3-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d3-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d3-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d3-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<text x="20" y="38" class="bd">1. What the customer asked for: delivery on the 20th</text>
+<rect class="b ds" x="60" y="52" width="80" height="34" rx="6"/>
+<text x="100" y="74" text-anchor="middle" class="sm">pick, pack</text>
+<rect class="b ds" x="140" y="52" width="80" height="34" rx="6"/>
+<text x="180" y="74" text-anchor="middle" class="sm">load truck</text>
+<rect class="b ds" x="220" y="52" width="240" height="34" rx="6"/>
+<use href="#ic-truck" x="230" y="55" width="28" height="28" class="ico"/>
+<text x="350" y="74" text-anchor="middle" class="sm">on the road, 3 days</text>
+<use href="#ic-shop" x="468" y="46" width="44" height="44" class="ico"/>
+<text x="520" y="66" class="sm">wanted here</text>
+<text x="520" y="81" class="sm">on the 20th</text>
+<text x="60" y="108" class="tw2 sm">Shelf is empty on the 15th, so this plan fails</text>
+<text x="20" y="146" class="bd">2. What the depot can really do</text>
+<rect class="ba" x="300" y="160" width="80" height="34" rx="6"/>
+<text x="340" y="182" text-anchor="middle" class="sm">pick, pack</text>
+<rect class="ba" x="380" y="160" width="80" height="34" rx="6"/>
+<text x="420" y="182" text-anchor="middle" class="sm">load truck</text>
+<rect class="ba" x="460" y="160" width="240" height="34" rx="6"/>
+<use href="#ic-truck" x="470" y="163" width="28" height="28" class="ico"/>
+<text x="590" y="182" text-anchor="middle" class="sm">on the road, 3 days</text>
+<use href="#ic-warehouse" x="250" y="154" width="44" height="44" class="ico-a"/>
+<text x="188" y="214" class="sm">vests reach the</text>
+<text x="188" y="229" class="sm">shelf on the 18th</text>
+<use href="#ic-shop" x="698" y="154" width="44" height="44" class="ico-g"/>
+<text x="720" y="214" text-anchor="middle" class="tg sm">delivered</text>
+<text x="720" y="229" text-anchor="middle" class="tg sm">on the 23rd</text>
+<line class="ln" x1="40" y1="258" x2="735" y2="258"/>
+<line class="ln" x1="60" y1="253" x2="60" y2="263"/>
+<text x="60" y="280" text-anchor="middle" class="sm">15</text>
+<line class="ln" x1="140" y1="253" x2="140" y2="263"/>
+<text x="140" y="280" text-anchor="middle" class="sm">16</text>
+<line class="ln" x1="220" y1="253" x2="220" y2="263"/>
+<text x="220" y="280" text-anchor="middle" class="sm">17</text>
+<line class="ln" x1="300" y1="253" x2="300" y2="263"/>
+<text x="300" y="280" text-anchor="middle" class="sm">18</text>
+<line class="ln" x1="380" y1="253" x2="380" y2="263"/>
+<text x="380" y="280" text-anchor="middle" class="sm">19</text>
+<line class="ln" x1="460" y1="253" x2="460" y2="263"/>
+<text x="460" y="280" text-anchor="middle" class="sm">20</text>
+<line class="ln" x1="540" y1="253" x2="540" y2="263"/>
+<text x="540" y="280" text-anchor="middle" class="sm">21</text>
+<line class="ln" x1="620" y1="253" x2="620" y2="263"/>
+<text x="620" y="280" text-anchor="middle" class="sm">22</text>
+<line class="ln" x1="700" y1="253" x2="700" y2="263"/>
+<text x="700" y="280" text-anchor="middle" class="sm">23</text>
+<text x="20" y="280" class="sm mu">Oct</text>
 </svg></div>
-<figcaption>Pick and pack 1 day, loading 1 day, transit 3 days. Stock ready on the 18th means delivery on the 23rd, not the 20th.</figcaption>
+<figcaption>Pick and pack 1 day, loading 1 day, road 3 days. Stock on the shelf on the 18th means the shop receives it on the 23rd, not the 20th.</figcaption>
 </figure>
 <p>Transit time comes from the route. Loading time and pick and pack time come from the shipping point.</p>
 
@@ -585,16 +737,48 @@ Before Diwali, a new premium brief is in high demand. The factory can make 50,00
 <p>You decide in advance how the month's supply is shared. The availability check may say "50,000 available", but the allocation check says "North may take 15,000 this month". The order gets the <b>lower</b> of the two.</p>
 
 <figure>
-<div class="sv"><svg class="dg" viewBox="0 0 760 260" role="img" aria-label="Four regional quotas. North's quota of 15,000 is fully used by an order for 40,000. South, West and East quotas remain free.">
-<text x="20" y="24" class="bd">Monthly supply 50,000, shared by quota</text>
-<rect class="ba" x="40" y="60" width="140" height="150"/><text x="110" y="130" text-anchor="middle" class="bd">15,000</text><text x="110" y="148" text-anchor="middle" class="sm">quota used up</text>
-<rect class="b ds" x="220" y="60" width="140" height="150"/><text x="290" y="130" text-anchor="middle" class="bd">15,000</text><text x="290" y="148" text-anchor="middle" class="sm">still free</text>
-<rect class="b ds" x="400" y="110" width="140" height="100"/><text x="470" y="155" text-anchor="middle" class="bd">10,000</text><text x="470" y="173" text-anchor="middle" class="sm">still free</text>
-<rect class="b ds" x="580" y="110" width="140" height="100"/><text x="650" y="155" text-anchor="middle" class="bd">10,000</text><text x="650" y="173" text-anchor="middle" class="sm">still free</text>
-<g text-anchor="middle" class="bd"><text x="110" y="232">North</text><text x="290" y="232">South</text><text x="470" y="232">West</text><text x="650" y="232">East</text></g>
-<text x="110" y="50" text-anchor="middle" class="tw2 sm">order 40,000, gets 15,000</text>
+<div class="sv"><svg class="dg" viewBox="0 0 760 320" role="img" aria-label="The month&#x27;s 50,000 briefs are shared by quota: North 15,000, South 15,000, West 10,000, East 10,000. A North distributor asks for 40,000 and gets only North&#x27;s 15,000. The other regions keep their shares.">
+<defs><marker id="d4-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d4-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d4-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d4-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<use href="#ic-factory" x="14" y="22" width="46" height="46" class="ico-a"/>
+<text x="70" y="38" class="bd">The factory can make 50,000 briefs this month.</text>
+<text x="70" y="56" class="sm">The sales head shares them out before the month starts:</text>
+<rect class="ba" x="170" y="118" width="120" height="110" rx="6"/>
+<text x="230" y="173" text-anchor="middle" class="bd">15,000</text>
+<text x="230" y="190" text-anchor="middle" class="sm">all taken</text>
+<use href="#ic-shop" x="178" y="240" width="34" height="34" class="ico"/>
+<text x="220" y="256" class="bd">North</text>
+<text x="220" y="272" class="sm">customers</text>
+<rect class="b ds" x="320" y="118" width="120" height="110" rx="6"/>
+<text x="380" y="173" text-anchor="middle" class="bd">15,000</text>
+<text x="380" y="190" text-anchor="middle" class="sm">still kept</text>
+<use href="#ic-shop" x="328" y="240" width="34" height="34" class="ico"/>
+<text x="370" y="256" class="bd">South</text>
+<text x="370" y="272" class="sm">customers</text>
+<rect class="b ds" x="470" y="154.667" width="120" height="73.3333" rx="6"/>
+<text x="530" y="191.333" text-anchor="middle" class="bd">10,000</text>
+<text x="530" y="208.333" text-anchor="middle" class="sm">still kept</text>
+<use href="#ic-shop" x="478" y="240" width="34" height="34" class="ico"/>
+<text x="520" y="256" class="bd">West</text>
+<text x="520" y="272" class="sm">customers</text>
+<rect class="b ds" x="620" y="154.667" width="120" height="73.3333" rx="6"/>
+<text x="680" y="191.333" text-anchor="middle" class="bd">10,000</text>
+<text x="680" y="208.333" text-anchor="middle" class="sm">still kept</text>
+<use href="#ic-shop" x="628" y="240" width="34" height="34" class="ico"/>
+<text x="670" y="256" class="bd">East</text>
+<text x="670" y="272" class="sm">customers</text>
+<rect class="card" x="14" y="96" width="142" height="96" rx="8"/>
+<use href="#ic-order" x="22" y="104" width="30" height="30" class="ico-w"/>
+<text x="58" y="118" class="bd">Sharma Distr.</text>
+<text x="58" y="134" class="sm">(North) asks</text>
+<text x="24" y="156" class="tw2">for 40,000</text>
+<text x="24" y="176" class="tg sm">He gets 15,000:</text>
+<text x="24" y="190" class="tg sm">North&#x27;s share only</text>
+<line class="la" x1="156" y1="150" x2="168" y2="150" marker-end="url(#d4-a)"/>
+<text x="480" y="84" text-anchor="middle" class="sm">South, West and East have not ordered yet.</text>
+<text x="480" y="100" text-anchor="middle" class="sm">Their shares wait for them.</text>
+<text x="14" y="306" class="sm mu">Without the quota, the first big order would empty the factory and three regions would get nothing.</text>
 </svg></div>
-<figcaption>The North distributor asked for 40,000. The system confirms 15,000, because that is North's quota. The other regions keep their share.</figcaption>
+<figcaption>The North distributor asked for 40,000. The system confirms 15,000, because that is North's share. The other regions keep theirs.</figcaption>
 </figure>
 
 <h2>The building blocks</h2>
@@ -780,18 +964,48 @@ The plant has 10,000 pieces. Your contract with an e-commerce site says you must
 <p>You tell the system "2,000 pieces of this product in this plant are protected for e-commerce". When any other customer orders, the availability check behaves as if those 2,000 are not there.</p>
 
 <figure>
-<div class="sv"><svg class="dg" viewBox="0 0 760 220" role="img" aria-label="Of 10,000 pieces, 2,000 are protected for e-commerce and 8,000 are open. General trade orders can only reach the open part.">
-<defs><marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
-<text x="40" y="26" class="bd">Stock in plant: 10,000</text>
-<rect class="ba" x="40" y="60" width="136" height="46"/><text x="108" y="80" text-anchor="middle" class="bd">2,000</text><text x="108" y="97" text-anchor="middle" class="sm">protected</text>
-<rect class="b" x="176" y="60" width="544" height="46"/><text x="448" y="80" text-anchor="middle" class="bd">8,000</text><text x="448" y="97" text-anchor="middle" class="sm">open to everyone</text>
-<text x="40" y="50" class="sm ta">for e-commerce only</text>
-<rect class="b" x="40" y="165" width="200" height="40" rx="6"/><text x="140" y="190" text-anchor="middle">E-commerce order</text>
-<rect class="b" x="480" y="165" width="200" height="40" rx="6"/><text x="580" y="190" text-anchor="middle">General trade order</text>
-<line class="ln" x1="108" y1="165" x2="108" y2="110" marker-end="url(#a3)"/><text x="116" y="142" class="sm">uses protected stock first</text>
-<line class="ln" x1="580" y1="165" x2="580" y2="110" marker-end="url(#a3)"/><text x="588" y="142" class="sm">can reach only the 8,000</text>
+<div class="sv"><svg class="dg" viewBox="0 0 760 300" role="img" aria-label="Of 10 pallets of 1,000, two are roped off for the e-commerce site and eight are open. The e-commerce site can use both. A distributor asking for 9,000 gets only the open 8,000.">
+<defs><marker id="d5-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d5-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d5-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d5-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<use href="#ic-warehouse" x="14" y="14" width="44" height="44" class="ico-a"/>
+<text x="68" y="30" class="bd">Delhi depot: 10 pallets, 1,000 briefs on each</text>
+<rect class="ba ds" x="60" y="62" width="132" height="82" rx="10"/>
+<rect class="ba" x="68" y="74" width="54" height="54" rx="5"/>
+<text x="95" y="106" text-anchor="middle" class="sm">1,000</text>
+<rect class="ba" x="130" y="74" width="54" height="54" rx="5"/>
+<text x="157" y="106" text-anchor="middle" class="sm">1,000</text>
+<rect class="b" x="192" y="74" width="54" height="54" rx="5"/>
+<text x="219" y="106" text-anchor="middle" class="sm">1,000</text>
+<rect class="b" x="254" y="74" width="54" height="54" rx="5"/>
+<text x="281" y="106" text-anchor="middle" class="sm">1,000</text>
+<rect class="b" x="316" y="74" width="54" height="54" rx="5"/>
+<text x="343" y="106" text-anchor="middle" class="sm">1,000</text>
+<rect class="b" x="378" y="74" width="54" height="54" rx="5"/>
+<text x="405" y="106" text-anchor="middle" class="sm">1,000</text>
+<rect class="b" x="440" y="74" width="54" height="54" rx="5"/>
+<text x="467" y="106" text-anchor="middle" class="sm">1,000</text>
+<rect class="b" x="502" y="74" width="54" height="54" rx="5"/>
+<text x="529" y="106" text-anchor="middle" class="sm">1,000</text>
+<rect class="b" x="564" y="74" width="54" height="54" rx="5"/>
+<text x="591" y="106" text-anchor="middle" class="sm">1,000</text>
+<rect class="b" x="626" y="74" width="54" height="54" rx="5"/>
+<text x="653" y="106" text-anchor="middle" class="sm">1,000</text>
+<use href="#ic-lock" x="66" y="50" width="24" height="24" class="ico-a"/>
+<text x="96" y="58" class="ta sm">kept for the e-commerce site (contract: 2,000 a week)</text>
+<text x="502" y="58" text-anchor="middle" class="sm">open to every customer</text>
+<use href="#ic-cart" x="106" y="206" width="40" height="40" class="ico-a"/>
+<text x="126" y="263" text-anchor="middle" class="bd">E-commerce site</text>
+<text x="126" y="286" text-anchor="middle" class="sm">uses its 2,000 first, then open stock too</text>
+<line class="la" x1="126" y1="204" x2="126" y2="150" marker-end="url(#d5-a)"/>
+<use href="#ic-shop" x="480" y="206" width="40" height="40" class="ico"/>
+<text x="500" y="263" text-anchor="middle" class="bd">Sharma Distributors</text>
+<text x="500" y="286" text-anchor="middle" class="tw2 sm">asks for 9,000 and gets 8,000</text>
+<polyline class="ln" points="500,204 500,134" marker-end="url(#d5-k)"/>
+<text x="512" y="176" class="sm">can reach only the</text>
+<text x="512" y="191" class="sm">8 open pallets</text>
+<polyline class="lw ds" points="470,232 250,232 196,150"/>
+<text x="262" y="224" class="tw2 sm">✕ cannot touch the roped pallets</text>
 </svg></div>
-<figcaption>A general trade order for 9,000 is confirmed for 8,000. The 2,000 stay ready for e-commerce.</figcaption>
+<figcaption>A general trade order for 9,000 is confirmed for 8,000. The two roped pallets stay ready for the e-commerce site.</figcaption>
 </figure>
 
 <h2>How it behaves</h2>
@@ -966,23 +1180,68 @@ Yesterday a small retailer's order took 300 of the last pieces. Today a key mode
 <p>The run serves Win first, then Gain, then the middle groups, then Fill. Stock freed from Lose orders goes to the groups above.</p>
 
 <figure>
-<div class="sv"><svg class="dg" viewBox="0 0 760 270" role="img" aria-label="Before and after a backorder run with 1,000 pieces. Order A (Win) goes from 0 to 400. Order B (Redistribute) stays at 500. Order C (Fill) drops from 300 to 100. Order D (Lose) drops from 200 to 0.">
-<text x="270" y="28" class="bd">Before the run</text><text x="540" y="28" class="bd">After the run</text>
-<text x="10" y="68" class="bd">A  key account</text><text x="10" y="84" class="sm ta">Win, wants 400</text>
-<rect class="b ds" x="270" y="56" width="160" height="28"/><text x="440" y="75" class="sm">0</text>
-<rect class="bg" x="540" y="56" width="160" height="28"/><text x="710" y="75" class="sm bd">400</text>
-<text x="10" y="118" class="bd">B  normal order</text><text x="10" y="134" class="sm ta">Redistribute, wants 500</text>
-<rect class="ba" x="270" y="106" width="200" height="28"/><text x="480" y="125" class="sm">500</text>
-<rect class="ba" x="540" y="106" width="200" height="28"/><text x="640" y="125" text-anchor="middle" class="sm bd">500</text>
-<text x="10" y="168" class="bd">C  small retailer</text><text x="10" y="184" class="sm ta">Fill, wants 300</text>
-<rect class="ba" x="270" y="156" width="120" height="28"/><text x="400" y="175" class="sm">300</text>
-<rect class="b ds" x="540" y="156" width="120" height="28"/><rect class="bw" x="540" y="156" width="40" height="28"/><text x="670" y="175" class="sm bd">100</text>
-<text x="10" y="218" class="bd">D  credit blocked</text><text x="10" y="234" class="sm ta">Lose, wants 200</text>
-<rect class="ba" x="270" y="206" width="80" height="28"/><text x="360" y="225" class="sm">200</text>
-<rect class="b ds" x="540" y="206" width="80" height="28"/><text x="630" y="225" class="sm bd">0</text>
-<text x="10" y="260" class="sm mu">Dashed outline = quantity wanted. Filled = quantity confirmed. Total stays 1,000.</text>
+<div class="sv"><svg class="dg" viewBox="0 0 760 345" role="img" aria-label="Before and after the night run with 1,000 vests. The key account goes from 0 to 400. The normal order stays at 500. The small retailer drops from 300 to 100. The credit-blocked customer drops from 200 to 0.">
+<defs><marker id="d6-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d6-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d6-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d6-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<text x="322" y="26" class="bd">Last evening</text>
+<text x="580" y="26" class="bd">This morning</text>
+<use href="#ic-moon" x="486" y="6" width="30" height="30" class="ico-a"/>
+<text x="501" y="50" text-anchor="middle" class="sm ta">night run</text>
+<use href="#ic-shop" x="12" y="64" width="38" height="38" class="ico-a"/>
+<text x="58" y="80" class="bd">Big Mart, key account</text>
+<text x="58" y="97" class="sm">Rule: must be served in full</text>
+<rect class="b ds" x="322" y="68" width="22" height="22" rx="3"/>
+<rect class="bg" x="580" y="68" width="22" height="22" rx="3"/>
+<rect class="b ds" x="349" y="68" width="22" height="22" rx="3"/>
+<rect class="bg" x="607" y="68" width="22" height="22" rx="3"/>
+<rect class="b ds" x="376" y="68" width="22" height="22" rx="3"/>
+<rect class="bg" x="634" y="68" width="22" height="22" rx="3"/>
+<rect class="b ds" x="403" y="68" width="22" height="22" rx="3"/>
+<rect class="bg" x="661" y="68" width="22" height="22" rx="3"/>
+<text x="322" y="106" class="sm">has 0 of 400</text>
+<text x="580" y="106" class="tg sm">has 400 of 400  ▲ gained</text>
+<line class="ln ds" x1="470" y1="79" x2="568" y2="79" marker-end="url(#d6-k)"/>
+<use href="#ic-shop" x="12" y="126" width="38" height="38" class="ico"/>
+<text x="58" y="142" class="bd">Sharma Distributors</text>
+<text x="58" y="159" class="sm">Rule: normal, can go up or down</text>
+<rect class="ba" x="322" y="130" width="22" height="22" rx="3"/>
+<rect class="ba" x="580" y="130" width="22" height="22" rx="3"/>
+<rect class="ba" x="349" y="130" width="22" height="22" rx="3"/>
+<rect class="ba" x="607" y="130" width="22" height="22" rx="3"/>
+<rect class="ba" x="376" y="130" width="22" height="22" rx="3"/>
+<rect class="ba" x="634" y="130" width="22" height="22" rx="3"/>
+<rect class="ba" x="403" y="130" width="22" height="22" rx="3"/>
+<rect class="ba" x="661" y="130" width="22" height="22" rx="3"/>
+<rect class="ba" x="430" y="130" width="22" height="22" rx="3"/>
+<rect class="ba" x="688" y="130" width="22" height="22" rx="3"/>
+<text x="322" y="168" class="sm">has 500 of 500</text>
+<text x="580" y="168" class="sm">has 500 of 500  no change</text>
+<line class="ln ds" x1="470" y1="141" x2="568" y2="141" marker-end="url(#d6-k)"/>
+<use href="#ic-shop" x="12" y="188" width="38" height="38" class="ico"/>
+<text x="58" y="204" class="bd">Corner Store, small retailer</text>
+<text x="58" y="221" class="sm">Rule: can lose stock, never gains</text>
+<rect class="ba" x="322" y="192" width="22" height="22" rx="3"/>
+<rect class="ba" x="580" y="192" width="22" height="22" rx="3"/>
+<rect class="ba" x="349" y="192" width="22" height="22" rx="3"/>
+<rect class="b ds" x="607" y="192" width="22" height="22" rx="3"/>
+<rect class="ba" x="376" y="192" width="22" height="22" rx="3"/>
+<rect class="b ds" x="634" y="192" width="22" height="22" rx="3"/>
+<text x="322" y="230" class="sm">has 300 of 300</text>
+<text x="580" y="230" class="tw2 sm">has 100 of 300  ▼ lost</text>
+<line class="ln ds" x1="470" y1="203" x2="568" y2="203" marker-end="url(#d6-k)"/>
+<use href="#ic-lock" x="12" y="250" width="38" height="38" class="ico-w"/>
+<text x="58" y="266" class="bd">Gupta Stores, credit blocked</text>
+<text x="58" y="283" class="sm">Rule: loses everything</text>
+<rect class="ba" x="322" y="254" width="22" height="22" rx="3"/>
+<rect class="b ds" x="580" y="254" width="22" height="22" rx="3"/>
+<rect class="ba" x="349" y="254" width="22" height="22" rx="3"/>
+<rect class="b ds" x="607" y="254" width="22" height="22" rx="3"/>
+<text x="322" y="292" class="sm">has 200 of 200</text>
+<text x="580" y="292" class="tw2 sm">has 0 of 200  ▼ lost</text>
+<line class="ln ds" x1="470" y1="265" x2="568" y2="265" marker-end="url(#d6-k)"/>
+<text x="12" y="326" class="sm mu">Each box is 100 vests. Dashed box = wanted but not promised. The depot still holds the same 1,000 vests;</text>
+<text x="12" y="340" class="sm mu">only who gets them has changed.</text>
 </svg></div>
-<figcaption>The stock did not change. D gives up 200, A takes 400 first, B keeps 500, and C gets the 100 that is left.</figcaption>
+<figcaption>The stock did not change. Gupta Stores gives up 200, Big Mart takes 400 first, Sharma keeps 500, and Corner Store gets the 100 that is left.</figcaption>
 </figure>
 
 <h2>Sorting inside a segment</h2>
@@ -1119,15 +1378,48 @@ A customer near Chennai orders 2,000 pieces. The Chennai depot has 500. The Beng
 <p>For orders you choose, the system checks a list of alternative plants at the same moment as the normal check, compares the results, and confirms from the best one.</p>
 
 <figure>
-<div class="sv"><svg class="dg" viewBox="0 0 760 230" role="img" aria-label="An order for 2,000 asked from Chennai, which has 500. The system compares plants and confirms the full 2,000 from Bengaluru, which has 3,000.">
-<defs><marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="a5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker></defs>
-<rect class="b" x="20" y="85" width="170" height="60" rx="6"/><text x="105" y="110" text-anchor="middle" class="bd">Order: 2,000 pieces</text><text x="105" y="128" text-anchor="middle" class="sm">asked from Chennai</text>
-<rect class="b" x="270" y="85" width="170" height="60" rx="6"/><text x="355" y="110" text-anchor="middle" class="bd">System compares</text><text x="355" y="128" text-anchor="middle" class="sm">the allowed plants</text>
-<rect class="b ds" x="540" y="20" width="200" height="60" rx="6"/><text x="640" y="45" text-anchor="middle" class="bd">Chennai depot</text><text x="640" y="63" text-anchor="middle" class="sm">stock 500</text>
-<rect class="bg" x="540" y="150" width="200" height="60" rx="6"/><text x="640" y="175" text-anchor="middle" class="bd">Bengaluru depot</text><text x="640" y="193" text-anchor="middle" class="sm">stock 3,000</text>
-<line class="ln" x1="190" y1="115" x2="268" y2="115" marker-end="url(#a5)"/>
-<line class="ln ds" x1="440" y1="100" x2="538" y2="58" marker-end="url(#a5)"/><text x="452" y="62" class="sm tw2">short by 1,500</text>
-<line class="la" x1="440" y1="130" x2="538" y2="172" marker-end="url(#a5a)"/><text x="440" y="178" class="sm ta">confirm 2,000 here</text>
+<div class="sv"><svg class="dg" viewBox="0 0 760 310" role="img" aria-label="A Chennai retailer orders 2,000. The Chennai depot has only 500, so the system switches the whole order to the Bengaluru depot, which has 3,000. Check GST, freight and customer acceptance first.">
+<defs><marker id="d7-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d7-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d7-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d7-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<use href="#ic-shop" x="45" y="104" width="50" height="50" class="ico"/>
+<text x="70" y="171" text-anchor="middle" class="bd">Lakshmi Retail</text>
+<text x="70" y="187" text-anchor="middle" class="sm">Chennai</text>
+<text x="70" y="202" text-anchor="middle" class="sm">orders 2,000 vests</text>
+<use href="#ic-warehouse" x="300" y="20" width="50" height="50" class="ico-w"/>
+<text x="360" y="38" class="bd">Chennai depot</text>
+<text x="360" y="55" class="tw2 sm">only 500 on the shelf</text>
+<rect class="bw" x="360" y="64" width="16" height="16" rx="3"/>
+<rect class="bw" x="379" y="64" width="16" height="16" rx="3"/>
+<rect class="bw" x="398" y="64" width="16" height="16" rx="3"/>
+<rect class="bw" x="417" y="64" width="16" height="16" rx="3"/>
+<rect class="bw" x="436" y="64" width="16" height="16" rx="3"/>
+<use href="#ic-warehouse" x="300" y="208" width="50" height="50" class="ico-g"/>
+<text x="360" y="226" class="bd">Bengaluru depot</text>
+<text x="360" y="243" class="tg sm">3,000 on the shelf</text>
+<rect class="bg" x="360" y="252" width="16" height="16" rx="3"/>
+<rect class="bg" x="379" y="252" width="16" height="16" rx="3"/>
+<rect class="bg" x="398" y="252" width="16" height="16" rx="3"/>
+<rect class="bg" x="417" y="252" width="16" height="16" rx="3"/>
+<rect class="bg" x="436" y="252" width="16" height="16" rx="3"/>
+<rect class="bg" x="455" y="252" width="16" height="16" rx="3"/>
+<rect class="bg" x="474" y="252" width="16" height="16" rx="3"/>
+<rect class="bg" x="493" y="252" width="16" height="16" rx="3"/>
+<rect class="bg" x="512" y="252" width="16" height="16" rx="3"/>
+<rect class="bg" x="531" y="252" width="16" height="16" rx="3"/>
+<polyline class="lw ds" points="294,50 190,50 104,112" marker-end="url(#d7-w)"/>
+<text x="240" y="40" text-anchor="middle" class="sm">asked here first</text>
+<text x="240" y="68" text-anchor="middle" class="tw2 sm">short by 1,500</text>
+<polyline class="lg" points="294,236 206,236 106,142" marker-end="url(#d7-g)"/>
+<use href="#ic-truck" x="226" y="216" width="34" height="34" class="ico-g"/>
+<text x="226" y="270" text-anchor="middle" class="tg sm">system switches the order:</text>
+<text x="226" y="285" text-anchor="middle" class="tg sm">all 2,000 come from here</text>
+<rect class="card" x="548" y="70" width="202" height="150" rx="10"/>
+<text x="562" y="94" class="bd">Before you allow this</text>
+<text x="562" y="116" class="sm">• Other state: the invoice</text>
+<text x="572" y="132" class="sm">carries IGST, not CGST+SGST</text>
+<text x="562" y="152" class="sm">• Longer road: who pays</text>
+<text x="572" y="168" class="sm">the extra freight?</text>
+<text x="562" y="188" class="sm">• Will the customer accept</text>
+<text x="572" y="204" class="sm">goods from another depot?</text>
 </svg></div>
 <figcaption>With a rule that prefers one full delivery, the whole order moves to Bengaluru. With a different rule it could be split: 500 from Chennai and 1,500 from Bengaluru.</figcaption>
 </figure>
@@ -1271,21 +1563,49 @@ Distributors book the winter thermal range three months ahead, before it is made
 <p>Supply assignment came from SAP's fashion solutions, where it was called the allocation run. That is why its short name is still ARun.</p>
 
 <figure>
-<div class="sv"><svg class="dg" viewBox="0 0 760 290" role="img" aria-label="Four order lines by size. Sizes 80 and 85 are linked to warehouse stock, size 90 is linked to a production order, size 95 has no supply. Half the order is assigned, so it is not released.">
-<text x="20" y="22" class="bd">Supply</text><text x="470" y="22" class="bd">Order lines, 100 pieces each</text>
-<rect class="bg" x="20" y="34" width="250" height="40" rx="6"/><text x="145" y="59" text-anchor="middle">Warehouse stock, size 80</text>
-<rect class="bg" x="20" y="89" width="250" height="40" rx="6"/><text x="145" y="114" text-anchor="middle">Warehouse stock, size 85</text>
-<rect class="ba" x="20" y="144" width="250" height="40" rx="6"/><text x="145" y="169" text-anchor="middle">Production order, due in 6 days</text>
-<rect class="b ds" x="20" y="199" width="250" height="40" rx="6"/><text x="145" y="224" text-anchor="middle" class="mu">Nothing planned yet</text>
-<rect class="b" x="470" y="34" width="270" height="40" rx="6"/><text x="605" y="59" text-anchor="middle">Size 80</text>
-<rect class="b" x="470" y="89" width="270" height="40" rx="6"/><text x="605" y="114" text-anchor="middle">Size 85</text>
-<rect class="b" x="470" y="144" width="270" height="40" rx="6"/><text x="605" y="169" text-anchor="middle">Size 90</text>
-<rect class="b" x="470" y="199" width="270" height="40" rx="6"/><text x="605" y="224" text-anchor="middle">Size 95</text>
-<line class="la" x1="270" y1="54" x2="470" y2="54"/><text x="370" y="48" text-anchor="middle" class="sm ta">fixed to stock</text>
-<line class="la" x1="270" y1="109" x2="470" y2="109"/><text x="370" y="103" text-anchor="middle" class="sm ta">fixed to stock</text>
-<line class="la ds" x1="270" y1="164" x2="470" y2="164"/><text x="370" y="158" text-anchor="middle" class="sm ta">reserved, not here yet</text>
-<text x="370" y="224" text-anchor="middle" class="sm tw2">no link</text>
-<text x="20" y="270" class="sm">Ready to ship now: 200 of 400 pieces = 50%. Release rule asks for 90%. The order waits.</text>
+<div class="sv"><svg class="dg" viewBox="0 0 760 345" role="img" aria-label="An order with four sizes. Sizes 80 and 85 are tied to cartons in the depot, size 90 is booked against production due in 6 days, size 95 has nothing. Only half is ready, so the dispatch gate keeps the order waiting.">
+<defs><marker id="d8-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d8-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d8-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d8-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<text x="14" y="22" class="bd">Where the vests are</text>
+<text x="520" y="22" class="bd">Kumar Hosiery&#x27;s winter order</text>
+<rect class="bg" x="14" y="36" width="270" height="40" rx="8"/>
+<use href="#ic-warehouse" x="20" y="40" width="32" height="32" class="ico-g"/>
+<text x="60" y="61" class="sm">Size 80: cartons in the depot</text>
+<rect class="card" x="520" y="36" width="226" height="40" rx="8"/>
+<use href="#ic-order" x="526" y="41" width="30" height="30" class="ico"/>
+<text x="564" y="61" class="sm">Size 80  ×  100 vests</text>
+<line class="lg" x1="284" y1="56" x2="520" y2="56"/>
+<text x="402" y="50" text-anchor="middle" class="tg sm">tied to these cartons</text>
+<rect class="bg" x="14" y="88" width="270" height="40" rx="8"/>
+<use href="#ic-warehouse" x="20" y="92" width="32" height="32" class="ico-g"/>
+<text x="60" y="113" class="sm">Size 85: cartons in the depot</text>
+<rect class="card" x="520" y="88" width="226" height="40" rx="8"/>
+<use href="#ic-order" x="526" y="93" width="30" height="30" class="ico"/>
+<text x="564" y="113" class="sm">Size 85  ×  100 vests</text>
+<line class="lg" x1="284" y1="108" x2="520" y2="108"/>
+<text x="402" y="102" text-anchor="middle" class="tg sm">tied to these cartons</text>
+<rect class="ba" x="14" y="140" width="270" height="40" rx="8"/>
+<use href="#ic-factory" x="20" y="144" width="32" height="32" class="ico-a"/>
+<text x="60" y="165" class="sm">Size 90: being stitched, 6 days</text>
+<rect class="card" x="520" y="140" width="226" height="40" rx="8"/>
+<use href="#ic-order" x="526" y="145" width="30" height="30" class="ico"/>
+<text x="564" y="165" class="sm">Size 90  ×  100 vests</text>
+<line class="la ds" x1="284" y1="160" x2="520" y2="160"/>
+<text x="402" y="154" text-anchor="middle" class="ta sm">booked, not here yet</text>
+<rect class="b ds" x="14" y="192" width="270" height="40" rx="8"/>
+<use href="#ic-order" x="20" y="196" width="32" height="32" class="ico-m"/>
+<text x="60" y="217" class="sm">Size 95: not planned yet</text>
+<rect class="card" x="520" y="192" width="226" height="40" rx="8"/>
+<use href="#ic-order" x="526" y="197" width="30" height="30" class="ico"/>
+<text x="564" y="217" class="sm">Size 95  ×  100 vests</text>
+<text x="402" y="206" text-anchor="middle" class="tw2 sm">nothing to tie</text>
+<rect class="band" x="14" y="256" width="732" height="78" rx="10"/>
+<use href="#ic-truck" x="26" y="270" width="46" height="46" class="ico-w"/>
+<line class="lw" x1="84" y1="266" x2="84" y2="324"/>
+<rect class="bw" x="84" y="284" width="96" height="10" rx="3"/>
+<text x="132" y="310" text-anchor="middle" class="sm tw2">dispatch gate</text>
+<text x="200" y="280" class="bd">Ready to ship today: 2 of 4 sizes, which is 50% of the order.</text>
+<text x="200" y="299" class="sm">The release rule says an order may leave only when 90% is ready.</text>
+<text x="200" y="317" class="sm">So the truck waits, and the distributor gets a full size range later.</text>
 </svg></div>
 <figcaption>Stock is tied to the order, but the order is held back until enough of it can ship together.</figcaption>
 </figure>
@@ -1394,14 +1714,45 @@ An institutional buyer orders 1,000 custom-printed vests. Stock is 600. Nothing 
 <p>The availability check finds the gap. It then asks the production planning tool (PP/DS, the detailed scheduling part of S/4HANA) a real question: "Can you make 400, and by when?" PP/DS looks at free machine time and at components, and creates a planned order. The sales order is confirmed against that planned order.</p>
 
 <figure>
-<div class="sv"><svg class="dg" viewBox="0 0 760 130" role="img" aria-label="The order is short by 400. Production planning finds capacity and components, creates a planned order ready on day 9, and the remaining 400 are confirmed for day 9.">
-<defs><marker id="a7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
-<rect class="b" x="10" y="30" width="160" height="60" rx="6"/><text x="90" y="55" text-anchor="middle" class="bd">Order 1,000</text><text x="90" y="73" text-anchor="middle" class="sm">stock gives 600</text>
-<rect class="bw" x="200" y="30" width="160" height="60" rx="6"/><text x="280" y="55" text-anchor="middle" class="bd">Short by 400</text><text x="280" y="73" text-anchor="middle" class="sm">ask production</text>
-<rect class="ba" x="390" y="30" width="170" height="60" rx="6"/><text x="475" y="55" text-anchor="middle" class="bd">Planning checks</text><text x="475" y="73" text-anchor="middle" class="sm">machines, components</text>
-<rect class="bg" x="590" y="30" width="160" height="60" rx="6"/><text x="670" y="55" text-anchor="middle" class="bd">Planned order</text><text x="670" y="73" text-anchor="middle" class="sm">400 ready on day 9</text>
-<line class="ln" x1="170" y1="60" x2="198" y2="60" marker-end="url(#a7)"/><line class="ln" x1="360" y1="60" x2="388" y2="60" marker-end="url(#a7)"/><line class="ln" x1="560" y1="60" x2="588" y2="60" marker-end="url(#a7)"/>
-<text x="10" y="118" class="sm">Result: 600 confirmed from stock now, 400 confirmed from the new planned order.</text>
+<div class="sv"><svg class="dg" viewBox="0 0 760 215" role="img" aria-label="A buyer phones for 1,000 printed vests. The depot has 600. Production planning finds a free machine slot and cloth, and plans 400 for day 9. Riya promises 600 now and 400 on day 9.">
+<defs><marker id="d9-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d9-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d9-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d9-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<circle class="num" cx="42" cy="34" r="10"/>
+<text x="42" y="38" text-anchor="middle" class="numt">1</text>
+<use href="#ic-phone" x="55" y="28" width="46" height="46" class="ico"/>
+<text x="78" y="91" text-anchor="middle" class="bd">School buyer</text>
+<text x="78" y="107" text-anchor="middle" class="sm">phones: I need 1,000</text>
+<text x="78" y="122" text-anchor="middle" class="sm">printed vests</text>
+<line class="ln" x1="112" y1="52" x2="179" y2="52" marker-end="url(#d9-k)"/>
+<circle class="num" cx="193" cy="34" r="10"/>
+<text x="193" y="38" text-anchor="middle" class="numt">2</text>
+<use href="#ic-desk" x="206" y="28" width="46" height="46" class="ico"/>
+<text x="229" y="91" text-anchor="middle" class="bd">Riya, order desk</text>
+<text x="229" y="107" text-anchor="middle" class="sm">enters the order while</text>
+<text x="229" y="122" text-anchor="middle" class="sm">he is on the phone</text>
+<line class="ln" x1="263" y1="52" x2="330" y2="52" marker-end="url(#d9-k)"/>
+<circle class="num" cx="344" cy="34" r="10"/>
+<text x="344" y="38" text-anchor="middle" class="numt">3</text>
+<use href="#ic-warehouse" x="357" y="28" width="46" height="46" class="ico-w"/>
+<text x="380" y="91" text-anchor="middle" class="bd">Delhi depot</text>
+<text x="380" y="107" text-anchor="middle" class="sm">has 600,</text>
+<text x="380" y="122" text-anchor="middle" class="sm">short by 400</text>
+<line class="ln" x1="414" y1="52" x2="481" y2="52" marker-end="url(#d9-k)"/>
+<circle class="num" cx="495" cy="34" r="10"/>
+<text x="495" y="38" text-anchor="middle" class="numt">4</text>
+<use href="#ic-factory" x="508" y="28" width="46" height="46" class="ico-a"/>
+<text x="531" y="91" text-anchor="middle" class="bd">Factory planning</text>
+<text x="531" y="107" text-anchor="middle" class="sm">finds a free machine</text>
+<text x="531" y="122" text-anchor="middle" class="sm">and cloth: 400 by day 9</text>
+<line class="ln" x1="565" y1="52" x2="632" y2="52" marker-end="url(#d9-k)"/>
+<circle class="num" cx="646" cy="34" r="10"/>
+<text x="646" y="38" text-anchor="middle" class="numt">5</text>
+<use href="#ic-truck" x="659" y="28" width="46" height="46" class="ico-g"/>
+<text x="682" y="91" text-anchor="middle" class="tg">The promise</text>
+<text x="682" y="107" text-anchor="middle" class="sm">600 now,</text>
+<text x="682" y="122" text-anchor="middle" class="sm">400 on day 9</text>
+<rect class="band" x="120" y="160" width="520" height="40" rx="8"/>
+<text x="380" y="178" text-anchor="middle" class="sm">In step 4 the system does not guess. It books a real production plan,</text>
+<text x="380" y="193" text-anchor="middle" class="sm">which becomes a real planned order the moment Riya saves.</text>
 </svg></div>
 <figcaption>The planned order is temporary while the user is in the order. It becomes real when the order is saved.</figcaption>
 </figure>
@@ -1460,11 +1811,60 @@ Usually not for the main business. Standard vests and briefs are made to stock f
 Diwali week. The Delhi depot has 10,000 premium briefs. 1,000 are protected for e-commerce. The North region has 3,000 left in this month's quota. A North general trade distributor orders 5,000.</div>
 
 <figure>
-<div class="sv"><svg class="dg" viewBox="0 0 760 220" role="img" aria-label="10,000 in stock, 9,000 after protection for e-commerce, 3,000 after the North quota. 3,000 is confirmed and 2,000 remain open.">
-<text x="10" y="42" class="bd">Stock in Delhi</text><rect class="b" x="230" y="24" width="500" height="28"/><text x="240" y="43" class="sm bd">10,000</text>
-<text x="10" y="88" class="bd">After protection</text><text x="10" y="104" class="sm mu">minus 1,000 for e-commerce</text><rect class="ba" x="230" y="72" width="450" height="28"/><text x="240" y="91" class="sm bd">9,000</text>
-<text x="10" y="138" class="bd">After quota</text><text x="10" y="154" class="sm mu">North has 3,000 left</text><rect class="ba" x="230" y="122" width="150" height="28"/><text x="240" y="141" class="sm bd">3,000</text>
-<text x="10" y="192" class="bd">Confirmed</text><rect class="bg" x="230" y="172" width="150" height="28"/><text x="240" y="191" class="sm bd">3,000</text><rect class="b ds" x="380" y="172" width="100" height="28"/><text x="390" y="191" class="sm">2,000 open</text>
+<div class="sv"><svg class="dg" viewBox="0 0 760 330" role="img" aria-label="Ten pallets in the depot. One is kept for e-commerce, leaving nine for the distributor. North&#x27;s quota allows three. Three are promised and two of his five must wait.">
+<defs><marker id="d10-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d10-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d10-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d10-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
+<use href="#ic-order" x="14" y="8" width="34" height="34" class="ico"/>
+<text x="56" y="22" class="bd">Sharma Distributors (North, general trade) orders 5,000 briefs in Diwali week</text>
+<text x="56" y="39" class="sm mu">Each square is a pallet of 1,000.</text>
+<text x="14" y="80" class="bd">1. In the Delhi depot</text>
+<text x="14" y="97" class="sm">10,000 briefs</text>
+<rect class="ba" x="250" y="62" width="42" height="42" rx="5"/>
+<rect class="b" x="299" y="62" width="42" height="42" rx="5"/>
+<rect class="b" x="348" y="62" width="42" height="42" rx="5"/>
+<rect class="b" x="397" y="62" width="42" height="42" rx="5"/>
+<rect class="b" x="446" y="62" width="42" height="42" rx="5"/>
+<rect class="b" x="495" y="62" width="42" height="42" rx="5"/>
+<rect class="b" x="544" y="62" width="42" height="42" rx="5"/>
+<rect class="b" x="593" y="62" width="42" height="42" rx="5"/>
+<rect class="b" x="642" y="62" width="42" height="42" rx="5"/>
+<rect class="b" x="691" y="62" width="42" height="42" rx="5"/>
+<use href="#ic-lock" x="260" y="70" width="22" height="22" class="ico-a"/>
+<text x="250" y="118" class="ta sm">kept for e-commerce</text>
+<text x="14" y="154" class="bd">2. Free for him</text>
+<text x="14" y="171" class="sm">9,000 after protection</text>
+<rect class="b" x="299" y="136" width="42" height="42" rx="5"/>
+<rect class="b" x="348" y="136" width="42" height="42" rx="5"/>
+<rect class="b" x="397" y="136" width="42" height="42" rx="5"/>
+<rect class="b" x="446" y="136" width="42" height="42" rx="5"/>
+<rect class="b" x="495" y="136" width="42" height="42" rx="5"/>
+<rect class="b" x="544" y="136" width="42" height="42" rx="5"/>
+<rect class="b" x="593" y="136" width="42" height="42" rx="5"/>
+<rect class="b" x="642" y="136" width="42" height="42" rx="5"/>
+<rect class="b" x="691" y="136" width="42" height="42" rx="5"/>
+<text x="14" y="214" class="bd">3. North&#x27;s quota</text>
+<text x="14" y="231" class="sm">only 3,000 left this month</text>
+<rect class="ba" x="299" y="196" width="42" height="42" rx="5"/>
+<rect class="ba" x="348" y="196" width="42" height="42" rx="5"/>
+<rect class="ba" x="397" y="196" width="42" height="42" rx="5"/>
+<rect class="b ds" x="446" y="196" width="42" height="42" rx="5"/>
+<rect class="b ds" x="495" y="196" width="42" height="42" rx="5"/>
+<rect class="b ds" x="544" y="196" width="42" height="42" rx="5"/>
+<rect class="b ds" x="593" y="196" width="42" height="42" rx="5"/>
+<rect class="b ds" x="642" y="196" width="42" height="42" rx="5"/>
+<rect class="b ds" x="691" y="196" width="42" height="42" rx="5"/>
+<text x="448" y="252" class="sm mu">outside North&#x27;s share this month</text>
+<text x="14" y="282" class="bd">4. Promised to him</text>
+<text x="14" y="299" class="sm">3,000 now</text>
+<rect class="bg" x="299" y="264" width="42" height="42" rx="5"/>
+<rect class="bg" x="348" y="264" width="42" height="42" rx="5"/>
+<rect class="bg" x="397" y="264" width="42" height="42" rx="5"/>
+<rect class="bw ds" x="446" y="264" width="42" height="42" rx="5"/>
+<rect class="bw ds" x="495" y="264" width="42" height="42" rx="5"/>
+<use href="#ic-truck" x="246" y="264" width="42" height="42" class="ico-g"/>
+<text x="446" y="320" class="tw2 sm">2,000 wait</text>
+<text x="299" y="320" class="tg sm">3,000 on the truck</text>
+<text x="548" y="282" class="sm">waiting for quota or</text>
+<text x="548" y="297" class="sm">tonight&#x27;s re-sharing</text>
 </svg></div>
 <figcaption>Availability gives 9,000. Allocation gives 3,000. The order gets the lower: 3,000. The other 2,000 wait for the alternative check, next month's quota, or the next backorder run.</figcaption>
 </figure>
@@ -2039,7 +2439,7 @@ function firstOpen(){for(var i=0;i<ORDER.length;i++){if(!state.passed[ORDER[i]])
 function show(id){
   if(!state.user&&id!=="verify")id="register";
   document.getElementById("who").textContent=state.user?state.user.name:"";
-  document.getElementById("switch").hidden=!state.user;
+  document.getElementById("switch").hidden=!state.user;setHead();
   var secs=document.querySelectorAll("section.ch");
   for(var i=0;i<secs.length;i++)secs[i].hidden=true;
   var lock=document.getElementById("lockmsg");
@@ -2168,6 +2568,8 @@ function setNav(hide){
 document.getElementById("navhide").addEventListener("click",function(){setNav(true);document.getElementById("navshow").focus();});
 document.getElementById("navshow").addEventListener("click",function(){setNav(false);document.getElementById("navhide").focus();});
 (function(){var v=null;try{v=localStorage.getItem("aatpCourseNav");}catch(e){}if(v==="hidden")setNav(true);})();
+function setHead(){var t=document.querySelector(".top");if(t)document.documentElement.style.setProperty("--headh",t.offsetHeight+"px");}
+window.addEventListener("resize",setHead);
 function sysDark(){try{return window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;}catch(e){return false;}}
 function applyTheme(t){
   var root=document.documentElement;
@@ -2190,6 +2592,7 @@ document.getElementById("switch").addEventListener("click",function(){
   document.getElementById("reg-name").focus();
 });
 load();
+setHead();
 var qb=document.querySelectorAll(".quiz[data-quiz]");for(var i=0;i<qb.length;i++)buildQuiz(qb[i]);
 window.addEventListener("hashchange",function(){show(current()||firstOpen());});
 show(current()||firstOpen());
