@@ -58,7 +58,8 @@ button{font:inherit;color:inherit}
 .top .theme .track{background:var(--head-line)}
 .top .theme .track::after{background:var(--head-ink)}
 .top .prog{color:var(--head-muted)}
-.top .prog #who{color:var(--head-ink);font-weight:600}
+.top .toprow{display:flex;align-items:center;flex-wrap:wrap;justify-content:flex-end;gap:10px;font-size:.92rem}
+.top .toprow #who{color:var(--head-ink);font-weight:600}
 .top .bar{background:var(--head-line)}
 .top .bar i{background:var(--head-ink)}
 .top .navbtn{color:inherit;border-color:var(--head-line);padding:2px 9px}
@@ -262,8 +263,8 @@ details.deep table{font-size:.93rem}
   <div class="top-in">
     <div class="brand">SAP SD Courses<small>Self-paced courses on SAP S/4HANA Sales, in plain English</small></div>
     <div class="right">
-      <button class="theme" id="theme" type="button" role="switch" aria-checked="false"><span class="track" aria-hidden="true"></span><span id="themetext">Dark mode</span></button>
-      <div class="prog"><span id="who"></span><button class="navbtn" id="switch" type="button" hidden>Switch learner</button><span id="ptext"></span><div class="bar" aria-hidden="true"><i id="pbar"></i></div></div>
+      <div class="toprow"><span id="who"></span><button class="navbtn" id="switch" type="button" hidden>Switch learner</button><button class="theme" id="theme" type="button" role="switch" aria-checked="false"><span class="track" aria-hidden="true"></span><span id="themetext">Dark mode</span></button></div>
+      <div class="prog"><span id="ptext"></span><div class="bar" aria-hidden="true"><i id="pbar"></i></div></div>
     </div>
   </div>
 </header>
