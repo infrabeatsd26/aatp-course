@@ -94,6 +94,34 @@ nav ol button[aria-current="true"]{background:var(--accent-soft);border-left-col
 nav .st{flex:none;width:1.5em;font-size:.8rem;font-variant-numeric:tabular-nums;color:var(--muted)}
 nav .done .st{color:var(--good);font-weight:700}
 nav .locked{color:var(--muted)}
+.trtools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:4px 0 16px}
+.trtools input,.trtools select{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink)}
+.trtools input{flex:1;min-width:200px}
+.trtiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}
+.trtile{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:10px;padding:12px 14px}
+.trtile b{display:block;font-family:var(--display);font-size:1.7rem;line-height:1.1;color:var(--accent-text)}
+.trtile span{font-size:.88rem;color:var(--muted)}
+.trtable td,.trtable th{white-space:nowrap}
+.trrow{cursor:pointer}
+.trrow:hover td,.trrow.sel td{background:var(--accent-soft)}
+.trrow.sel td:first-child{box-shadow:inset 4px 0 0 var(--accent2)}
+.trdate{color:var(--muted);font-size:.9rem}
+.trprog{min-width:74px}
+.trtable{font-size:.92rem}
+.trtable th,.trtable td{padding-left:8px;padding-right:8px}
+.trbar{display:block;height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin:3px 0 4px}
+.trbar i{display:block;height:100%;background:var(--accent)}
+.trprog.done .trbar i{background:var(--good)}
+.trn{font-size:.85rem}
+.trc{text-align:center}
+.trdot{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);font-size:.75rem;font-weight:700;color:var(--muted)}
+.trdot.ok{background:var(--good-soft);border-color:var(--good);color:var(--good)}
+.trdot.try{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+.trok{color:var(--good);font-weight:700}
+.trtry{color:var(--warn);font-weight:700}
+.msg.bad{color:var(--bad)}
+#trdetail{margin-top:22px}
+@media (max-width:700px){.trtiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 #navlist{gap:8px}
 #navlist>li{border:1px solid var(--line);border-radius:10px;background:var(--bg)}
 #navlist>li.cur{border-color:var(--accent)}
@@ -279,6 +307,7 @@ details.deep table{font-size:.93rem}
   <ol id="navlist"></ol>
   <button class="reset" id="reset" type="button">Reset this course</button>
   <p class="note">Click a course to open its chapters. Pass the test at the end of a chapter (3 of 4 correct) to open the next one. Each course has its own final exam, which opens after its last chapter. Progress is saved in this browser, so use the same device and browser each time.</p>
+  <p class="note"><a href="#trainer">Trainer dashboard</a></p>
 </nav>
 
 <main id="main">
@@ -10495,6 +10524,33 @@ Run the steps in this order in a test system with the example values from the Wo
 <tr><td>LE-TRA</td><td>The old shipment function of SAP ECC</td></tr>
 </table></div>
 </section>
+<!-- ============================ TRAINER DASHBOARD ============================ -->
+<section class="ch" id="s-trainer" data-id="trainer" data-title="Trainer dashboard">
+<p class="eyebrow">For the trainer</p>
+<h1>Trainer dashboard</h1>
+<p class="lead">Progress of every learner, read live from the results file. Only the trainer can open it.</p>
+<p class="msg" id="trmsg" hidden></p>
+<form id="trlogin" class="quiz trlogin" style="border-top:0;margin-top:0" autocomplete="off">
+<fieldset id="trform-fs"><legend>Sign in</legend>
+<p class="qt"><label for="truser" style="display:block;padding:0">User name</label><input id="truser" type="text" value="Trainer" autocomplete="username" style="width:100%;padding:8px;font:inherit"></p>
+<p class="qt"><label for="trpass" style="display:block;padding:0">Password</label><input id="trpass" type="password" autocomplete="current-password" style="width:100%;padding:8px;font:inherit"></p>
+</fieldset>
+<button class="btn" type="submit">Sign in</button>
+</form>
+<div id="trdash" hidden>
+<div class="trtools">
+<input id="trsearch" type="search" placeholder="Search a learner" aria-label="Search a learner">
+<select id="trcourse" aria-label="Course"><option value="all">All courses</option></select>
+<button class="navbtn" id="trrefresh" type="button">Refresh</button>
+<button class="navbtn" id="trcsv" type="button">Download results (CSV)</button>
+<button class="navbtn" id="trout" type="button">Sign out</button>
+</div>
+<div class="trtiles" id="trtiles"></div>
+<p class="note">All courses: chapters passed per course, out of 9, and whether the final exam is passed. Choose one course to see each chapter: &#10003; passed, a number = attempts without a pass yet. Click a learner for details.</p>
+<div class="tw"><table class="trtable"><thead id="trhead"></thead><tbody id="trbody"></tbody></table></div>
+<div id="trdetail"></div>
+</div>
+</section>
 
 </main>
 </div>
@@ -10511,7 +10567,7 @@ var PASS=3;
 /* TRACKING SETUP: paste your pre-filled Microsoft Forms link between the quotes on the next line. */
 var FORM_LINK="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=nbV_8C0WwUqAqvnifels-SS5opRPPx9Bp0JbQudVSqhUM1ZZSEM1RVJVODZCNlk3MkRFTU1QVlpWRi4u&rc80e7e664d034846bc3dc576d5e58cfe=XXNAMEXX&rf75fe09eebb04c8a9ad23d2adfdc8cdc=XXCHAPTERXX&r3baec40ce2f0411c82c81b4f8b2058d2=XXSCOREXX&r9dffa6274ce0459aa2f0459b196a5236=XXATTEMPTXX&rdb21ba81d261413987453ce97bd511dc=XXANSWERSXX&rcd3d5007d4b944f99cee8d63c2aee1a0=XXCODEXX";
 var SALT="aatp-course-2026";
-var HIDDEN=["register","verify"];
+var HIDDEN=["register","verify","trainer"];
 var QUIZ={
 "start":[
 {q:"A client on S/4HANA on-premise wants AATP for only 20 fast-moving products. What is the right approach?",o:["Change the sales order type for those products","Create a checking group with Advanced ATP set to Active, assign it to those 20 products, and confirm the licence","Nothing is needed; AATP is always active on-premise","Switch on AATP for the whole client; it cannot be limited"],a:1,w:"AATP is switched on per checking group, so it can be limited to chosen products. On-premise it also needs an additional licence."},
@@ -10730,7 +10786,7 @@ function renderNav(cur){
 }
 var shown=null;
 function go(id){show(id);try{if(location.hash!=="#"+id)location.hash=id;}catch(e){}}
-function current(){var h=location.hash.replace("#","");if(courseOf(h)||h==="verify")return h;return null;}
+function current(){var h=location.hash.replace("#","");if(courseOf(h)||h==="verify"||h==="trainer")return h;return null;}
 function mkcode(parts){var s=SALT+"|"+parts.map(function(p){return String(p).toLowerCase().replace(/\s+/g," ").trim();}).join("|");var x=5381;for(var i=0;i<s.length;i++){x=((x*33)^s.charCodeAt(i))>>>0;}return x.toString(36).toUpperCase();}
 function formUrl(d){var u=FORM_LINK;var m={XXNAMEXX:d.name,XXCHAPTERXX:d.chapter,XXSCOREXX:d.score,XXATTEMPTXX:d.attempt,XXANSWERSXX:d.answers,XXCODEXX:d.code};for(var k in m){u=u.split(k).join(encodeURIComponent(m[k]));}return u;}
 function record(d){d.name=state.user.name;d.code=mkcode([d.name,d.chapter,d.score,d.attempt,d.answers]);return d;}
@@ -10761,7 +10817,7 @@ function sendBlock(d,label,after){
 }
 function firstOpen(c){c=c||curCourse();for(var i=0;i<c.order.length;i++){if(!state.passed[c.order[i]])return c.order[i];}return c.order[c.order.length-1];}
 function show(id){
-  if(!state.user&&id!=="verify")id="register";
+  if(!state.user&&id!=="verify"&&id!=="trainer")id="register";
   shown=id;
   document.getElementById("who").textContent=state.user?state.user.name:"";
   document.getElementById("switch").hidden=!state.user;setHead();
@@ -10950,6 +11006,109 @@ show(current()||firstOpen());
   st.addEventListener("keydown",function(e){if(e.key==="ArrowRight"){go(Math.min(cur+1,sc.length-1));}else if(e.key==="ArrowLeft"){go(cur-1);}});
   go(0);
 })(ss[k]);})();
+/* ---------- Trainer dashboard ---------- */
+var TR={rows:null,pw:null,user:null,sel:null,course:"all",q:""};
+function trApi(){return RESULTS_URL.replace(/\/$/,"")+"/results";}
+function trScore(s){var m=/^(\d+)\/(\d+)$/.exec(String(s||"").trim());return m?[+m[1],+m[2]]:null;}
+function trRef(ch){var m=/^(\S+)\s+(Final exam|\d+)\b/.exec(String(ch||""));if(!m)return null;var c=null;for(var i=0;i<COURSES.length;i++){if(COURSES[i].code===m[1])c=COURSES[i];}if(!c)return null;return {c:c,k:m[2]==="Final exam"?"E":+m[2]};}
+function trPass(r){var sc=trScore(r.score);if(!sc)return false;return /Final exam/.test(r.chapter)?sc[0]>=Math.ceil(sc[1]*0.7):sc[0]>=PASS;}
+function trWhen(r){var t=Date.parse(r.date+"T"+(r.time||"00:00:00")+"+05:30");return isNaN(t)?0:t;}
+function trSummary(rows){
+  var L={};
+  rows.forEach(function(r){
+    var k=ukey(r.name);if(!k)return;
+    var p=L[k]||(L[k]={name:r.name,first:trWhen(r),last:0,reg:false,tries:0,log:[],courses:{}});
+    var w=trWhen(r);if(w>=p.last){p.last=w;p.name=r.name;}if(w<p.first)p.first=w;p.log.push(r);
+    if(r.chapter==="Registration"){p.reg=true;return;}
+    var ref=trRef(r.chapter);if(!ref)return;p.tries++;
+    var c=p.courses[ref.c.id]||(p.courses[ref.c.id]={passed:{},best:{},tries:{},when:{}});
+    var sc=trScore(r.score);c.tries[ref.k]=(c.tries[ref.k]||0)+1;
+    if(sc&&(!c.best[ref.k]||sc[0]>c.best[ref.k][0]))c.best[ref.k]=sc;
+    if(trPass(r)&&!c.passed[ref.k]){c.passed[ref.k]=true;c.when[ref.k]=r.date;}
+  });
+  return Object.keys(L).map(function(k){return L[k];}).sort(function(a,b){return b.last-a.last;});
+}
+function trCount(c,course){if(!c)return 0;var n=0;course.order.forEach(function(id,i){if(c.passed[i])n++;});return n;}
+function trFmt(t){if(!t)return "";var d=new Date(t+5.5*3600000);var p=function(n){return (n<10?"0":"")+n;};return p(d.getUTCDate())+"."+p(d.getUTCMonth()+1)+"."+d.getUTCFullYear()+" "+p(d.getUTCHours())+":"+p(d.getUTCMinutes());}
+function trMsg(t,bad){var m=document.getElementById("trmsg");m.textContent=t||"";m.hidden=!t;m.className="msg"+(bad?" bad":"");}
+function trLoad(){
+  trMsg("Loading results\u2026");
+  return window.fetch(trApi(),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user:TR.user,password:TR.pw})})
+  .then(function(r){return r.json().then(function(j){return {s:r.status,j:j};});})
+  .then(function(x){
+    if(x.s===200&&x.j.ok){TR.rows=x.j.rows||[];trMsg("");document.getElementById("trlogin").hidden=true;document.getElementById("trdash").hidden=false;trRender();}
+    else{TR.pw=null;trMsg((x.j&&x.j.why)||"Could not load results.",true);document.getElementById("trlogin").hidden=false;document.getElementById("trdash").hidden=true;}
+  },function(){trMsg("The results service could not be reached. Check your internet connection and try again.",true);});
+}
+function trRender(){
+  var all=trSummary(TR.rows),q=TR.q.toLowerCase();
+  var list=all.filter(function(p){return !q||p.name.toLowerCase().indexOf(q)>=0;});
+  var now=Date.now(),act=all.filter(function(p){return now-p.last<7*86400000;}).length,chp=0,exp=0;
+  all.forEach(function(p){COURSES.forEach(function(c){var x=p.courses[c.id];chp+=trCount(x,c);if(x&&x.passed.E)exp++;});});
+  var tiles=document.getElementById("trtiles");tiles.innerHTML="";
+  [["Learners",all.length],["Active in the last 7 days",act],["Chapters passed",chp],["Final exams passed",exp]].forEach(function(t){var d=el("div","trtile");d.appendChild(el("b",null,String(t[1])));d.appendChild(el("span",null,t[0]));tiles.appendChild(d);});
+  var head=document.getElementById("trhead"),body=document.getElementById("trbody");head.innerHTML="";body.innerHTML="";
+  var hr=el("tr");hr.appendChild(el("th",null,"Learner"));hr.appendChild(el("th",null,"Last activity"));
+  var cs=TR.course==="all"?COURSES:COURSES.filter(function(c){return c.id===TR.course;});
+  if(TR.course==="all"){cs.forEach(function(c){var th=el("th",null,c.code);th.title=c.name;hr.appendChild(th);});}
+  else{var c0=cs[0];c0.order.forEach(function(id,i){var th=el("th","trc",String(i));th.title=title(id);hr.appendChild(th);});var te=el("th","trc","Exam");hr.appendChild(te);}
+  hr.appendChild(el("th",null,"Attempts"));head.appendChild(hr);
+  if(!list.length){var tr0=el("tr");var td0=el("td",null,TR.rows.length?"No learner matches the search.":"No results yet. They appear here as soon as a learner registers.");td0.colSpan=12;tr0.appendChild(td0);body.appendChild(tr0);}
+  list.forEach(function(p){
+    var tr=el("tr","trrow"+(TR.sel===ukey(p.name)?" sel":""));tr.tabIndex=0;
+    var nm=el("td");nm.appendChild(el("b",null,p.name));tr.appendChild(nm);tr.appendChild(el("td","trdate",trFmt(p.last)));
+    if(TR.course==="all"){cs.forEach(function(c){var x=p.courses[c.id],n=trCount(x,c);var td=el("td","trprog");
+      var bar=el("span","trbar");var fill=el("i");fill.style.width=(100*n/c.order.length)+"%";bar.appendChild(fill);td.appendChild(bar);
+      td.appendChild(el("span","trn",n+"/"+c.order.length+(x&&x.passed.E?" \u2713 exam":"")));if(x&&x.passed.E)td.classList.add("done");tr.appendChild(td);});}
+    else{var c=cs[0],x=p.courses[c.id]||{passed:{},tries:{},best:{}};
+      c.order.concat(["E"]).forEach(function(id,i){var k=id==="E"?"E":i;var td=el("td","trc");var d=el("span","trdot");
+        if(x.passed[k]){d.className="trdot ok";d.textContent="\u2713";}else if(x.tries[k]){d.className="trdot try";d.textContent=String(x.tries[k]);}
+        var b=x.best[k];td.title=(k==="E"?"Final exam":title(c.order[k]))+(b?": best "+b[0]+"/"+b[1]+", "+x.tries[k]+" attempt(s)":": not attempted");td.appendChild(d);tr.appendChild(td);});}
+    tr.appendChild(el("td",null,String(p.tries)));
+    var pick=function(){TR.sel=ukey(p.name);trRender();var dd=document.getElementById("trdetail");if(dd.scrollIntoView)dd.scrollIntoView({behavior:"smooth",block:"start"});};
+    tr.addEventListener("click",pick);tr.addEventListener("keydown",function(e){if(e.key==="Enter")pick();});
+    body.appendChild(tr);
+  });
+  trDetail(all);
+}
+function trDetail(all){
+  var box=document.getElementById("trdetail");box.innerHTML="";
+  var p=null;all.forEach(function(x){if(ukey(x.name)===TR.sel)p=x;});
+  if(!p){box.appendChild(el("p","note","Click a learner in the table to see every chapter and every attempt."));return;}
+  box.appendChild(el("h2",null,p.name));
+  box.appendChild(el("p",null,"First seen "+trFmt(p.first)+" \u00b7 last activity "+trFmt(p.last)+" \u00b7 "+p.tries+" test attempt(s)"+(p.reg?"":" \u00b7 registration row missing")));
+  COURSES.forEach(function(c){
+    var x=p.courses[c.id];if(!x)return;
+    box.appendChild(el("h3",null,c.name+" \u2014 "+trCount(x,c)+" of "+c.order.length+" chapters"+(x.passed.E?", final exam passed":"")));
+    var tw=el("div","tw"),t=el("table"),h=el("tr");["Chapter","Status","Best score","Attempts","Passed on"].forEach(function(s){h.appendChild(el("th",null,s));});t.appendChild(h);
+    c.order.concat(["E"]).forEach(function(id,i){var k=id==="E"?"E":i;var r=el("tr");
+      r.appendChild(el("td",null,k==="E"?"Final exam":i+" "+title(id)));
+      r.appendChild(el("td",x.passed[k]?"trok":(x.tries[k]?"trtry":""),x.passed[k]?"Passed":(x.tries[k]?"Not passed yet":"Not attempted")));
+      var b=x.best[k];r.appendChild(el("td",null,b?b[0]+"/"+b[1]:"\u2013"));r.appendChild(el("td",null,String(x.tries[k]||0)));r.appendChild(el("td",null,x.when[k]||"\u2013"));t.appendChild(r);});
+    tw.appendChild(t);box.appendChild(tw);
+  });
+  box.appendChild(el("h3",null,"Activity, newest first"));
+  var tw2=el("div","tw"),t2=el("table"),h2=el("tr");["Date and time","Chapter","Score","Attempt","Answers"].forEach(function(s){h2.appendChild(el("th",null,s));});t2.appendChild(h2);
+  p.log.slice().sort(function(a,b){return trWhen(b)-trWhen(a);}).slice(0,100).forEach(function(r){var tr=el("tr");[r.date+" "+r.time,r.chapter,r.score,r.attempt,r.answers].forEach(function(v){tr.appendChild(el("td",null,v));});t2.appendChild(tr);});
+  tw2.appendChild(t2);box.appendChild(tw2);
+}
+function trCsv(){
+  var q=function(v){return '"'+String(v==null?"":v).replace(/"/g,'""')+'"';};
+  var lines=["Date (IST),Time (IST),Name,Chapter,Score,Attempt,Answers,Check code"].concat(TR.rows.map(function(r){return [r.date,r.time,r.name,r.chapter,r.score,r.attempt,r.answers,r.code].map(q).join(",");}));
+  var a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+lines.join("\r\n")],{type:"text/csv"}));a.download="course-results.csv";document.body.appendChild(a);a.click();a.remove();
+}
+(function(){
+  var f=document.getElementById("trlogin");if(!f)return;
+  var sel=document.getElementById("trcourse");COURSES.forEach(function(c){var o=document.createElement("option");o.value=c.id;o.textContent=c.name;sel.appendChild(o);});
+  f.addEventListener("submit",function(ev){ev.preventDefault();var u=document.getElementById("truser").value.trim(),p=document.getElementById("trpass").value;
+    if(!u||!p){trMsg("Enter the user name and the password.",true);return;}TR.user=u;TR.pw=p;document.getElementById("trpass").value="";trLoad();});
+  document.getElementById("trsearch").addEventListener("input",function(){TR.q=this.value;trRender();});
+  sel.addEventListener("change",function(){TR.course=this.value;trRender();});
+  document.getElementById("trrefresh").addEventListener("click",function(){if(TR.pw)trLoad();});
+  document.getElementById("trcsv").addEventListener("click",function(){if(TR.rows)trCsv();});
+  document.getElementById("trout").addEventListener("click",function(){TR={rows:null,pw:null,user:null,sel:null,course:"all",q:""};
+    document.getElementById("trsearch").value="";sel.value="all";document.getElementById("trdash").hidden=true;document.getElementById("trlogin").hidden=false;trMsg("Signed out.");});
+})();
 </script>
 </body>
 </html>
