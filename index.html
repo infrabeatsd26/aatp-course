@@ -52,7 +52,7 @@ button{font:inherit;color:inherit}
 .top-in{max-width:1120px;margin:0 auto;padding:18px 20px;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between}
 .brand{font-family:var(--display);font-weight:700;font-size:1.35rem;line-height:1.2}
 .brand small{display:block;font-family:var(--body);font-weight:400;font-size:.92rem;color:var(--muted)}
-.prog{display:flex;align-items:center;gap:10px;font-size:.92rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.prog{display:flex;align-items:center;flex-wrap:wrap;gap:10px;font-size:.92rem;color:var(--muted);font-variant-numeric:tabular-nums}
 .bar{width:180px;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
 .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
 
@@ -169,7 +169,7 @@ details.deep table{font-size:.93rem}
   <div class="top-in">
     <div class="brand">AATP Course<small>Advanced Available-to-Promise in SAP S/4HANA, in plain English</small></div>
     <button class="theme" id="theme" type="button" role="switch" aria-checked="false"><span class="track" aria-hidden="true"></span><span id="themetext">Dark mode</span></button>
-    <div class="prog"><span id="who"></span><span id="ptext">0 of 9 chapters passed</span><div class="bar" aria-hidden="true"><i id="pbar"></i></div></div>
+    <div class="prog"><span id="who"></span><button class="navbtn" id="switch" type="button" hidden>Switch learner</button><span id="ptext">0 of 9 chapters passed</span><div class="bar" aria-hidden="true"><i id="pbar"></i></div></div>
   </div>
 </header>
 
@@ -192,7 +192,7 @@ details.deep table{font-size:.93rem}
 <section class="ch" id="s-register" data-id="register" data-title="Register">
 <p class="eyebrow">Before you start</p>
 <h1>Register for the course</h1>
-<p class="lead">Enter your full name once. It is sent with each test result so your trainer can follow your progress. Everything else is filled in by the course.</p>
+<p class="lead">Enter your full name. It is sent with each test result so your trainer can follow your progress. If you have used this course on this browser before, type your name exactly as before and your progress comes back.</p>
 <form id="regform" class="quiz" style="border-top:0;margin-top:0">
 <fieldset><legend>Your name</legend>
 <p class="qt"><label for="reg-name" style="display:block;padding:0">Full name</label><input id="reg-name" type="text" autocomplete="name" style="width:100%;padding:8px;font:inherit"></p>
@@ -1978,8 +1978,23 @@ function needFor(id){return id===EXAM_ID?Math.ceil(QUIZ[id].length*0.7):PASS;}
 function allChapters(){for(var i=0;i<ORDER.length;i++){if(!state.passed[ORDER[i]])return false;}return true;}
 var state={passed:{},attempts:{},user:null};
 var memOnly=false;
-function load(){try{var s=localStorage.getItem("aatpCourseV1");if(s){var o=JSON.parse(s);if(o&&o.passed){state=o;if(!state.attempts)state.attempts={};if(!state.user)state.user=null;}}}catch(e){memOnly=true;}}
-function save(){try{localStorage.setItem("aatpCourseV1",JSON.stringify(state));}catch(e){memOnly=true;}}
+var store={current:null,users:{}};
+function blank(){return {passed:{},attempts:{},user:null};}
+function ukey(n){return String(n).toLowerCase().replace(/\s+/g," ").trim();}
+function tidy(o){if(!o.passed)o.passed={};if(!o.attempts)o.attempts={};if(!o.user)o.user=null;return o;}
+function load(){
+  try{
+    var s=localStorage.getItem("aatpCourseV2");
+    if(s){var o=JSON.parse(s);if(o&&o.users)store=o;}
+    else{var old=localStorage.getItem("aatpCourseV1");if(old){var v=JSON.parse(old);if(v&&v.user&&v.user.name){store.users[ukey(v.user.name)]=tidy(v);store.current=ukey(v.user.name);}}}
+  }catch(e){memOnly=true;}
+  state=(store.current&&store.users[store.current])?tidy(store.users[store.current]):blank();
+}
+function save(){
+  if(state.user){store.current=ukey(state.user.name);store.users[store.current]=state;}else{store.current=null;}
+  try{localStorage.setItem("aatpCourseV2",JSON.stringify(store));}catch(e){memOnly=true;}
+}
+function rebuildQuizzes(){var qb=document.querySelectorAll(".quiz[data-quiz]");for(var i=0;i<qb.length;i++)buildQuiz(qb[i]);}
 function isOpen(id){if(id===EXAM_ID)return allChapters();if(OPEN.indexOf(id)>=0||HIDDEN.indexOf(id)>=0)return true;var i=ORDER.indexOf(id);if(i<=0)return i===0;return !!state.passed[ORDER[i-1]];}
 function title(id){var s=document.getElementById("s-"+id);return s?s.getAttribute("data-title"):id;}
 function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
@@ -2023,7 +2038,8 @@ function sendBlock(d,label,after){
 function firstOpen(){for(var i=0;i<ORDER.length;i++){if(!state.passed[ORDER[i]])return ORDER[i];}return ORDER[ORDER.length-1];}
 function show(id){
   if(!state.user&&id!=="verify")id="register";
-  document.getElementById("who").textContent=state.user?(state.user.name+" · "):"";
+  document.getElementById("who").textContent=state.user?state.user.name:"";
+  document.getElementById("switch").hidden=!state.user;
   var secs=document.querySelectorAll("section.ch");
   for(var i=0;i<secs.length;i++)secs[i].hidden=true;
   var lock=document.getElementById("lockmsg");
@@ -2110,7 +2126,7 @@ var resetArmed=false;
 document.getElementById("reset").addEventListener("click",function(){
   if(!resetArmed){resetArmed=true;this.textContent="Click again to erase progress";var t=this;setTimeout(function(){resetArmed=false;t.textContent="Reset my progress";},4000);return;}
   resetArmed=false;this.textContent="Reset my progress";state={passed:{},attempts:state.attempts||{},user:state.user};save();
-  var qb=document.querySelectorAll(".quiz[data-quiz]");for(var i=0;i<qb.length;i++)buildQuiz(qb[i]);
+  rebuildQuizzes();
   go("start");
 });
 
@@ -2119,12 +2135,22 @@ document.getElementById("regform").addEventListener("submit",function(ev){
   var n=document.getElementById("reg-name").value.replace(/\s+/g," ").trim();
   var msg=document.getElementById("regmsg");
   if(n.length<3){msg.textContent="Please enter your full name.";msg.hidden=false;return;}
-  msg.hidden=true;state.user={name:n};save();
+  msg.hidden=true;
   var box=document.getElementById("regnext");box.innerHTML="";
-  var r=el("div","res pass");r.appendChild(el("div",null,"Name saved."));
-  r.appendChild(sendBlock(record({chapter:"Registration",score:"-",attempt:"0",answers:"-"}),"Send my registration",function(w){
-    var b=el("button","btn","Start the course");b.type="button";b.onclick=function(){go("start");};w.appendChild(b);
-  }));
+  var known=store.users[ukey(n)];
+  var r=el("div","res pass");
+  if(known){
+    state=tidy(known);save();rebuildQuizzes();
+    var done=ORDER.filter(function(id){return state.passed[id];}).length;
+    r.appendChild(el("div",null,"Welcome back, "+state.user.name+". Your progress on this browser is restored: "+done+" of "+ORDER.length+" chapters passed."));
+    var c=el("button","btn","Continue the course");c.type="button";c.style.marginTop="10px";c.onclick=function(){go(firstOpen());};r.appendChild(c);
+  }else{
+    state=blank();state.user={name:n};save();rebuildQuizzes();
+    r.appendChild(el("div",null,"Name saved."));
+    r.appendChild(sendBlock(record({chapter:"Registration",score:"-",attempt:"0",answers:"-"}),"Send my registration",function(w){
+      var b=el("button","btn","Start the course");b.type="button";b.onclick=function(){go("start");};w.appendChild(b);
+    }));
+  }
   box.appendChild(r);this.hidden=true;
 });
 document.getElementById("verform").addEventListener("submit",function(ev){
@@ -2155,6 +2181,14 @@ document.getElementById("theme").addEventListener("click",function(){
   applyTheme(next);try{localStorage.setItem("aatpCourseTheme",next);}catch(e){}
 });
 (function(){var t=null;try{t=localStorage.getItem("aatpCourseTheme");}catch(e){}applyTheme(t);})();
+document.getElementById("switch").addEventListener("click",function(){
+  save();state=blank();store.current=null;
+  try{localStorage.setItem("aatpCourseV2",JSON.stringify(store));}catch(e){}
+  var f=document.getElementById("regform");f.hidden=false;document.getElementById("reg-name").value="";
+  document.getElementById("regnext").innerHTML="";rebuildQuizzes();
+  if(location.hash==="#register"||location.hash===""){show("register");}else{location.hash="";show("register");}
+  document.getElementById("reg-name").focus();
+});
 load();
 var qb=document.querySelectorAll(".quiz[data-quiz]");for(var i=0;i<qb.length;i++)buildQuiz(qb[i]);
 window.addEventListener("hashchange",function(){show(current()||firstOpen());});
