@@ -1,0 +1,2129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AATP Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: fixed chapter list on the left, one chapter at a time on the right, test at the foot of each chapter. */
+:root{
+  --bg:#f3f5f4; --panel:#ffffff; --ink:#18242b; --muted:#566670; --line:#d5dcdb;
+  --accent:#0d6b63; --accent-soft:#dcefeb;
+  --warn:#a45a00; --warn-soft:#fbeed9;
+  --good:#22744a; --good-soft:#def2e6;
+  --bad:#a8322d; --bad-soft:#f8e1df;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11191c; --panel:#18242a; --ink:#e6edec; --muted:#9db0b3; --line:#2c3c42;
+    --accent:#5cc7b8; --accent-soft:#17403c;
+    --warn:#e0a44c; --warn-soft:#3d2e14;
+    --good:#6fcf97; --good-soft:#173826;
+    --bad:#f08a84; --bad-soft:#43201e;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11191c; --panel:#18242a; --ink:#e6edec; --muted:#9db0b3; --line:#2c3c42;
+  --accent:#5cc7b8; --accent-soft:#17403c;
+  --warn:#e0a44c; --warn-soft:#3d2e14;
+  --good:#6fcf97; --good-soft:#173826;
+  --bad:#f08a84; --bad-soft:#43201e;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+a{color:var(--accent)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.top{border-bottom:1px solid var(--line);background:var(--panel)}
+.top-in{max-width:1120px;margin:0 auto;padding:18px 20px;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between}
+.brand{font-family:var(--display);font-weight:700;font-size:1.35rem;line-height:1.2}
+.brand small{display:block;font-family:var(--body);font-weight:400;font-size:.92rem;color:var(--muted)}
+.prog{display:flex;align-items:center;gap:10px;font-size:.92rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{width:180px;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+
+.wrap{max-width:1120px;margin:0 auto;padding:24px 20px 80px;display:grid;grid-template-columns:270px minmax(0,1fr);gap:36px;align-items:start}
+nav{position:sticky;top:16px}
+nav h2{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;font-family:var(--body)}
+nav ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+nav button{width:100%;text-align:left;border:1px solid transparent;background:none;border-radius:8px;padding:8px 10px;cursor:pointer;display:flex;gap:10px;align-items:baseline}
+nav button:hover{background:var(--accent-soft)}
+nav button[aria-current="true"]{background:var(--panel);border-color:var(--line);font-weight:600}
+nav .st{flex:none;width:1.5em;font-size:.8rem;font-variant-numeric:tabular-nums;color:var(--muted)}
+nav .done .st{color:var(--good);font-weight:700}
+nav .locked{color:var(--muted)}
+.reset{margin-top:18px;font-size:.88rem;color:var(--muted);background:none;border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer}
+.note{font-size:.88rem;color:var(--muted);margin-top:14px}
+
+main{min-width:0}
+section.ch{max-width:780px}
+.eyebrow{font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.2}
+h1{font-size:2rem;margin:.15em 0 .4em}
+h2{font-size:1.35rem;margin:1.9em 0 .5em}
+h3{font-size:1.08rem;margin:1.4em 0 .3em}
+p{margin:.6em 0}
+.lead{font-size:1.12rem;color:var(--muted)}
+ul,ol{padding-left:1.3em}
+li{margin:.3em 0}
+.box{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:14px 18px;margin:1em 0}
+.box>b:first-child{display:block;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.scn{border-left:5px solid var(--accent)} .scn>b:first-child{color:var(--accent)}
+.care{border-left:5px solid var(--warn);background:var(--warn-soft)} .care>b:first-child{color:var(--warn)}
+.tw{overflow-x:auto;margin:1em 0}
+table{border-collapse:collapse;width:100%;font-size:.96rem;background:var(--panel)}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+dl{margin:1em 0}
+dt{font-weight:700;margin-top:.7em}
+dd{margin:0 0 0 0;color:var(--ink)}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em;background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+
+figure{margin:1.3em 0;border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:14px}
+figure .sv{overflow-x:auto}
+figure svg{display:block;width:100%;min-width:560px;height:auto;color:var(--ink)}
+figcaption{font-size:.93rem;color:var(--muted);margin-top:8px}
+.dg text{font-family:var(--body);font-size:13px;fill:currentColor}
+.dg .sm{font-size:11.5px}
+.dg .mu{fill:var(--muted)}
+.dg .bd{font-weight:700}
+.dg .b{fill:var(--bg);stroke:currentColor;stroke-width:1.2}
+.dg .ba{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.4}
+.dg .bw{fill:var(--warn-soft);stroke:var(--warn);stroke-width:1.4}
+.dg .bg{fill:var(--good-soft);stroke:var(--good);stroke-width:1.4}
+.dg .ds{stroke-dasharray:5 4}
+.dg .ln{stroke:currentColor;stroke-width:1.4;fill:none}
+.dg .la{stroke:var(--accent);stroke-width:2;fill:none}
+.dg .ah{fill:currentColor}
+.dg .aha{fill:var(--accent)}
+.dg .ta{fill:var(--accent);font-weight:700}
+.dg .tw2{fill:var(--warn);font-weight:700}
+
+.quiz{margin-top:2.4em;border-top:3px solid var(--ink);padding-top:.4em}
+.quiz fieldset{border:1px solid var(--line);background:var(--panel);border-radius:10px;margin:14px 0;padding:12px 16px}
+.quiz legend{font-weight:700;padding:0 6px}
+.quiz .qt{margin:.2em 0 .6em}
+.quiz label{display:flex;gap:10px;align-items:baseline;padding:6px 8px;border-radius:6px;cursor:pointer}
+.quiz label:hover{background:var(--accent-soft)}
+.quiz input{flex:none;accent-color:var(--accent)}
+.quiz .ok{background:var(--good-soft)}
+.quiz .no{background:var(--bad-soft)}
+.why{margin:.6em 0 0;padding:8px 10px;border-radius:6px;font-size:.96rem}
+.why.ok{border-left:4px solid var(--good)} .why.no{border-left:4px solid var(--bad)}
+.btn{background:var(--accent);color:var(--panel);border:0;border-radius:8px;padding:10px 18px;font-weight:700;cursor:pointer}
+.btn.alt{background:none;color:var(--accent);border:1.5px solid var(--accent)}
+.res{margin:14px 0;padding:14px 18px;border-radius:10px;font-weight:600}
+.res.pass{background:var(--good-soft);border:1px solid var(--good)}
+.res.fail{background:var(--bad-soft);border:1px solid var(--bad)}
+.res .btn{margin-top:10px}
+.msg{color:var(--bad);font-weight:600;margin:.5em 0}
+.deepnote{font-size:.95rem;color:var(--muted)}
+details.deep{border:1px solid var(--line);border-radius:10px;background:var(--panel);margin:10px 0}
+details.deep>summary{cursor:pointer;padding:12px 16px;font-family:var(--display);font-weight:700;font-size:1.02rem}
+details.deep>summary:hover{background:var(--accent-soft);border-radius:10px}
+details.deep[open]>summary{border-bottom:1px solid var(--line);border-radius:10px 10px 0 0}
+details.deep>div{padding:4px 16px 14px}
+details.deep table{font-size:.93rem}
+.path{font-size:.93rem;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 10px;margin:.5em 0}
+.lock{border:1px dashed var(--line);border-radius:10px;padding:28px;background:var(--panel)}
+[hidden]{display:none!important}
+
+@media (max-width:860px){
+  .wrap{grid-template-columns:1fr;gap:18px}
+  nav{position:static}
+  nav ol{flex-direction:row;overflow-x:auto;padding-bottom:6px}
+  nav li{flex:none}
+  nav button{white-space:nowrap}
+  h1{font-size:1.6rem}
+  .bar{width:120px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand">AATP Course<small>Advanced Available-to-Promise in SAP S/4HANA, in plain English</small></div>
+    <div class="prog"><span id="who"></span><span id="ptext">0 of 9 chapters passed</span><div class="bar" aria-hidden="true"><i id="pbar"></i></div></div>
+  </div>
+</header>
+
+<div class="wrap">
+<nav aria-label="Chapters">
+  <h2>Chapters</h2>
+  <ol id="navlist"></ol>
+  <button class="reset" id="reset" type="button">Reset my progress</button>
+  <p class="note">Pass the test at the end of a chapter (3 of 4 correct) to open the next one. The final exam opens after chapter 8. Progress is saved in this browser, so use the same device and browser each time.</p>
+</nav>
+
+<main id="main">
+<div class="lock" id="lockmsg" hidden>
+  <h1>This chapter is locked</h1>
+  <p id="locktext"></p>
+  <button class="btn" id="lockgo" type="button">Go to that chapter</button>
+</div>
+
+<section class="ch" id="s-register" data-id="register" data-title="Register">
+<p class="eyebrow">Before you start</p>
+<h1>Register for the course</h1>
+<p class="lead">Enter your details once. They are sent with each test result so your trainer can follow your progress.</p>
+<form id="regform" class="quiz" style="border-top:0;margin-top:0">
+<fieldset><legend>Your details</legend>
+<p class="qt"><label for="reg-name" style="display:block;padding:0">Full name</label><input id="reg-name" type="text" autocomplete="name" style="width:100%;padding:8px;font:inherit"></p>
+<p class="qt"><label for="reg-emp" style="display:block;padding:0">Employee ID</label><input id="reg-emp" type="text" style="width:100%;padding:8px;font:inherit"></p>
+<p class="qt"><label for="reg-email" style="display:block;padding:0">Work email</label><input id="reg-email" type="email" autocomplete="email" style="width:100%;padding:8px;font:inherit"></p>
+</fieldset>
+<p class="msg" id="regmsg" hidden></p>
+<button class="btn" type="submit">Save my details</button>
+</form>
+<div id="regnext"></div>
+</section>
+
+<section class="ch" id="s-verify" data-id="verify" data-title="Verify a result">
+<p class="eyebrow">For the trainer</p>
+<h1>Verify a result</h1>
+<p class="lead">Copy the values from one row of your results sheet. The page tells you whether the check code matches.</p>
+<form id="verform" class="quiz" style="border-top:0;margin-top:0">
+<fieldset><legend>Row from the sheet</legend>
+<p class="qt"><label for="v-emp" style="display:block;padding:0">Employee ID</label><input id="v-emp" type="text" style="width:100%;padding:8px;font:inherit"></p>
+<p class="qt"><label for="v-ch" style="display:block;padding:0">Chapter</label><input id="v-ch" type="text" style="width:100%;padding:8px;font:inherit"></p>
+<p class="qt"><label for="v-sc" style="display:block;padding:0">Score</label><input id="v-sc" type="text" style="width:100%;padding:8px;font:inherit"></p>
+<p class="qt"><label for="v-at" style="display:block;padding:0">Attempt</label><input id="v-at" type="text" style="width:100%;padding:8px;font:inherit"></p>
+<p class="qt"><label for="v-an" style="display:block;padding:0">Answers</label><input id="v-an" type="text" style="width:100%;padding:8px;font:inherit"></p>
+<p class="qt"><label for="v-co" style="display:block;padding:0">Check code</label><input id="v-co" type="text" style="width:100%;padding:8px;font:inherit"></p>
+</fieldset>
+<button class="btn" type="submit">Check this row</button>
+</form>
+<div id="verres" aria-live="polite"></div>
+</section>
+
+<!-- ============================ START ============================ -->
+<section class="ch" id="s-start" data-id="start" data-title="Start here">
+<p class="eyebrow">Chapter 0</p>
+<h1>Start here: what AATP is</h1>
+<p class="lead">AATP answers one question every time a customer orders: how much can we promise, and by what date?</p>
+
+<h2>ATP and AATP</h2>
+<p><b>ATP</b> means Available-to-Promise. It is the check SAP runs when you save a sales order. It looks at stock and expected receipts and says "yes, 600 pieces on Monday".</p>
+<p><b>AATP</b> (Advanced ATP) is the newer version inside S/4HANA. It does the same check faster, and adds business rules on top: who should get stock first, how much each region may take, what to do when the plant is short.</p>
+
+<div class="tw"><table>
+<tr><th>Question from the business</th><th>Classic ATP (same as ECC)</th><th>AATP</th></tr>
+<tr><td>Is stock available for this order?</td><td>Yes</td><td>Yes, faster</td></tr>
+<tr><td>Can each region have a fixed share of short stock?</td><td>Old SD product allocation, hard to maintain</td><td>Product Allocation</td></tr>
+<tr><td>Can we keep some stock aside for one channel?</td><td>No</td><td>Supply Protection</td></tr>
+<tr><td>Can important orders take stock from less important ones?</td><td>Rescheduling (V_V2), first come first served</td><td>Backorder Processing with priorities</td></tr>
+<tr><td>Can the system offer another plant or product by itself?</td><td>No</td><td>Alternative-Based Confirmation</td></tr>
+<tr><td>Can we tie exact stock to an exact order?</td><td>No</td><td>Supply Assignment</td></tr>
+<tr><td>Can we promise based on a real production plan?</td><td>No</td><td>Supply Creation-Based Confirmation</td></tr>
+</table></div>
+
+<h2>The parts of AATP</h2>
+<p>AATP is not one feature. It is a family. This course has one chapter for each part.</p>
+<div class="tw"><table>
+<tr><th>Part</th><th>Short name</th><th>What it does in one line</th></tr>
+<tr><td>Product Availability Check</td><td>PAC</td><td>Checks stock and expected receipts</td></tr>
+<tr><td>Product Allocation</td><td>PAL</td><td>Sets a maximum each group may take</td></tr>
+<tr><td>Supply Protection</td><td>SUP</td><td>Keeps a minimum aside for a group</td></tr>
+<tr><td>Backorder Processing</td><td>BOP</td><td>Re-shares confirmations between open orders by priority</td></tr>
+<tr><td>Alternative-Based Confirmation</td><td>ABC</td><td>Tries another plant or another product</td></tr>
+<tr><td>Supply Assignment and Release for Delivery</td><td>ARun, RefDy</td><td>Ties exact supply to exact orders, then releases them</td></tr>
+<tr><td>Supply Creation-Based Confirmation</td><td>SBC</td><td>Plans new production to confirm the order</td></tr>
+</table></div>
+
+<figure>
+<div class="sv"><svg class="dg" viewBox="0 0 760 285" role="img" aria-label="An order passes the availability check and the allocation check; the lower result is confirmed; if still short, alternatives are tried. Later, nightly jobs re-share and release stock.">
+<defs><marker id="a0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+<rect class="b" x="10" y="30" width="120" height="56" rx="6"/><text x="70" y="54" text-anchor="middle" class="bd">Sales order</text><text x="70" y="72" text-anchor="middle" class="sm">is saved</text>
+<rect class="ba" x="160" y="30" width="120" height="56" rx="6"/><text x="220" y="54" text-anchor="middle" class="bd">Availability</text><text x="220" y="72" text-anchor="middle" class="sm">stock and receipts</text>
+<rect class="ba" x="310" y="30" width="120" height="56" rx="6"/><text x="370" y="54" text-anchor="middle" class="bd">Allocation</text><text x="370" y="72" text-anchor="middle" class="sm">quota left?</text>
+<rect class="b" x="460" y="30" width="120" height="56" rx="6"/><text x="520" y="54" text-anchor="middle" class="bd">Take the lower</text><text x="520" y="72" text-anchor="middle" class="sm">of the two results</text>
+<rect class="bg" x="620" y="30" width="130" height="56" rx="6"/><text x="685" y="54" text-anchor="middle" class="bd">Confirmed</text><text x="685" y="72" text-anchor="middle" class="sm">quantity and date</text>
+<line class="ln" x1="130" y1="58" x2="158" y2="58" marker-end="url(#a0)"/><line class="ln" x1="280" y1="58" x2="308" y2="58" marker-end="url(#a0)"/><line class="ln" x1="430" y1="58" x2="458" y2="58" marker-end="url(#a0)"/><line class="ln" x1="580" y1="58" x2="618" y2="58" marker-end="url(#a0)"/>
+<text x="220" y="104" text-anchor="middle" class="sm mu">minus stock protected for others</text>
+<line class="ln" x1="520" y1="86" x2="520" y2="128" marker-end="url(#a0)"/><text x="528" y="112" class="sm">still short?</text>
+<rect class="ba" x="460" y="130" width="120" height="56" rx="6"/><text x="520" y="154" text-anchor="middle" class="bd">Alternatives</text><text x="520" y="172" text-anchor="middle" class="sm">other plant or product</text>
+<polyline class="ln" points="580,158 685,158 685,88" marker-end="url(#a0)"/>
+<text x="10" y="222" class="sm mu">LATER, USUALLY EVERY NIGHT</text>
+<rect class="b" x="10" y="232" width="225" height="44" rx="6"/><text x="122" y="259" text-anchor="middle">Backorder processing re-shares</text>
+<rect class="b" x="267" y="232" width="225" height="44" rx="6"/><text x="379" y="259" text-anchor="middle">Supply assignment ties stock</text>
+<rect class="b" x="525" y="232" width="225" height="44" rx="6"/><text x="637" y="259" text-anchor="middle">Release for delivery</text>
+<line class="ln" x1="235" y1="254" x2="265" y2="254" marker-end="url(#a0)"/><line class="ln" x1="492" y1="254" x2="523" y2="254" marker-end="url(#a0)"/>
+</svg></div>
+<figcaption>The top row happens in seconds when the order is saved. The bottom row happens later, for all open orders together.</figcaption>
+</figure>
+
+<h2>How AATP is switched on</h2>
+<ol>
+<li>Every product has a <b>checking group</b> on its master record (field "Availability check").</li>
+<li>In the checking group setup (transaction <code>OVZ2</code>, "Define Checking Groups") there is a field <b>Advanced ATP</b>. Set it to Active.</li>
+<li>All products with that checking group now use AATP. Products with other checking groups stay on classic ATP.</li>
+</ol>
+<p>So you can start small: create one new checking group, switch AATP on for it, and give it only to the products that need it.</p>
+
+<div class="box care"><b>Check the licence first</b>
+On S/4HANA on-premise and private cloud, AATP must be activated and needs an additional licence from SAP. On public cloud, AATP is the only version; basic features are in the standard licence and the advanced ones need the extra licence. Ask the client's SAP account manager before you design anything.</div>
+
+<div class="box care"><b>One side effect</b>
+Once a product uses AATP, the old rescheduling transactions (<code>V_V2</code>, <code>V_RA</code>, <code>CO06</code>) no longer work for it. You must set up Backorder Processing (Chapter 4) to replace them.</div>
+
+<h2>Two things every part shares</h2>
+<dl>
+<dt>Characteristics</dt>
+<dd>These are order fields you use to write rules, such as sales organisation, region, customer group, customer or product. Allocation, protection, alternatives and backorder rules all use them. You choose which fields are available in the characteristic catalog apps.</dd>
+<dt>Review Availability Check Result (app F4719)</dt>
+<dd>This screen explains a confirmation step by step: what availability gave, what allocation gave, what protection held back. Use it whenever a user asks "why did I get only this much?"</dd>
+</dl>
+
+<h2>The example used in this course</h2>
+<p>All scenarios use an innerwear company. It makes vests and briefs, stores them in depots (Chennai, Bengaluru, Delhi) and sells to distributors (general trade), big retail chains (modern trade) and e-commerce sites.</p>
+<h2>Go deeper: foundation setup</h2>
+<p class="deepnote">The sections below are the hands-on level. They follow S/4HANA 2023 (on-premise and private cloud). Field labels and menu positions can differ a little in other releases, so read the screen in front of you. Open each section when you are ready for it.</p>
+
+<details class="deep"><summary>Customising: switching AATP on, field by field</summary><div>
+<p class="path"><b>Menu:</b> SPRO &gt; Cross-Application Components &gt; Advanced Available-to-Promise (aATP). Transaction <code>ATP_IMG</code> opens this menu directly.</p>
+<h3>Step 1. Check the business function</h3>
+<p>Transaction <code>SFW5</code>. In the always-on functions, <code>S4H_AATP</code> should show as active. Nothing to change; this is only a check.</p>
+<h3>Step 2. Define the checking group</h3>
+<p class="path"><b>Menu:</b> aATP &gt; Product Availability Check (PAC) &gt; Define Availability Check Group (same table as transaction <code>OVZ2</code>)</p>
+<div class="tw"><table>
+<tr><th>Field</th><th>What it means</th><th>Example</th></tr>
+<tr><td>Av</td><td>Two-character key of the group</td><td>Z1</td></tr>
+<tr><td>Description</td><td>Free text</td><td>AATP finished goods</td></tr>
+<tr><td>TotalSales</td><td>How sales order requirements are stored: A = each order line as its own record; B = one total per day</td><td>A. AATP needs each order line separately.</td></tr>
+<tr><td>TotDlvReqs</td><td>The same choice for delivery requirements</td><td>A</td></tr>
+<tr><td>Block QtRq</td><td>Blocks the checked quantity while a user is in the order, so two users cannot promise the same pieces</td><td>Ticked</td></tr>
+<tr><td>No check</td><td>Switches the check off for the whole group</td><td>Empty</td></tr>
+<tr><td>Accumul.</td><td>Guards against over-confirming when earlier orders were confirmed against later receipts</td><td>3 is a common choice. Agree it with the planning team.</td></tr>
+<tr><td>RelChkPlan</td><td>Only for the check against planning</td><td>Empty</td></tr>
+<tr><td>Advanced ATP</td><td>The main switch</td><td>Active</td></tr>
+</table></div>
+<h3>Step 3. Default checking group (optional)</h3>
+<p>"Configure Default Values for Availability Check Group" proposes a group when a new product is created, per material type and plant. Useful when all finished goods should get Z1.</p>
+<h3>Step 4. Put the group on the product</h3>
+<p>Product master, MRP 3 view (or Sales: General/Plant), field "Availability check" = Z1. This is plant-specific, so repeat for each plant.</p>
+</div></details>
+
+<details class="deep"><summary>App walkthrough: Manage Characteristic Catalogs (F3829)</summary><div>
+<p>This app decides which order fields can be used in rules. Do it once, before any allocation, protection, backorder or alternative setup.</p>
+<ol>
+<li>Open the app. You see one catalog for each use: Product Allocation, Supply Protection, Backorder Processing, Alternative-Based Confirmation. There are catalogs for sales documents, for stock transport orders, and mixed ones for both.</li>
+<li>Open the catalog you need and choose Edit.</li>
+<li>Add the fields the business rules need. Typical picks: Sales Organization, Distribution Channel, Customer Group, Region, Sold-to Party, Delivery Priority, Plant.</li>
+<li>Optional: rename a field so users understand it.</li>
+<li>Optional: create value groups, for example a group "Priority 1 customers" that lists ten sold-to parties. Rules can then use the group.</li>
+<li>Save. The fields now appear in the selection lists of the other apps.</li>
+</ol>
+<div class="box care"><b>Good to know</b>
+<ul>
+<li>Remove fields you will not use. Short lists are easier for the business users.</li>
+<li>A custom field must first be created in "Custom Fields and Logic" and enabled for the right business context. Until then it does not appear here.</li>
+<li>Not every standard order field is offered. If a field is missing, check SAP KBA 3086331 before promising it to the client.</li>
+<li>Users need the business role Order Fulfillment Manager (R0226) to see the AATP configuration apps.</li>
+</ul></div>
+</div></details>
+
+<details class="deep"><summary>Test script</summary><div>
+<div class="tw"><table>
+<tr><th>No.</th><th>Step</th><th>Expected result</th></tr>
+<tr><td>0.1</td><td>Create a sales order for a product with checking group Z1</td><td>The availability check runs and the new result screen (Review Availability Check Result) is offered</td></tr>
+<tr><td>0.2</td><td>Create an order for a product still on the old checking group</td><td>The classic availability screen appears, as before</td></tr>
+<tr><td>0.3</td><td>Open Configure BOP Segment and look at the list of fields</td><td>The fields you added to the Backorder Processing catalog are offered</td></tr>
+</table></div>
+</div></details>
+
+<details class="deep"><summary>Troubleshooting</summary><div>
+<div class="tw"><table>
+<tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
+<tr><td>Order still shows the old availability screen</td><td>Product has a checking group where Advanced ATP is not Active, or the group was changed in another plant only</td><td>Check MRP 3 for the delivering plant; check OVZ2</td></tr>
+<tr><td>AATP apps are missing from the launchpad</td><td>User lacks the business role</td><td>Assign Order Fulfillment Manager (R0226); search the App Finder</td></tr>
+<tr><td>A field cannot be picked in a rule</td><td>It is not in the catalog for that use</td><td>Add it in Manage Characteristic Catalogs</td></tr>
+<tr><td>Error that the item cannot be checked</td><td>Mixed setup: advanced check active but another check type or a separate ATP server is in use</td><td>AATP cannot run together with a dedicated ATP server. Align the check settings.</td></tr>
+</table></div>
+</div></details>
+
+<div class="quiz" data-quiz="start"></div>
+</section>
+
+<!-- ============================ PAC ============================ -->
+<section class="ch" id="s-availability-check" data-id="availability-check" data-title="Availability check">
+<p class="eyebrow">Chapter 1</p>
+<h1>Product Availability Check</h1>
+<p class="lead">The base of everything. It decides how much stock is free to promise, and on which date.</p>
+
+<div class="box scn"><b>Business scenario</b>
+A distributor orders 800 vests today. The plant has 600 in stock. Production will bring 400 more on day 5. Another customer already holds a confirmed order for 300, to be delivered on day 3. How much can we promise the new order?</div>
+
+<h2>The basic sum</h2>
+<p><b>Free to promise = stock + expected receipts − already promised</b></p>
+<ul>
+<li><b>Stock:</b> what is physically in the plant.</li>
+<li><b>Expected receipts:</b> production orders, purchase orders, planned orders.</li>
+<li><b>Already promised:</b> other sales orders, deliveries, reservations.</li>
+</ul>
+<p>Stock promised to someone else is gone, even if their delivery is a few days away.</p>
+
+<figure>
+<div class="sv"><svg class="dg" viewBox="0 0 760 230" role="img" aria-label="Timeline: 600 in stock today with 300 already promised leaves 300 free today; 400 more arrive on day 5, making 700 free from day 5.">
+<line class="ln" x1="50" y1="140" x2="720" y2="140"/>
+<line class="ln" x1="120" y1="134" x2="120" y2="146"/><line class="ln" x1="360" y1="134" x2="360" y2="146"/><line class="ln" x1="560" y1="134" x2="560" y2="146"/>
+<text x="120" y="164" text-anchor="middle" class="bd">Today</text><text x="360" y="164" text-anchor="middle" class="bd">Day 3</text><text x="560" y="164" text-anchor="middle" class="bd">Day 5</text>
+<rect class="bg" x="50" y="40" width="140" height="50" rx="6"/><text x="120" y="62" text-anchor="middle" class="bd">Stock +600</text><text x="120" y="79" text-anchor="middle" class="sm">in the plant</text>
+<rect class="bw" x="275" y="40" width="170" height="50" rx="6"/><text x="360" y="62" text-anchor="middle" class="bd">Promised −300</text><text x="360" y="79" text-anchor="middle" class="sm">other customer's order</text>
+<rect class="bg" x="490" y="40" width="140" height="50" rx="6"/><text x="560" y="62" text-anchor="middle" class="bd">Production +400</text><text x="560" y="79" text-anchor="middle" class="sm">expected receipt</text>
+<line class="ln ds" x1="120" y1="90" x2="120" y2="134"/><line class="ln ds" x1="360" y1="90" x2="360" y2="134"/><line class="ln ds" x1="560" y1="90" x2="560" y2="134"/>
+<text x="50" y="200" class="sm mu">FREE TO PROMISE</text>
+<text x="200" y="200" class="ta">300 from today</text><text x="250" y="218" class="sm mu">600 − 300</text>
+<text x="520" y="200" class="ta">700 from day 5</text><text x="520" y="218" class="sm mu">300 + 400</text>
+</svg></div>
+<figcaption>The new order for 800 gets 300 today and 400 on day 5. The last 100 cannot be confirmed yet.</figcaption>
+</figure>
+
+<h2>The three settings that control the check</h2>
+<dl>
+<dt>1. Checking group (on the product)</dt>
+<dd>Says how this product is checked, and whether AATP is on for it.</dd>
+<dt>2. Checking rule (from the transaction)</dt>
+<dd>A sales order uses rule A. A delivery uses rule B. So the same product can be checked one way at order time and another way at delivery time.</dd>
+<dt>3. Scope of check (checking group + checking rule, transaction <code>OVZ9</code>)</dt>
+<dd>A list of tick-boxes that says what to count.</dd>
+</dl>
+<div class="tw"><table>
+<tr><th>Group of tick-boxes</th><th>Examples</th><th>Think about</th></tr>
+<tr><td>Which stock</td><td>Safety stock, quality inspection stock, blocked stock, stock in transit</td><td>Quality stock may fail. Counting it means you may promise goods you cannot ship.</td></tr>
+<tr><td>Which receipts</td><td>Purchase orders, production orders, planned orders, purchase requisitions</td><td>A released production order is reliable. A planned order is only a plan.</td></tr>
+<tr><td>Which issues</td><td>Sales orders, deliveries, reservations, dependent requirements</td><td>If you leave sales orders out, the same stock gets promised twice.</td></tr>
+<tr><td>Replenishment lead time</td><td>On or off</td><td>See below. This one causes the most trouble.</td></tr>
+</table></div>
+
+<h2>Replenishment lead time</h2>
+<p>This is the total time to make or buy the product, say 20 days.</p>
+<ul>
+<li><b>Switched on:</b> the system thinks "after 20 days I can always get more". It confirms any quantity at day 20, even when nothing is planned.</li>
+<li><b>Switched off:</b> the system confirms only against real stock and real receipts.</li>
+</ul>
+<div class="box care"><b>Common complaint</b>
+"The order was confirmed in full, but on the date there was no stock." Nine times out of ten, replenishment lead time is on and nobody planned production. For products that are often short, switch it off.</div>
+
+<h2>How the date is worked out</h2>
+<p>The system first works <b>backward</b> from the date the customer wants:</p>
+<p><b>Wanted delivery date − transit time − loading time − pick and pack time = date stock must be ready</b></p>
+<p>If stock is ready on that date, the wanted date is confirmed. If not, the system finds the first date stock is ready and works <b>forward</b>, adding the same times back.</p>
+
+<figure>
+<div class="sv"><svg class="dg" viewBox="0 0 760 250" role="img" aria-label="Backward scheduling from the 20th needs stock on the 15th. Stock is ready only on the 18th, so forward scheduling gives delivery on the 23rd.">
+<text x="20" y="28" class="bd">1. Work backward from the wanted date</text>
+<rect class="b" x="60" y="40" width="80" height="30"/><text x="100" y="60" text-anchor="middle" class="sm">pick, pack</text>
+<rect class="b" x="140" y="40" width="80" height="30"/><text x="180" y="60" text-anchor="middle" class="sm">loading</text>
+<rect class="b" x="220" y="40" width="240" height="30"/><text x="340" y="60" text-anchor="middle" class="sm">transit, 3 days</text>
+<text x="60" y="88" class="tw2 sm">stock needed on the 15th: not there</text><text x="470" y="60" class="sm">customer wants the 20th</text>
+<text x="20" y="122" class="bd">2. Work forward from the day stock is ready</text>
+<rect class="ba" x="300" y="134" width="80" height="30"/><text x="340" y="154" text-anchor="middle" class="sm">pick, pack</text>
+<rect class="ba" x="380" y="134" width="80" height="30"/><text x="420" y="154" text-anchor="middle" class="sm">loading</text>
+<rect class="ba" x="460" y="134" width="240" height="30"/><text x="580" y="154" text-anchor="middle" class="sm">transit, 3 days</text>
+<text x="300" y="182" class="sm">stock ready on the 18th</text><text x="700" y="182" text-anchor="end" class="ta sm">confirmed: the 23rd</text>
+<line class="ln" x1="40" y1="212" x2="720" y2="212"/>
+<g class="sm" text-anchor="middle"><text x="60" y="232">15</text><text x="140" y="232">16</text><text x="220" y="232">17</text><text x="300" y="232">18</text><text x="380" y="232">19</text><text x="460" y="232">20</text><text x="540" y="232">21</text><text x="620" y="232">22</text><text x="700" y="232">23</text></g>
+<g class="ln"><line x1="60" y1="207" x2="60" y2="217"/><line x1="140" y1="207" x2="140" y2="217"/><line x1="220" y1="207" x2="220" y2="217"/><line x1="300" y1="207" x2="300" y2="217"/><line x1="380" y1="207" x2="380" y2="217"/><line x1="460" y1="207" x2="460" y2="217"/><line x1="540" y1="207" x2="540" y2="217"/><line x1="620" y1="207" x2="620" y2="217"/><line x1="700" y1="207" x2="700" y2="217"/></g>
+</svg></div>
+<figcaption>Pick and pack 1 day, loading 1 day, transit 3 days. Stock ready on the 18th means delivery on the 23rd, not the 20th.</figcaption>
+</figure>
+<p>Transit time comes from the route. Loading time and pick and pack time come from the shipping point.</p>
+
+<h2>What the user sees when stock is short</h2>
+<ul>
+<li><b>One-time delivery:</b> take what is available on the wanted date, nothing more.</li>
+<li><b>Complete delivery:</b> everything together, on the first date the full quantity is available.</li>
+<li><b>Delivery proposal:</b> part deliveries, as stock becomes available.</li>
+</ul>
+<p>Which choices are allowed depends on the partial delivery agreement in the customer master.</p>
+
+<h2>What AATP adds to this check</h2>
+<ul>
+<li>It is much faster on large order volumes.</li>
+<li>Many users can check the same product at the same moment. The system holds a small temporary reservation for each user while they work, so nobody blocks anybody.</li>
+<li>The result screen explains itself (Review Availability Check Result).</li>
+</ul>
+
+<h2>Setup steps</h2>
+<ol>
+<li>Define the checking group and set Advanced ATP to Active (<code>OVZ2</code>).</li>
+<li>Put the checking group on the product (MRP 3 view or Sales: General/Plant view).</li>
+<li>Set the scope of check for the checking group with rule A (order) and rule B (delivery) (<code>OVZ9</code>).</li>
+<li>Check that the requirement class and the schedule line category have both "availability check" and "transfer of requirements" switched on.</li>
+<li>Maintain transit time on routes and loading and pick and pack time on shipping points.</li>
+<li>Test with a few orders and read the result in Review Availability Check Result.</li>
+</ol>
+<h2>Go deeper: configuration</h2>
+<p class="deepnote">Hands-on level, following S/4HANA 2023. Open each section when you are ready.</p>
+
+<details class="deep"><summary>Customising: scope of check, field by field</summary><div>
+<p class="path"><b>Menu:</b> aATP &gt; Product Availability Check (PAC) &gt; Configure Scope of Availability Check (same table as transaction <code>OVZ9</code>). One entry for each checking group and checking rule. Maintain at least Z1 with rule A (sales order) and Z1 with rule B (delivery).</p>
+<div class="tw"><table>
+<tr><th>Field</th><th>What it means</th><th>Example for a product that is often short</th></tr>
+<tr><td>Include safety stock</td><td>Counts safety stock as available</td><td>Empty</td></tr>
+<tr><td>Stock in transfer</td><td>Counts stock moving between storage locations or plants</td><td>Empty</td></tr>
+<tr><td>Incl. quality insp. stock</td><td>Counts stock still in inspection</td><td>Empty, unless rejection is very rare</td></tr>
+<tr><td>Incl. blocked stock</td><td>Counts blocked stock</td><td>Empty</td></tr>
+<tr><td>Incl. restricted-use stock</td><td>Counts restricted batches</td><td>Empty</td></tr>
+<tr><td>Check without RLT</td><td>Ticked = replenishment lead time is ignored, only real stock and receipts count</td><td>Ticked</td></tr>
+<tr><td>No stor. loc. inspection</td><td>Ticked = check at plant level only, not per storage location</td><td>Ticked for rule A; decide for rule B</td></tr>
+<tr><td>Receipts in past</td><td>Whether overdue receipts still count</td><td>Do not include, or include only recent ones</td></tr>
+<tr><td>Incl. purchase orders</td><td>Counts purchase orders and stock transport orders as receipts</td><td>Ticked</td></tr>
+<tr><td>Incl. purch. requisitions</td><td>Counts requisitions, which are not yet ordered</td><td>Empty</td></tr>
+<tr><td>Incl. ship. notificat.</td><td>Counts inbound deliveries from vendors</td><td>Ticked</td></tr>
+<tr><td>Incl. planned orders</td><td>Blank = no; X = all; P = firmed only</td><td>P or blank</td></tr>
+<tr><td>Incl. production orders</td><td>Blank = no; X = all; F = released only</td><td>F</td></tr>
+<tr><td>Include sales reqmts</td><td>Counts other sales orders as already promised</td><td>Ticked. Never leave empty.</td></tr>
+<tr><td>Include deliveries</td><td>Counts open deliveries as already promised</td><td>Ticked</td></tr>
+<tr><td>Include reservations</td><td>Counts manual reservations</td><td>Ticked</td></tr>
+<tr><td>Incl. dependent reqs / depen. reservat.</td><td>Counts needs coming from production of other products</td><td>Ticked where the product is also a component</td></tr>
+<tr><td>Incl. rel. ord. reqs</td><td>Counts needs from stock transport orders to other plants</td><td>Ticked</td></tr>
+<tr><td>With supply protection</td><td>Lets Supply Protection (Chapter 3) take part in this check</td><td>Ticked if you will use protection</td></tr>
+</table></div>
+<p>Rule B (delivery) is usually stricter than rule A: no planned orders, no purchase orders. At delivery time only goods that are really there should count.</p>
+</div></details>
+
+<details class="deep"><summary>Customising: order, schedule line and delivery settings</summary><div>
+<div class="tw"><table>
+<tr><th>Setting</th><th>Where</th><th>What to set</th></tr>
+<tr><td>Requirement class</td><td>SD &gt; Basic Functions &gt; Availability Check and Transfer of Requirements &gt; Transfer of Requirements &gt; Define Requirements Classes (<code>OVZG</code>)</td><td>"Availability" and "Req. transfer" ticked. "Prod. allocation" ticked if you will use Chapter 2.</td></tr>
+<tr><td>Requirement type and how it is found</td><td>Same menu: Define Requirements Types (<code>OVZH</code>), Determination of Requirement Types Using Transaction (<code>OVZI</code>)</td><td>Item category plus MRP type must lead to a requirement type whose class has the ticks above</td></tr>
+<tr><td>Schedule line category</td><td>Same menu: Define Procedure for Each Schedule Line Category (<code>VOV6</code>)</td><td>"Availability", "Req./Assembly" and, for Chapter 2, "Prod. allocation" ticked. The check runs only when both class and schedule line category say yes.</td></tr>
+<tr><td>Checking rule for the order</td><td>Fixed by SAP</td><td>A for sales orders, B for deliveries</td></tr>
+<tr><td>Delivery item category</td><td>Logistics Execution &gt; Shipping &gt; Deliveries &gt; Define Item Categories for Deliveries (<code>OVLP</code>)</td><td>"AvailCkOff" empty if the delivery should recheck</td></tr>
+<tr><td>Scheduling on or off</td><td>SD &gt; Basic Functions &gt; Delivery Scheduling and Transportation Scheduling &gt; Define Scheduling by Sales Document Type (<code>OVLY</code>)</td><td>Delivery scheduling = X for your order types</td></tr>
+<tr><td>Pick and pack time, loading time</td><td>Shipping point definition</td><td>"Det. pick/pack time" and "Determine load. time" with their working days, for example 1 and 1</td></tr>
+<tr><td>Transit time</td><td>Route definition (<code>0VTC</code>)</td><td>Transit duration in days, for example 3, and a factory calendar</td></tr>
+</table></div>
+<h3>Master data</h3>
+<div class="tw"><table>
+<tr><th>Field</th><th>Where</th><th>Use</th></tr>
+<tr><td>Availability check</td><td>Product, MRP 3</td><td>The checking group, Z1</td></tr>
+<tr><td>Tot. repl. lead time</td><td>Product, MRP 3</td><td>Only matters when "Check without RLT" is empty</td></tr>
+<tr><td>Partial delivery per item</td><td>Customer, sales area, Shipping tab</td><td>Blank = part deliveries allowed; C = only complete delivery; others limit the number</td></tr>
+<tr><td>Complete delivery required</td><td>Customer, sales area, Shipping tab</td><td>Ticked = the whole order ships together</td></tr>
+<tr><td>Delivery priority</td><td>Customer, sales area, Shipping tab</td><td>Used later for backorder sorting</td></tr>
+</table></div>
+</div></details>
+
+<details class="deep"><summary>App walkthrough: Review Availability Check Result (F4719)</summary><div>
+<ol>
+<li>Create or change a sales order and enter the line: product, quantity 800, wanted delivery date.</li>
+<li>Press Enter, or choose Check Availability. If the full quantity is not available on the wanted date, the result screen opens.</li>
+<li><b>Top area:</b> the request (product, plant, quantity, wanted date) and the outcome (confirmed quantity and dates).</li>
+<li><b>Delivery proposals:</b> the three choices from this chapter: one-time delivery, complete delivery, delivery proposal. Pick one and accept.</li>
+<li><b>Intermediate results:</b> one block for each check that ran. Open "Product Availability" to see stock, receipts and what is already promised. If protection or allocation is active, each has its own details link.</li>
+<li>Accept the result. The schedule lines in the order now carry the confirmed quantities and dates.</li>
+</ol>
+<p>To see the same numbers outside an order, use the app <b>Monitor Product Availability</b> (the old <code>CO09</code>). Enter product, plant and checking rule A.</p>
+</div></details>
+
+<details class="deep"><summary>Test script</summary><div>
+<p>Prepare: product on Z1 in one plant, stock 600, a released production order for 400 finishing in 5 days, "Check without RLT" ticked.</p>
+<div class="tw"><table>
+<tr><th>No.</th><th>Step</th><th>Expected result</th></tr>
+<tr><td>1.1</td><td>Order A: 300 pieces, date in 3 days. Save.</td><td>300 confirmed</td></tr>
+<tr><td>1.2</td><td>Order B: 800 pieces, today, part deliveries allowed</td><td>Proposal: 300 now, 400 after day 5, 100 open</td></tr>
+<tr><td>1.3</td><td>Same as 1.2 with a customer set to complete delivery only</td><td>Nothing confirmed; the full 800 is never available</td></tr>
+<tr><td>1.4</td><td>Untick "Check without RLT", lead time 20 days, repeat 1.2</td><td>The open 100 is now confirmed about 20 days out. Tick it again afterwards.</td></tr>
+<tr><td>1.5</td><td>Order with wanted date 5 days ahead on a route with 3 days transit</td><td>Stock is needed 5 days before delivery (1 + 1 + 3); dates in the schedule line match</td></tr>
+<tr><td>1.6</td><td>Create the delivery for order A</td><td>Rule B check passes against real stock</td></tr>
+</table></div>
+</div></details>
+
+<details class="deep"><summary>Troubleshooting</summary><div>
+<div class="tw"><table>
+<tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
+<tr><td>Order confirmed in full with no stock</td><td>Schedule line category has no availability check or no transfer of requirements</td><td>Tick both in <code>VOV6</code>; check the requirement class in <code>OVZG</code></td></tr>
+<tr><td>Confirmed on a far date with nothing planned</td><td>Replenishment lead time is in use</td><td>Tick "Check without RLT"</td></tr>
+<tr><td>Confirmed quantity disappears after saving</td><td>Credit check failed, or a delivery block that also blocks confirmation is set on the header</td><td>Release credit; check the delivery block's settings</td></tr>
+<tr><td>Result differs from the stock/requirements list</td><td>The list shows everything; the check shows only what the scope of check counts</td><td>Compare with Monitor Product Availability using the same checking rule</td></tr>
+<tr><td>Two users promised the same stock</td><td>"Block QtRq" not ticked in the checking group</td><td>Tick it</td></tr>
+<tr><td>Quantity seems held by nobody</td><td>A temporary reservation was left behind by a session that ended badly</td><td>Ask the basis team to clean up temporary quantity assignments</td></tr>
+<tr><td>Delivery cannot be created though the order is confirmed</td><td>Rule B is stricter than rule A and the receipt has not arrived</td><td>Expected behaviour; or align rule B with the business</td></tr>
+</table></div>
+</div></details>
+
+<div class="quiz" data-quiz="availability-check"></div>
+</section>
+
+<!-- ============================ PAL ============================ -->
+<section class="ch" id="s-product-allocation" data-id="product-allocation" data-title="Product allocation">
+<p class="eyebrow">Chapter 2</p>
+<h1>Product Allocation</h1>
+<p class="lead">A quota. It sets the most that each region, channel or customer may take in a period, even when stock is there.</p>
+
+<div class="box scn"><b>Business scenario</b>
+Before Diwali, a new premium brief is in high demand. The factory can make 50,000 pieces a month. On day one, a big distributor in the North orders 40,000. If the system confirms it, the South, West and East get almost nothing, and those distributors move to a competitor.</div>
+
+<h2>The idea</h2>
+<p>You decide in advance how the month's supply is shared. The availability check may say "50,000 available", but the allocation check says "North may take 15,000 this month". The order gets the <b>lower</b> of the two.</p>
+
+<figure>
+<div class="sv"><svg class="dg" viewBox="0 0 760 260" role="img" aria-label="Four regional quotas. North's quota of 15,000 is fully used by an order for 40,000. South, West and East quotas remain free.">
+<text x="20" y="24" class="bd">Monthly supply 50,000, shared by quota</text>
+<rect class="ba" x="40" y="60" width="140" height="150"/><text x="110" y="130" text-anchor="middle" class="bd">15,000</text><text x="110" y="148" text-anchor="middle" class="sm">quota used up</text>
+<rect class="b ds" x="220" y="60" width="140" height="150"/><text x="290" y="130" text-anchor="middle" class="bd">15,000</text><text x="290" y="148" text-anchor="middle" class="sm">still free</text>
+<rect class="b ds" x="400" y="110" width="140" height="100"/><text x="470" y="155" text-anchor="middle" class="bd">10,000</text><text x="470" y="173" text-anchor="middle" class="sm">still free</text>
+<rect class="b ds" x="580" y="110" width="140" height="100"/><text x="650" y="155" text-anchor="middle" class="bd">10,000</text><text x="650" y="173" text-anchor="middle" class="sm">still free</text>
+<g text-anchor="middle" class="bd"><text x="110" y="232">North</text><text x="290" y="232">South</text><text x="470" y="232">West</text><text x="650" y="232">East</text></g>
+<text x="110" y="50" text-anchor="middle" class="tw2 sm">order 40,000, gets 15,000</text>
+</svg></div>
+<figcaption>The North distributor asked for 40,000. The system confirms 15,000, because that is North's quota. The other regions keep their share.</figcaption>
+</figure>
+
+<h2>The building blocks</h2>
+<dl>
+<dt>Product allocation object</dt>
+<dd>The container for one quota plan, for example "Premium brief, by region". It holds the characteristics and the time period type (day, week or month).</dd>
+<dt>Characteristics</dt>
+<dd>What the quota is split by: sales organisation, region, customer group, customer, and so on. You can combine them, for example region and channel.</dd>
+<dt>Planning data</dt>
+<dd>The actual numbers: 15,000 for North in October, 15,000 in November. Entered in an app or uploaded from a file.</dd>
+<dt>Assignment</dt>
+<dd>Which product in which plant uses this object, and from which date to which date.</dd>
+<dt>Sequence</dt>
+<dd>Lets one product use more than one object. See below.</dd>
+</dl>
+
+<h2>Using quota from other periods</h2>
+<ul>
+<li><b>Backward consumption:</b> if this month's quota is finished, the system may use quota left over from earlier months.</li>
+<li><b>Forward consumption:</b> the system may use next month's quota. The confirmed date then moves into next month.</li>
+<li><b>Neither:</b> each month stands alone. Unused quota is lost at month end.</li>
+</ul>
+<p>You set how many periods back and forward are allowed.</p>
+
+<h2>Sequences: alternatives and constraints</h2>
+<dl>
+<dt>Alternatives (OR)</dt>
+<dd>"Try the customer's own quota first. If it is finished, use the region quota." The order may draw from one pot after another.</dd>
+<dt>Constraints (AND)</dt>
+<dd>"The order must fit in the region quota <i>and</i> in the channel quota." The order gets the smallest result of all the pots.</dd>
+</dl>
+
+<h2>Worth knowing</h2>
+<ul>
+<li>The quota is checked against a date. You choose whether that is the date stock must be ready or the wanted delivery date.</li>
+<li>It works for sales orders and for stock transfer orders.</li>
+<li>If stock itself is less than the quota, the order gets only the stock. Quota is a ceiling, not a guarantee.</li>
+<li>Switching on AATP product allocation is a one-way step. You cannot go back to the old SD product allocation afterwards.</li>
+</ul>
+
+<h2>Setup steps (apps)</h2>
+<ol>
+<li>Activate product allocation in customising (once per client).</li>
+<li><b>Configure Product Allocation</b> (F2119): create the object, pick the characteristics and period type.</li>
+<li><b>Manage Product Allocation Planning Data</b> (F2121): enter the quantities for each value and period.</li>
+<li><b>Manage Product Allocation Sequences:</b> only if you need alternatives or constraints.</li>
+<li><b>Assign Product to Product Allocation</b> (F2120): link product and plant, with validity dates.</li>
+<li>Activate the object and test. <b>Product Allocation Overview</b> shows how much of each quota is used.</li>
+</ol>
+
+<div class="box care"><b>Common mistakes</b>
+<ul>
+<li>Quota left in place after the shortage is over. Stock sits in the warehouse while orders stay unconfirmed. Give every allocation an end date.</li>
+<li>A customer or region with no planning data gets zero. Decide what "everyone else" should receive and plan it.</li>
+<li>Too many characteristics. Region by channel by customer by week is a lot of numbers for someone to maintain. Start simple.</li>
+</ul></div>
+<h2>Go deeper: configuration</h2>
+<p class="deepnote">Hands-on level, following S/4HANA 2023. Open each section when you are ready.</p>
+
+<details class="deep"><summary>Customising: activating product allocation</summary><div>
+<p class="path"><b>Menu:</b> aATP &gt; Product Allocation (PAL) &gt; Activate Product Allocation</p>
+<div class="tw"><table>
+<tr><th>Setting</th><th>What it means</th><th>Example</th></tr>
+<tr><td>Activate</td><td>Switches AATP product allocation on for the whole client</td><td>Yes</td></tr>
+<tr><td>Check date</td><td>Which order date picks the quota period: material availability date or requested delivery date</td><td>Requested delivery date, if the business plans quota by when the customer receives goods</td></tr>
+</table></div>
+<div class="box care"><b>Before you press save</b>
+<ul>
+<li>It is per client and cannot be undone. The old SD product allocation stops being used.</li>
+<li>No old allocation data and no existing confirmations are carried over. Plan the first load of quota numbers.</li>
+<li>The checking group of the product must already have Advanced ATP active.</li>
+</ul></div>
+<p>Also tick "Prod. allocation" in the requirement class (<code>OVZG</code>) and the schedule line category (<code>VOV6</code>). Without these the order line never asks for a quota check.</p>
+<p>Everything else is done in Fiori apps. Nothing needs to be entered on the product master.</p>
+</div></details>
+
+<details class="deep"><summary>App walkthrough 1: Configure Product Allocation (F2119)</summary><div>
+<p>Choose Create and fill the header.</p>
+<div class="tw"><table>
+<tr><th>Field</th><th>What it means</th><th>Example</th></tr>
+<tr><td>Name and description</td><td>Your name for the object</td><td>PAL_BRIEF_REGION, "Premium brief by region"</td></tr>
+<tr><td>Quantity unit</td><td>Unit of the quota numbers</td><td>PC</td></tr>
+<tr><td>Period type</td><td>Day, week, month, quarter or year. One type only.</td><td>Month</td></tr>
+<tr><td>Time zone and factory calendar</td><td>Decide where a period starts and ends</td><td>India, your sales calendar</td></tr>
+<tr><td>Check date</td><td>Which order date finds the period</td><td>Requested delivery date</td></tr>
+<tr><td>Document relevance</td><td>Sales orders, stock transport orders, or both</td><td>Sales orders</td></tr>
+<tr><td>Collective allocation</td><td>What happens to orders whose values have no own quota line: <b>No collective allocation</b> = only exact matches get quota; <b>Managed manually</b> = you maintain a catch-all line marked #; <b>Managed by system</b> = the system creates the catch-all lines</td><td>Managed manually, so "all other regions" can share one line</td></tr>
+<tr><td>Characteristics</td><td>The fields the quota is split by, in order</td><td>Sales Organization, Region</td></tr>
+</table></div>
+<p>Save, then set the activation status to active when planning data is ready.</p>
+</div></details>
+
+<details class="deep"><summary>App walkthrough 2: Manage Product Allocation Planning Data (F2121)</summary><div>
+<ol>
+<li>Open the object PAL_BRIEF_REGION.</li>
+<li>Add one line for each value combination: 1000 / North, 1000 / South, 1000 / West, 1000 / East, and 1000 / # for all others.</li>
+<li>Enter the planned quantity for each period: North 15,000 for October, 15,000 for November, and so on.</li>
+<li>For many lines, download the grid to a spreadsheet, fill it and upload it.</li>
+<li>Save. For each line and period the app shows planned, consumed and still available quantity.</li>
+</ol>
+<p>Each line also carries a <b>constraint status</b>, which you can change here or on the sequence, depending on release:</p>
+<div class="tw"><table>
+<tr><th>Status</th><th>Effect on the order</th></tr>
+<tr><td>Restricted availability</td><td>Normal case. The planned quantities limit the order.</td></tr>
+<tr><td>Unrestricted availability</td><td>No limit. Useful to "open" one region for a while without deleting numbers.</td></tr>
+<tr><td>No availability</td><td>Nothing is confirmed.</td></tr>
+<tr><td>Not relevant</td><td>This constraint is skipped.</td></tr>
+</table></div>
+</div></details>
+
+<details class="deep"><summary>App walkthrough 3: Manage Product Allocation Sequences</summary><div>
+<p>The sequence is the top object. It links products to one or more allocation objects.</p>
+<div class="tw"><table>
+<tr><th>Level</th><th>Fields</th><th>Example</th></tr>
+<tr><td>Sequence header</td><td>Name, unit, backward consumption periods, forward consumption periods</td><td>SEQ_BRIEF, PC, backward 1, forward 0</td></tr>
+<tr><td>Sequence group</td><td>Number (order of trying), optional own consumption periods. Groups are the <b>alternatives</b>: the system tries group 10 first, then 20.</td><td>10 = key account quota; 20 = region quota</td></tr>
+<tr><td>Constraint inside a group</td><td>Number, description, one allocation object, allocation rate, validity from and to, constraint status. All constraints in one group must be met together.</td><td>Object PAL_BRIEF_REGION, rate 1.0, valid 1 Oct to 31 Dec, restricted availability</td></tr>
+</table></div>
+<ul>
+<li>One group with one constraint is the simple case from this chapter.</li>
+<li>Two constraints in one group = AND. Two groups = OR.</li>
+<li>Keep the allocation rate at 1.0 unless one order piece should use more or less than one quota piece.</li>
+<li>The validity dates are your safety net. A constraint that has ended no longer limits orders.</li>
+</ul>
+</div></details>
+
+<details class="deep"><summary>App walkthrough 4: Assign Product to Product Allocation (F2120)</summary><div>
+<ol>
+<li>Choose the allocation object (and, where your release asks for it, the sequence).</li>
+<li>Add the product and plant, with valid-from and valid-to dates.</li>
+<li>Save.</li>
+</ol>
+<div class="box care"><b>Shared pot warning</b>
+The planned numbers belong to the object, not to one product. If you assign three products to the same object, all three draw from the same 15,000. If each product needs its own quota, add Product as a characteristic or create one object per product.</div>
+<h3>Watching usage</h3>
+<ul>
+<li><b>Product Allocation Overview</b> (F3474): planned, consumed and available per line and period.</li>
+<li><b>Monitor Product Allocation Characteristic Value Combinations</b> (F3476): the same, as a list for many objects.</li>
+<li><b>Monitor Product Allocation Order Items</b> (F3477): which order lines used which quota.</li>
+</ul>
+</div></details>
+
+<details class="deep"><summary>Test script</summary><div>
+<p>Prepare: object by Sales Organization and Region, month periods, North 15,000 this month and next, no consumption periods, stock 50,000.</p>
+<div class="tw"><table>
+<tr><th>No.</th><th>Step</th><th>Expected result</th></tr>
+<tr><td>2.1</td><td>North customer orders 40,000, delivery this month</td><td>15,000 confirmed. Result screen shows availability 40,000 and allocation 15,000.</td></tr>
+<tr><td>2.2</td><td>Second North order for 1,000</td><td>0 confirmed</td></tr>
+<tr><td>2.3</td><td>Set forward consumption to 1 and recheck order 2.2</td><td>1,000 confirmed with a date next month; next month's available quota drops to 14,000</td></tr>
+<tr><td>2.4</td><td>Order from a region with no line and no # line</td><td>0 confirmed</td></tr>
+<tr><td>2.5</td><td>Add the # line with 2,000 and repeat 2.4</td><td>Confirmed up to 2,000</td></tr>
+<tr><td>2.6</td><td>Reduce order 2.1 to 10,000</td><td>5,000 quota is released; Product Allocation Overview shows it</td></tr>
+<tr><td>2.7</td><td>Set the line to "Unrestricted availability", new North order</td><td>Confirmed up to stock</td></tr>
+</table></div>
+</div></details>
+
+<details class="deep"><summary>Troubleshooting</summary><div>
+<div class="tw"><table>
+<tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
+<tr><td>No allocation check happens at all</td><td>Not activated; or "Prod. allocation" missing in requirement class or schedule line category; or object not active; or product not assigned or outside validity dates</td><td>Check in that order</td></tr>
+<tr><td>Order gets zero though stock is there</td><td>No planning line matches the order's values and no collective line exists; or status is "No availability"</td><td>Add the line or the # line; check the status</td></tr>
+<tr><td>Quota period is not the one expected</td><td>Check date is set to the other date type</td><td>Compare the setting in customising, the object and the sequence</td></tr>
+<tr><td>Several products eat the same quota</td><td>They share one object</td><td>Add Product as characteristic or split the objects</td></tr>
+<tr><td>A field such as order type cannot be chosen</td><td>Not in the Product Allocation catalog</td><td>Manage Characteristic Catalogs; for some standard fields see SAP KBA 3128283</td></tr>
+<tr><td>Third-party (drop-ship) lines are not checked</td><td>Known behaviour for third-party items</td><td>See SAP KBA 3263444 before designing around it</td></tr>
+<tr><td>Quota app tiles are missing</td><td>Not in the user's catalog</td><td>Add them through the App Finder; check the role</td></tr>
+</table></div>
+</div></details>
+
+<div class="quiz" data-quiz="product-allocation"></div>
+</section>
+
+<!-- ============================ SUP ============================ -->
+<section class="ch" id="s-supply-protection" data-id="supply-protection" data-title="Supply protection">
+<p class="eyebrow">Chapter 3</p>
+<h1>Supply Protection</h1>
+<p class="lead">The opposite of a quota. It keeps a minimum quantity aside for one group, so that other orders cannot use it.</p>
+
+<div class="box scn"><b>Business scenario</b>
+The plant has 10,000 pieces. Your contract with an e-commerce site says you must always be able to ship 2,000 a week, or you pay a penalty. General trade distributors order early in the week and usually take everything.</div>
+
+<h2>The idea</h2>
+<p>You tell the system "2,000 pieces of this product in this plant are protected for e-commerce". When any other customer orders, the availability check behaves as if those 2,000 are not there.</p>
+
+<figure>
+<div class="sv"><svg class="dg" viewBox="0 0 760 220" role="img" aria-label="Of 10,000 pieces, 2,000 are protected for e-commerce and 8,000 are open. General trade orders can only reach the open part.">
+<defs><marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+<text x="40" y="26" class="bd">Stock in plant: 10,000</text>
+<rect class="ba" x="40" y="60" width="136" height="46"/><text x="108" y="80" text-anchor="middle" class="bd">2,000</text><text x="108" y="97" text-anchor="middle" class="sm">protected</text>
+<rect class="b" x="176" y="60" width="544" height="46"/><text x="448" y="80" text-anchor="middle" class="bd">8,000</text><text x="448" y="97" text-anchor="middle" class="sm">open to everyone</text>
+<text x="40" y="50" class="sm ta">for e-commerce only</text>
+<rect class="b" x="40" y="165" width="200" height="40" rx="6"/><text x="140" y="190" text-anchor="middle">E-commerce order</text>
+<rect class="b" x="480" y="165" width="200" height="40" rx="6"/><text x="580" y="190" text-anchor="middle">General trade order</text>
+<line class="ln" x1="108" y1="165" x2="108" y2="110" marker-end="url(#a3)"/><text x="116" y="142" class="sm">uses protected stock first</text>
+<line class="ln" x1="580" y1="165" x2="580" y2="110" marker-end="url(#a3)"/><text x="588" y="142" class="sm">can reach only the 8,000</text>
+</svg></div>
+<figcaption>A general trade order for 9,000 is confirmed for 8,000. The 2,000 stay ready for e-commerce.</figcaption>
+</figure>
+
+<h2>How it behaves</h2>
+<ul>
+<li>When the protected group orders, its protected quantity is used first. It can also take open stock if there is any.</li>
+<li>Every other group sees: free stock minus what is protected for others.</li>
+<li>Protection is planned per time period, for example per week. You can protect more in festival weeks and less afterwards.</li>
+<li>When a period ends, protection that was not used expires. That stock becomes free for everyone.</li>
+<li>It works for sales orders and stock transfer orders, and the backorder run respects it.</li>
+</ul>
+
+<h2>Quota or protection? The difference</h2>
+<div class="tw"><table>
+<tr><th></th><th>Product Allocation</th><th>Supply Protection</th></tr>
+<tr><td>What it sets</td><td>A <b>maximum</b> a group may take</td><td>A <b>minimum</b> kept for a group</td></tr>
+<tr><td>Business sentence</td><td>"North must not take more than 15,000"</td><td>"E-commerce must always find 2,000"</td></tr>
+<tr><td>Who is limited</td><td>The group itself</td><td>Everyone else</td></tr>
+<tr><td>Based on</td><td>Planned numbers, separate from stock</td><td>Real supply of a product in a plant</td></tr>
+<tr><td>Typical use</td><td>Fair sharing during a shortage</td><td>Contracts, penalties, key channels</td></tr>
+</table></div>
+<p>You can use both together. Protection lowers what availability returns. Allocation then caps the result.</p>
+
+<h2>The building blocks</h2>
+<dl>
+<dt>Supply protection object</dt>
+<dd>Created for one product in one plant.</dd>
+<dt>Protection groups</dt>
+<dd>Who is protected, described with characteristics. Example: distribution channel = e-commerce. One object can hold several groups.</dd>
+<dt>Protected quantity per period</dt>
+<dd>The number to hold back in each week or month.</dd>
+<dt>Priority levels</dt>
+<dd>If supply is too small to protect everybody, a prioritised characteristic decides which group is served first.</dd>
+</dl>
+
+<h2>Setup steps</h2>
+<ol>
+<li>Make sure the fields you need (channel, customer group and so on) are available as characteristics.</li>
+<li><b>Manage Supply Protection</b> (F4569): create the object for product and plant.</li>
+<li>Add the protection groups and their values.</li>
+<li>Enter the protected quantity for each period.</li>
+<li>Activate, then test with one order from inside the group and one from outside.</li>
+</ol>
+
+<div class="box care"><b>Common mistakes</b>
+<ul>
+<li>Protecting too much. Stock sits idle while other customers stay unconfirmed. Review the numbers every planning cycle.</li>
+<li>One order matching two protection groups. Design the groups so that an order can belong to only one.</li>
+<li>Using protection when the business really wants a ceiling. Listen for "at least" (protection) or "at most" (allocation).</li>
+</ul></div>
+<h2>Go deeper: configuration</h2>
+<p class="deepnote">Hands-on level, following S/4HANA 2023. Open each section when you are ready.</p>
+
+<details class="deep"><summary>Customising and prerequisites</summary><div>
+<ul>
+<li>The product's checking group has Advanced ATP active.</li>
+<li>In Configure Scope of Availability Check, the supply protection option is switched on for the checking group and rule (Chapter 1, last row of the table).</li>
+<li>The fields you want to protect by are in the Supply Protection catalog (Manage Characteristic Catalogs).</li>
+</ul>
+<p>There is no other customising. The rest is one app.</p>
+</div></details>
+
+<details class="deep"><summary>App walkthrough: Manage Supply Protection (F4569)</summary><div>
+<p>Choose Create.</p>
+<div class="tw"><table>
+<tr><th>Field</th><th>What it means</th><th>Example</th></tr>
+<tr><td>Name and description</td><td>Your name for the object</td><td>SUP_BRIEF_ECOM</td></tr>
+<tr><td>Material and plant</td><td>One object protects one product in one plant</td><td>PB-100, plant 1000</td></tr>
+<tr><td>Unit</td><td>Unit of the protected quantity</td><td>PC</td></tr>
+<tr><td>Planning period type</td><td>Day, week, month or quarter. One type for each object.</td><td>Week</td></tr>
+<tr><td>Planning start and end</td><td>The horizon the protection covers. The number of periods is limited (SAP KBA 3649071), so do not plan years ahead in days.</td><td>This week to end of the festival month</td></tr>
+<tr><td>Consumption based on</td><td>Which order date decides the period an order consumes: material availability date or requested delivery date</td><td>Requested delivery date</td></tr>
+<tr><td>Restriction by own protection</td><td>Whether the protected group itself is held back by its protection in other periods. Options: no restriction; restriction outside planning horizon; restriction outside time bucket; from 2023 also restriction outside planned protection.</td><td>No restriction to start. Use "outside time bucket" when each week's quantity must stay for that week.</td></tr>
+<tr><td>Characteristic 1 (and 2)</td><td>The core fields that define a protection group. One is required, two are allowed.</td><td>Distribution Channel</td></tr>
+<tr><td>Prioritized characteristics</td><td>Optional extra fields used to rank groups</td><td>Customer Group</td></tr>
+</table></div>
+<p>Then add the protection groups:</p>
+<div class="tw"><table>
+<tr><th>Field</th><th>What it means</th><th>Example</th></tr>
+<tr><td>Priority</td><td>1 is highest. A higher group may ignore the protection of lower groups. A lower group must respect equal and higher ones.</td><td>1</td></tr>
+<tr><td>Characteristic values</td><td>Who belongs to the group</td><td>Distribution Channel = 30 (e-commerce)</td></tr>
+<tr><td>Protected quantity per period</td><td>How much to hold in each week</td><td>2,000 each week</td></tr>
+</table></div>
+<p>Save and choose Activate. Only an active object takes part in the check.</p>
+<h3>Two ways of protecting</h3>
+<dl>
+<dt>Core protection (side by side)</dt><dd>Groups protect against each other. Each keeps its own quantity. Use it when no group is more important than another.</dd>
+<dt>Prioritised protection (ranked)</dt><dd>Groups have priorities. Orders in a higher group can use stock protected for lower groups, but not the other way round.</dd>
+</dl>
+<h3>What happens over time</h3>
+<ul>
+<li>An order from the protected group consumes the protection of the period its date falls in.</li>
+<li>When a period's end date passes, whatever was not consumed expires and the stock becomes free for everyone.</li>
+<li>Two different protection objects for the same product and plant always hold their full quantities against each other.</li>
+</ul>
+<h3>Where to see it</h3>
+<ul>
+<li>In the order: Review Availability Check Result, intermediate results, details for supply protection.</li>
+<li>The object itself shows protected and consumed quantity for each period.</li>
+<li>Supply Demand Overview shows protected quantities next to real orders.</li>
+</ul>
+</div></details>
+
+<details class="deep"><summary>Test script</summary><div>
+<p>Prepare: stock 10,000, object as above with 2,000 for this week, activated.</p>
+<div class="tw"><table>
+<tr><th>No.</th><th>Step</th><th>Expected result</th></tr>
+<tr><td>3.1</td><td>General trade order (channel 10) for 9,000</td><td>8,000 confirmed. Details show 2,000 held by protection.</td></tr>
+<tr><td>3.2</td><td>E-commerce order (channel 30) for 1,500</td><td>1,500 confirmed; consumed quantity in the object becomes 1,500</td></tr>
+<tr><td>3.3</td><td>Second e-commerce order for 1,000</td><td>500 confirmed</td></tr>
+<tr><td>3.4</td><td>Deactivate the object, recheck order 3.1</td><td>Any stock that is still unconfirmed becomes available to it</td></tr>
+<tr><td>3.5</td><td>Reactivate; create a period that ends yesterday with 1,000 unconsumed; check a general trade order</td><td>The 1,000 from the past period no longer restricts</td></tr>
+<tr><td>3.6</td><td>Stock transport order from this plant, if STOs are in scope</td><td>It respects the protection too</td></tr>
+</table></div>
+</div></details>
+
+<details class="deep"><summary>Troubleshooting</summary><div>
+<div class="tw"><table>
+<tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
+<tr><td>Protection has no effect</td><td>Object not activated; scope of check option not switched on; order date outside the planning horizon</td><td>Check each</td></tr>
+<tr><td>Protected group itself is not confirmed</td><td>"Restriction by own protection" is set tight and the order date falls in another period</td><td>Review that setting</td></tr>
+<tr><td>Everyone else is short while stock sits</td><td>Protected quantity too high, or long periods that have not expired yet</td><td>Lower the numbers; use shorter periods</td></tr>
+<tr><td>An order matches two groups</td><td>Overlapping values</td><td>Redesign so each order fits one group</td></tr>
+<tr><td>Consumed is more than protected in one period, less in another</td><td>Consumption is posted to the matching period only</td><td>Expected. A BAdI exists to spread it if needed.</td></tr>
+<tr><td>Value list for a field is empty in the app</td><td>Field not properly in the catalog</td><td>Manage Characteristic Catalogs; see SAP KBA 3781757</td></tr>
+</table></div>
+</div></details>
+
+<div class="quiz" data-quiz="supply-protection"></div>
+</section>
+
+<!-- ============================ BOP ============================ -->
+<section class="ch" id="s-backorder-processing" data-id="backorder-processing" data-title="Backorder processing">
+<p class="eyebrow">Chapter 4</p>
+<h1>Backorder Processing</h1>
+<p class="lead">A job that looks at all open orders together and re-shares the confirmations by business priority.</p>
+
+<div class="box scn"><b>Business scenario</b>
+Yesterday a small retailer's order took 300 of the last pieces. Today a key modern trade customer orders 400 of the same item, urgently. Also, one customer with confirmed stock has just gone on credit block. Nothing changes by itself: the urgent order shows zero.</div>
+
+<h2>Why it is needed</h2>
+<p>SAP confirms orders first come, first served. After an order is saved, the system <b>never rechecks it on its own</b>. So confirmations go out of date when:</p>
+<ul>
+<li>an important order arrives late,</li>
+<li>production comes early or late,</li>
+<li>an order is cancelled or blocked and its stock should go to someone else.</li>
+</ul>
+<p>Backorder processing fixes this. It usually runs every night.</p>
+
+<h2>The building blocks</h2>
+<dl>
+<dt>Segment</dt>
+<dd>A named group of order lines, chosen by a filter, with a sort order inside it. Example: "Modern trade orders due this week, oldest first".</dd>
+<dt>Confirmation strategy</dt>
+<dd>How a segment is treated in the run. There are seven (table below).</dd>
+<dt>Variant</dt>
+<dd>The full recipe for one run: which segments, and which strategy for each.</dd>
+<dt>Run</dt>
+<dd>The job that executes a variant. It can run for real or as a simulation that changes nothing.</dd>
+</dl>
+
+<h2>The seven strategies</h2>
+<div class="tw"><table>
+<tr><th>Strategy</th><th>What happens to these orders</th><th>Typical use</th></tr>
+<tr><td><b>Win</b></td><td>Must be confirmed in full on the wanted date. If that is impossible, the run reports a problem.</td><td>Rush orders, top key accounts</td></tr>
+<tr><td><b>Gain</b></td><td>Keep at least what they have. Get more if possible. If they cannot keep it, the run reports a problem.</td><td>Priority customers with orders due soon</td></tr>
+<tr><td><b>Improve</b></td><td>Try to keep and improve, but may lose if higher groups need the stock. No problem is reported. Added in release 2022.</td><td>Good customers you would like to help, without a hard promise</td></tr>
+<tr><td><b>Redistribute</b></td><td>May end up better, the same or worse.</td><td>All normal orders</td></tr>
+<tr><td><b>Fill</b></td><td>Never get more. Keep what they have, or lose some.</td><td>Low priority orders, internal stock transfers</td></tr>
+<tr><td><b>Lose</b></td><td>Lose all confirmation.</td><td>Credit-blocked customers</td></tr>
+<tr><td><b>Skip</b></td><td>Left out of the run. Stay exactly as they are.</td><td>Orders you do not want touched</td></tr>
+</table></div>
+<p>The run serves Win first, then Gain, then the middle groups, then Fill. Stock freed from Lose orders goes to the groups above.</p>
+
+<figure>
+<div class="sv"><svg class="dg" viewBox="0 0 760 270" role="img" aria-label="Before and after a backorder run with 1,000 pieces. Order A (Win) goes from 0 to 400. Order B (Redistribute) stays at 500. Order C (Fill) drops from 300 to 100. Order D (Lose) drops from 200 to 0.">
+<text x="270" y="28" class="bd">Before the run</text><text x="540" y="28" class="bd">After the run</text>
+<text x="10" y="68" class="bd">A  key account</text><text x="10" y="84" class="sm ta">Win, wants 400</text>
+<rect class="b ds" x="270" y="56" width="160" height="28"/><text x="440" y="75" class="sm">0</text>
+<rect class="bg" x="540" y="56" width="160" height="28"/><text x="710" y="75" class="sm bd">400</text>
+<text x="10" y="118" class="bd">B  normal order</text><text x="10" y="134" class="sm ta">Redistribute, wants 500</text>
+<rect class="ba" x="270" y="106" width="200" height="28"/><text x="480" y="125" class="sm">500</text>
+<rect class="ba" x="540" y="106" width="200" height="28"/><text x="640" y="125" text-anchor="middle" class="sm bd">500</text>
+<text x="10" y="168" class="bd">C  small retailer</text><text x="10" y="184" class="sm ta">Fill, wants 300</text>
+<rect class="ba" x="270" y="156" width="120" height="28"/><text x="400" y="175" class="sm">300</text>
+<rect class="b ds" x="540" y="156" width="120" height="28"/><rect class="bw" x="540" y="156" width="40" height="28"/><text x="670" y="175" class="sm bd">100</text>
+<text x="10" y="218" class="bd">D  credit blocked</text><text x="10" y="234" class="sm ta">Lose, wants 200</text>
+<rect class="ba" x="270" y="206" width="80" height="28"/><text x="360" y="225" class="sm">200</text>
+<rect class="b ds" x="540" y="206" width="80" height="28"/><text x="630" y="225" class="sm bd">0</text>
+<text x="10" y="260" class="sm mu">Dashed outline = quantity wanted. Filled = quantity confirmed. Total stays 1,000.</text>
+</svg></div>
+<figcaption>The stock did not change. D gives up 200, A takes 400 first, B keeps 500, and C gets the 100 that is left.</figcaption>
+</figure>
+
+<h2>Sorting inside a segment</h2>
+<p>When two orders in the same segment compete, the sort order decides. Common choices: wanted delivery date, order creation date, delivery priority from the customer master. If the standard fields are not enough, the app Configure Custom BOP Sorting lets you define your own order of values.</p>
+
+<h2>Setup steps (apps)</h2>
+<ol>
+<li>Agree the priority rules with the business first. This is the hard part.</li>
+<li><b>Configure BOP Segment</b> (F2158): create one segment for each group, with filter and sort.</li>
+<li><b>Configure BOP Variant</b> (F2160): put the segments under the right strategies.</li>
+<li><b>Schedule BOP Run</b> (F2665): run it in simulation first, then schedule the real job.</li>
+<li><b>Monitor BOP Run</b> (F2159): see which orders gained, which lost, and any problems.</li>
+</ol>
+
+<h2>When to run it</h2>
+<p>After the night's planning run and goods receipts, and before delivery creation in the morning. Some businesses add a second run at midday.</p>
+
+<div class="box care"><b>Common mistakes</b>
+<ul>
+<li>Putting too many orders in Win. If everything is top priority, nothing is.</li>
+<li>Forgetting the customer side. An order that loses its confirmation may already have been promised by phone. Agree who informs the customer.</li>
+<li>No simulation before go-live. Always simulate and read the monitor with the sales head.</li>
+</ul></div>
+<h2>Go deeper: configuration</h2>
+<p class="deepnote">Hands-on level, following S/4HANA 2023. Backorder processing has no customising of its own; everything is in the apps. Open each section when you are ready.</p>
+
+<details class="deep"><summary>Prerequisites</summary><div>
+<ul>
+<li>Products are on a checking group with Advanced ATP active.</li>
+<li>The fields you want to filter and sort by are in the Backorder Processing catalog.</li>
+<li>The person who configures has the role Order Fulfillment Manager (R0226).</li>
+<li>Old rescheduling jobs for these products are stopped.</li>
+</ul>
+</div></details>
+
+<details class="deep"><summary>App walkthrough 1: Configure BOP Segment (F2158)</summary><div>
+<p>Create one segment for each group of orders the business names.</p>
+<div class="tw"><table>
+<tr><th>Part</th><th>What you enter</th><th>Example: segment MT_DUE_7_DAYS</th></tr>
+<tr><td>Name and description</td><td>Use names the business understands</td><td>"Modern trade, due within 7 days"</td></tr>
+<tr><td>Selection criteria</td><td>One or more conditions: field, comparison, value. Joined with AND or OR.</td><td>Customer Group is equal to "MT" AND Requested Delivery Date is within the next 7 days</td></tr>
+<tr><td>Exclusion conditions</td><td>Optional. Orders that match are left out.</td><td>Sales Document Type is equal to sample order</td></tr>
+<tr><td>Prioritizers</td><td>The sort order inside the segment: field and ascending or descending. Several are allowed; the first is the main sort.</td><td>1. Delivery Priority ascending; 2. Requested Delivery Date ascending; 3. Creation Date ascending</td></tr>
+</table></div>
+<ul>
+<li>The condition editor works with typed values and simple comparisons. You cannot upload a long list of values (SAP KBA 3741015). For lists, create a value group in the characteristic catalog and filter on the group.</li>
+<li>If plain ascending or descending is not enough, for example "customer B before customer A before customer C", define the order in <b>Configure Custom BOP Sorting</b> (F2983) and pick it as a prioritizer.</li>
+</ul>
+</div></details>
+
+<details class="deep"><summary>App walkthrough 2: Configure BOP Variant (F2160)</summary><div>
+<div class="tw"><table>
+<tr><th>Part</th><th>What it means</th><th>Example: variant NIGHTLY_FG</th></tr>
+<tr><td>Name and description</td><td></td><td>"Nightly run, finished goods"</td></tr>
+<tr><td>Document types</td><td>Sales orders, stock transport orders, or both</td><td>Both</td></tr>
+<tr><td>Execution method</td><td>Product availability check (normal) or supply assignment (Chapter 6)</td><td>Product availability check</td></tr>
+<tr><td>Global filter</td><td>Optional segment that limits the whole run</td><td>Segment "Plant 1000 and 2000 only"</td></tr>
+<tr><td>Exception behaviour</td><td>What to do when a Win or Gain order cannot get what it must: stop processing only that product and plant, or stop the whole run</td><td>Stop that product and plant only</td></tr>
+<tr><td>Fallback variant</td><td>A second, simpler variant that then runs for the stopped products, so they are not left untouched</td><td>Variant FALLBACK_REDISTRIBUTE with everything under Redistribute</td></tr>
+<tr><td>Strategies</td><td>Drag each segment under Win, Gain, Improve, Redistribute, Fill, Lose or Skip. Several segments can sit under one strategy; they are processed top to bottom.</td><td>See the sample below</td></tr>
+</table></div>
+<h3>Sample variant for the innerwear company</h3>
+<div class="tw"><table>
+<tr><th>Strategy</th><th>Segment</th><th>Sort</th></tr>
+<tr><td>Win</td><td>Rush orders; e-commerce orders due in 2 days</td><td>Requested date</td></tr>
+<tr><td>Gain</td><td>Modern trade due in 7 days</td><td>Delivery priority, then date</td></tr>
+<tr><td>Redistribute</td><td>All other sales orders due in 14 days</td><td>Requested date, then creation date</td></tr>
+<tr><td>Fill</td><td>Stock transport orders to depots; orders due later than 14 days</td><td>Requested date</td></tr>
+<tr><td>Lose</td><td>Customers on credit block</td><td>None</td></tr>
+<tr><td>Skip</td><td>Free sample orders</td><td>None</td></tr>
+</table></div>
+<p>Use the Simulate button in the variant to try it at once without changing orders.</p>
+</div></details>
+
+<details class="deep"><summary>App walkthrough 3: Schedule BOP Run (F2665) and Monitor BOP Run (F2159)</summary><div>
+<h3>Schedule</h3>
+<ol>
+<li>Create a new job from the template for backorder runs.</li>
+<li>Pick the variant, for example NIGHTLY_FG.</li>
+<li>Tick simulation for a trial run; leave it empty for a real run.</li>
+<li>Set the start: immediately, or a time such as 02:00 with daily recurrence.</li>
+<li>Schedule. The job list shows status and log.</li>
+</ol>
+<h3>Monitor</h3>
+<ol>
+<li>The first screen lists the runs: variant, start time, status, real or simulation.</li>
+<li>Open a run. You see totals by strategy: how many order lines, how many fully, partly or not confirmed.</li>
+<li>Drill into a strategy, then a product and plant, then the order lines.</li>
+<li>For each line: wanted quantity, confirmed before, confirmed after, and whether it gained or lost.</li>
+<li>Exceptions are flagged, for example a Win order that could not be confirmed. If an alternative plant was used (Chapter 5), the line carries a marker.</li>
+</ol>
+<p>Make reading this monitor a daily task for one named person.</p>
+</div></details>
+
+<details class="deep"><summary>Test script</summary><div>
+<p>Prepare: stock 1,000. Orders: A key account 400 (created last, 0 confirmed), B normal 500 (500 confirmed), C small retailer 300 (300 confirmed), D 200 (200 confirmed) from a customer you then credit-block. Segments so that A is Win, B Redistribute, C Fill, D Lose.</p>
+<div class="tw"><table>
+<tr><th>No.</th><th>Step</th><th>Expected result</th></tr>
+<tr><td>4.1</td><td>Run the variant in simulation</td><td>Monitor shows A 400, B 500, C 100, D 0. Orders unchanged.</td></tr>
+<tr><td>4.2</td><td>Run for real</td><td>Same result; schedule lines in the orders are updated</td></tr>
+<tr><td>4.3</td><td>Move A's segment from Win to Gain and add order E (Win) for 1,200</td><td>E cannot be fully confirmed: exception; fallback variant runs for this product</td></tr>
+<tr><td>4.4</td><td>Post a goods receipt of 300 and run again</td><td>C stays at 100. Fill never gains. To let C recover, its segment must sit under Redistribute or Improve.</td></tr>
+<tr><td>4.5</td><td>Put a sample order under Skip, run</td><td>Its confirmation is untouched</td></tr>
+<tr><td>4.6</td><td>Run while a user has order B open in change mode</td><td>B cannot be updated and is reported with an update problem; others are processed</td></tr>
+</table></div>
+</div></details>
+
+<details class="deep"><summary>Troubleshooting</summary><div>
+<div class="tw"><table>
+<tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
+<tr><td>An order is not picked up</td><td>Its document type is not in the variant; it matches no segment; the global filter excludes it; the product is not on AATP</td><td>Check in that order. Simulate with a filter on the one order.</td></tr>
+<tr><td>Monitor shows a confirmed quantity but the order has no confirmed schedule line</td><td>The order failed the credit check when the result was written back</td><td>Release credit, then rerun</td></tr>
+<tr><td>Orders are locked for a long time during the run</td><td>Large run during working hours</td><td>Run at night; split by plant with global filters</td></tr>
+<tr><td>Run stops with exceptions</td><td>Win or Gain orders ask for more than exists</td><td>Move fewer orders into Win; set a fallback variant</td></tr>
+<tr><td>Results change from night to night for no clear reason</td><td>Sorting uses a field with equal values, so order is arbitrary</td><td>Add a final prioritizer such as creation date</td></tr>
+<tr><td>Order is not confirmed from another plant though that plant has stock</td><td>Earlier orders in the same run took it; or the original product's quota is used up</td><td>Read the monitor for that plant; check quota</td></tr>
+<tr><td>"Variant not found" in the job</td><td>Variant renamed or deleted after scheduling</td><td>Reschedule with the current variant</td></tr>
+</table></div>
+</div></details>
+
+<div class="quiz" data-quiz="backorder-processing"></div>
+</section>
+
+<!-- ============================ ABC ============================ -->
+<section class="ch" id="s-alternatives" data-id="alternatives" data-title="Alternatives">
+<p class="eyebrow">Chapter 5</p>
+<h1>Alternative-Based Confirmation</h1>
+<p class="lead">When the asked plant cannot deliver in full and on time, the system looks at other plants, or at a replacement product, by itself.</p>
+
+<div class="box scn"><b>Business scenario</b>
+A customer near Chennai orders 2,000 pieces. The Chennai depot has 500. The Bengaluru depot has 3,000. Today the order desk phones around, then changes the plant in the order by hand. Sometimes nobody notices and the customer waits two weeks.</div>
+
+<h2>The idea</h2>
+<p>For orders you choose, the system checks a list of alternative plants at the same moment as the normal check, compares the results, and confirms from the best one.</p>
+
+<figure>
+<div class="sv"><svg class="dg" viewBox="0 0 760 230" role="img" aria-label="An order for 2,000 asked from Chennai, which has 500. The system compares plants and confirms the full 2,000 from Bengaluru, which has 3,000.">
+<defs><marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="a5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker></defs>
+<rect class="b" x="20" y="85" width="170" height="60" rx="6"/><text x="105" y="110" text-anchor="middle" class="bd">Order: 2,000 pieces</text><text x="105" y="128" text-anchor="middle" class="sm">asked from Chennai</text>
+<rect class="b" x="270" y="85" width="170" height="60" rx="6"/><text x="355" y="110" text-anchor="middle" class="bd">System compares</text><text x="355" y="128" text-anchor="middle" class="sm">the allowed plants</text>
+<rect class="b ds" x="540" y="20" width="200" height="60" rx="6"/><text x="640" y="45" text-anchor="middle" class="bd">Chennai depot</text><text x="640" y="63" text-anchor="middle" class="sm">stock 500</text>
+<rect class="bg" x="540" y="150" width="200" height="60" rx="6"/><text x="640" y="175" text-anchor="middle" class="bd">Bengaluru depot</text><text x="640" y="193" text-anchor="middle" class="sm">stock 3,000</text>
+<line class="ln" x1="190" y1="115" x2="268" y2="115" marker-end="url(#a5)"/>
+<line class="ln ds" x1="440" y1="100" x2="538" y2="58" marker-end="url(#a5)"/><text x="452" y="62" class="sm tw2">short by 1,500</text>
+<line class="la" x1="440" y1="130" x2="538" y2="172" marker-end="url(#a5a)"/><text x="440" y="178" class="sm ta">confirm 2,000 here</text>
+</svg></div>
+<figcaption>With a rule that prefers one full delivery, the whole order moves to Bengaluru. With a different rule it could be split: 500 from Chennai and 1,500 from Bengaluru.</figcaption>
+</figure>
+
+<h2>Two kinds of alternative</h2>
+<dl>
+<dt>Plant substitution</dt>
+<dd>Same product, different plant or depot.</dd>
+<dt>Product substitution</dt>
+<dd>Different product, for example the new pack that replaces an old one, or the same vest under a new article number. Which product may replace which is kept as substitution master data.</dd>
+</dl>
+<p>Newer releases can combine both: another product from another plant.</p>
+
+<h2>The two decisions you configure</h2>
+<dl>
+<dt>1. Who gets alternatives (alternative control)</dt>
+<dd>Not every order should be allowed to switch plant. You use characteristics to say which ones may: for example only modern trade customers, or only certain product groups.</dd>
+<dt>2. How to choose between alternatives (substitution strategy)</dt>
+<dd>The rule for picking a winner. Examples: prefer the asked plant if it can deliver in full; otherwise prefer the plant that can deliver everything on time; otherwise split across as few plants as possible.</dd>
+</dl>
+
+<h2>What the user sees</h2>
+<ul>
+<li>If the whole line moves, the plant on the order line changes.</li>
+<li>If the line is split, the system creates sub-items under the main line, one for each plant, each with its own quantity and date.</li>
+<li>Every alternative is checked fully: availability, protection and allocation all apply in the other plant too.</li>
+</ul>
+
+<div class="box care"><b>Check these before you switch it on in India</b>
+<ul>
+<li><b>GST:</b> the delivering plant decides the tax. Chennai to a Tamil Nadu customer is CGST and SGST. Bengaluru to the same customer is IGST. Pricing and invoicing must handle both.</li>
+<li><b>Freight:</b> a farther depot costs more. Decide who pays.</li>
+<li><b>Master data:</b> the product must be set up in every alternative plant, with shipping point and route determination working from there.</li>
+<li><b>Customer rules:</b> some customers accept only one delivery, or only from one depot.</li>
+</ul></div>
+
+<h2>Setup steps (apps)</h2>
+<ol>
+<li>List which plants may stand in for which, and for which customers. Agree it with sales and logistics.</li>
+<li><b>Configure Substitution Strategy</b> (F2699): define how alternatives are found and ranked.</li>
+<li><b>Configure Alternative Control</b> (F2698): say which orders use which strategy, by characteristic values.</li>
+<li>Newer releases also offer <b>Manage Characteristic Combinations</b> (F5303) and <b>Configure Alternative Determination</b> (F5354) for finer rules.</li>
+<li>Test with orders that should switch and orders that should not.</li>
+</ol>
+<p>App names and options differ a little between releases. Check what your system has.</p>
+<h2>Go deeper: configuration</h2>
+<p class="deepnote">Hands-on level, following S/4HANA 2023. This part of AATP has changed most between releases, so compare with your system. Open each section when you are ready.</p>
+
+<details class="deep"><summary>Customising and prerequisites</summary><div>
+<div class="tw"><table>
+<tr><th>Point</th><th>Detail</th></tr>
+<tr><td>Order types</td><td>Works for normal sales orders (document category C). Not for higher-level items such as free goods main items or sales BOM headers.</td></tr>
+<tr><td>Item categories for sub-items (on-premise)</td><td>SD &gt; Sales &gt; Sales Documents &gt; Sales Document Item &gt; Assign Item Categories. For your order type and item category group, entries with usage ABC0 to ABC2 must exist, so the system can create the main item and its sub-items. SAP's standard example is TAPA for the main item and TAN for sub-items.</td></tr>
+<tr><td>Pricing and billing of sub-items</td><td>Decide which level carries price and tax. Test the invoice.</td></tr>
+<tr><td>Product in every alternative plant</td><td>Sales and plant views, checking group with AATP active, shipping point and route determination</td></tr>
+<tr><td>Characteristic catalog</td><td>Fields for the control rules are in the Alternative-Based Confirmation catalog</td></tr>
+<tr><td>Substitution master data</td><td>For product substitution: which product replaces which, with validity, kept in the substitution apps. For plant substitution: the list of allowed plants.</td></tr>
+</table></div>
+</div></details>
+
+<details class="deep"><summary>App walkthrough 1: Configure Substitution Strategy (F2699)</summary><div>
+<div class="tw"><table>
+<tr><th>Field</th><th>What it means</th><th>Example: strategy DEPOT_SWITCH</th></tr>
+<tr><td>Name and description</td><td></td><td>"Nearest depot with stock"</td></tr>
+<tr><td>Substitution item type</td><td><b>Inline</b>: the plant is changed on the same line; only one plant, only plant substitution. <b>Sub-item</b>: the line gets sub-items, needed for splits and product substitution. Or allow both.</td><td>Allow both</td></tr>
+<tr><td>Remaining open quantity</td><td>Where any unconfirmed rest stays: on the original plant or product, or on the leading substitute</td><td>Original request</td></tr>
+<tr><td>Consider alternatives</td><td>Always; or only for new lines; or only when saved lines are rechecked (change, backorder run)</td><td>Always</td></tr>
+<tr><td>Substitution methods</td><td>What may be replaced and in which order: plant, storage location, product. Each with its source of substitutes.</td><td>1. Plant: 1000, 2000, 3000</td></tr>
+<tr><td>Building rule</td><td>One or more alternative determinations, tried in order. They decide which alternative wins.</td><td>1. Full Confirmation; 2. Maximum Confirmation Earlier</td></tr>
+</table></div>
+<h3>The delivered alternative determinations</h3>
+<div class="tw"><table>
+<tr><th>Name</th><th>What it prefers</th></tr>
+<tr><td>On-Time Confirmation</td><td>Only what can be delivered on the wanted date, as much as possible that day</td></tr>
+<tr><td>Full Confirmation</td><td>The full quantity or nothing. Among equal choices, the smallest delay and the fewest plants.</td></tr>
+<tr><td>Maximum Confirmation Earlier</td><td>The largest quantity as early as possible</td></tr>
+</table></div>
+<p>If the first determination finds nothing, the next one is tried. In <b>Configure Alternative Determination</b> (F5354) you can copy these and add a hard limit such as "maximum delay 3 days".</p>
+</div></details>
+
+<details class="deep"><summary>App walkthrough 2: Configure Alternative Control (F2698)</summary><div>
+<ol>
+<li>Choose the fields that decide who gets alternatives, in order. Example: Sales Organization, Customer Group.</li>
+<li>Add value lines and give each a substitution strategy: 1000 / MT = DEPOT_SWITCH.</li>
+<li>Leave general trade without a line, so those orders stay on their plant.</li>
+<li>Activate.</li>
+</ol>
+<div class="box care"><b>Entry traps</b>
+<ul>
+<li>Some values need the internal key. Order type "OR" is stored as "TA".</li>
+<li>Numeric keys need their full length with leading zeros, for example a ship-to as 0000123456.</li>
+<li>An order must find exactly one strategy. If two lines match, nothing is substituted.</li>
+</ul></div>
+</div></details>
+
+<details class="deep"><summary>Test script</summary><div>
+<p>Prepare: product in plants 1000 (stock 500) and 2000 (stock 3,000). Strategy as above. Control line for customer group MT only.</p>
+<div class="tw"><table>
+<tr><th>No.</th><th>Step</th><th>Expected result</th></tr>
+<tr><td>5.1</td><td>MT customer orders 2,000 from plant 1000</td><td>Confirmed 2,000 from plant 2000</td></tr>
+<tr><td>5.2</td><td>General trade customer orders 2,000 from plant 1000</td><td>500 confirmed in plant 1000; no switch</td></tr>
+<tr><td>5.3</td><td>Change the building rule to Maximum Confirmation Earlier with sub-items; MT orders 3,200</td><td>Sub-items: 500 from 1000 and 2,700 from 2000</td></tr>
+<tr><td>5.4</td><td>Create delivery and invoice for 5.1 to an in-state and an out-of-state customer</td><td>Correct shipping point, correct GST type on each invoice</td></tr>
+<tr><td>5.5</td><td>Put a quota on plant 2000 that is used up; repeat 5.1</td><td>No switch; quota applies in the alternative plant too</td></tr>
+<tr><td>5.6</td><td>Run the backorder variant after stock arrives in plant 1000</td><td>Behaviour follows "Consider alternatives"; the monitor marks plant changes</td></tr>
+</table></div>
+</div></details>
+
+<details class="deep"><summary>Troubleshooting</summary><div>
+<div class="tw"><table>
+<tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
+<tr><td>Nothing is substituted</td><td>Order type or item category not supported; item category usage entries missing; "Consider alternatives" excludes this situation</td><td>Check prerequisites and the strategy</td></tr>
+<tr><td>Control line does not match</td><td>Internal value or leading zeros wrong</td><td>Enter TA for OR; pad numbers to full length</td></tr>
+<tr><td>Still nothing though values are right</td><td>More than one strategy found</td><td>Make the control lines unambiguous</td></tr>
+<tr><td>Product is never replaced</td><td>A hard constraint in the determination forces the original product; or the original is not actually short</td><td>Review Configure Alternative Determination</td></tr>
+<tr><td>Result screen shows no alternatives</td><td>Alternative plant missing master data or its own checks give zero</td><td>Check the product, quota and protection in that plant</td></tr>
+<tr><td>Sub-item quantities look rounded</td><td>The delivery unit on the product's sales view is applied</td><td>Expected; adjust the delivery unit if wrong</td></tr>
+</table></div>
+<p>SAP KBA 3381688 collects frequent questions on this function.</p>
+</div></details>
+
+<div class="quiz" data-quiz="alternatives"></div>
+</section>
+
+<!-- ============================ ARUN ============================ -->
+<section class="ch" id="s-supply-assignment" data-id="supply-assignment" data-title="Supply assignment">
+<p class="eyebrow">Chapter 6</p>
+<h1>Supply Assignment and Release for Delivery</h1>
+<p class="lead">Confirmation says "you will get 400". Assignment says "these exact 400 pieces are yours". Release decides when the order is complete enough to ship.</p>
+
+<div class="box scn"><b>Business scenario</b>
+Distributors book the winter thermal range three months ahead, before it is made. One order has four sizes: 80, 85, 90 and 95, 100 pieces each. Sizes 80 and 85 are in the warehouse. Size 90 comes from production in six days. Size 95 is not planned yet. The warehouse ships the two sizes it has. The distributor is unhappy: half a size range does not sell.</div>
+
+<h2>Confirmation and assignment are different things</h2>
+<div class="tw"><table>
+<tr><th></th><th>Availability check (confirmation)</th><th>Supply assignment</th></tr>
+<tr><td>Looks at</td><td>The total pool: all stock and receipts against all orders</td><td>One order line and one specific supply</td></tr>
+<tr><td>Result</td><td>A quantity and a date</td><td>A fixed link: this stock or this production order belongs to this order line</td></tr>
+<tr><td>How long it holds</td><td>Until someone rechecks</td><td>Until the delivery is made, unless you remove it</td></tr>
+</table></div>
+<p>Supply assignment came from SAP's fashion solutions, where it was called the allocation run. That is why its short name is still ARun.</p>
+
+<figure>
+<div class="sv"><svg class="dg" viewBox="0 0 760 290" role="img" aria-label="Four order lines by size. Sizes 80 and 85 are linked to warehouse stock, size 90 is linked to a production order, size 95 has no supply. Half the order is assigned, so it is not released.">
+<text x="20" y="22" class="bd">Supply</text><text x="470" y="22" class="bd">Order lines, 100 pieces each</text>
+<rect class="bg" x="20" y="34" width="250" height="40" rx="6"/><text x="145" y="59" text-anchor="middle">Warehouse stock, size 80</text>
+<rect class="bg" x="20" y="89" width="250" height="40" rx="6"/><text x="145" y="114" text-anchor="middle">Warehouse stock, size 85</text>
+<rect class="ba" x="20" y="144" width="250" height="40" rx="6"/><text x="145" y="169" text-anchor="middle">Production order, due in 6 days</text>
+<rect class="b ds" x="20" y="199" width="250" height="40" rx="6"/><text x="145" y="224" text-anchor="middle" class="mu">Nothing planned yet</text>
+<rect class="b" x="470" y="34" width="270" height="40" rx="6"/><text x="605" y="59" text-anchor="middle">Size 80</text>
+<rect class="b" x="470" y="89" width="270" height="40" rx="6"/><text x="605" y="114" text-anchor="middle">Size 85</text>
+<rect class="b" x="470" y="144" width="270" height="40" rx="6"/><text x="605" y="169" text-anchor="middle">Size 90</text>
+<rect class="b" x="470" y="199" width="270" height="40" rx="6"/><text x="605" y="224" text-anchor="middle">Size 95</text>
+<line class="la" x1="270" y1="54" x2="470" y2="54"/><text x="370" y="48" text-anchor="middle" class="sm ta">fixed to stock</text>
+<line class="la" x1="270" y1="109" x2="470" y2="109"/><text x="370" y="103" text-anchor="middle" class="sm ta">fixed to stock</text>
+<line class="la ds" x1="270" y1="164" x2="470" y2="164"/><text x="370" y="158" text-anchor="middle" class="sm ta">reserved, not here yet</text>
+<text x="370" y="224" text-anchor="middle" class="sm tw2">no link</text>
+<text x="20" y="270" class="sm">Ready to ship now: 200 of 400 pieces = 50%. Release rule asks for 90%. The order waits.</text>
+</svg></div>
+<figcaption>Stock is tied to the order, but the order is held back until enough of it can ship together.</figcaption>
+</figure>
+
+<h2>How it works</h2>
+<ol>
+<li>The product is marked as relevant for supply assignment in the plant (a field on the product master).</li>
+<li>A <b>supply assignment rule</b> says how supply and orders are matched: which supply types may be used and in what order.</li>
+<li>The assignment runs as part of a backorder run. So the same segments and priorities from Chapter 4 decide who is served first.</li>
+<li>Each order line gets a status. Linked to stock in the warehouse: <b>fixed</b>, ready for delivery. Linked to a future receipt such as a purchase or production order: <b>reserved</b>. Put aside for now: <b>on hold</b>.</li>
+<li>An optional <b>release check</b> looks at how complete the order is. A release rule sets two percentages, one for the whole order and one for each line, for example 90% and 80%. Only orders that pass get a delivery.</li>
+</ol>
+
+<h2>Apps</h2>
+<ul>
+<li><b>Configure Supply Assignment Rules:</b> the matching rules.</li>
+<li><b>Monitor Supply Assignment Runs</b> (F3684) and <b>Monitor Supply Assignment Demand:</b> what the run did.</li>
+<li><b>Supply Demand Overview:</b> supply and demand side by side, with what is assigned.</li>
+<li><b>Adjust Supply Assignment</b> (also called Insight to Action, transaction <code>ARUNITA</code>): assign, unassign, release or block by hand.</li>
+<li><b>Maintain Release Rules:</b> the percentages for the release check.</li>
+</ul>
+
+<div class="box care"><b>Scope note</b>
+Supply assignment belongs to the fashion and vertical business part of S/4HANA. Before proposing it, check that the client's system and licence include it, and that the products are set up for it.</div>
+
+<h2>Release for Delivery</h2>
+<p>This is a separate, simpler tool for the last step before shipping. It does not need supply assignment.</p>
+<div class="box scn"><b>Business scenario</b>
+At 5 pm the dispatch manager learns that a key customer's truck leaves tonight. His order is short by 200. Another order with 200 confirmed is not leaving until next week.</div>
+<ul>
+<li>The <b>Release for Delivery</b> app (F1786) shows the manager all orders that are due, with wanted and confirmed quantities.</li>
+<li>He can move confirmed quantity from one order to another on the screen and see the effect at once.</li>
+<li>When he is satisfied, he releases, and deliveries can be created for those orders.</li>
+<li><b>Configure Order Fulfillment Responsibilities</b> (F2246) decides which products and plants each manager sees.</li>
+</ul>
+<p>Think of backorder processing as the automatic nightly decision, and Release for Delivery as the human correction during the day.</p>
+<h2>Go deeper: configuration</h2>
+<p class="deepnote">Hands-on level, following S/4HANA 2023 with the fashion and vertical business functions. Open each section when you are ready.</p>
+
+<details class="deep"><summary>Setup steps for supply assignment, in order</summary><div>
+<div class="tw"><table>
+<tr><th>No.</th><th>Where</th><th>What to do</th><th>Example</th></tr>
+<tr><td>1</td><td>Product master, plant data</td><td>Mark the product as relevant for supply assignment in the plant</td><td>Thermal vest, plant 1000</td></tr>
+<tr><td>2</td><td>Configure Supply Assignment Rules</td><td>Create a rule: which supply may be used (warehouse stock, purchase orders, production orders, inbound deliveries) and in what order; tick "Release check required" if you want step 6. A rule is mandatory from release 2020.</td><td>Rule SA_WINTER: stock first, then production orders by date; release check required</td></tr>
+<tr><td>3</td><td>Configure BOP Segment</td><td>Segments that pick and sort the orders, as in Chapter 4</td><td>Pre-booked winter orders, by delivery priority then requested date</td></tr>
+<tr><td>4</td><td>Configure BOP Variant</td><td>Execution method = Supply assignment; enter the rule; put segments under strategies</td><td>Variant SA_WINTER_NIGHTLY</td></tr>
+<tr><td>5</td><td>Schedule BOP Run</td><td>Run it. Results: Monitor Supply Assignment Runs (F3684) and Monitor Supply Assignment Demand.</td><td>Nightly</td></tr>
+<tr><td>6</td><td>Maintain Release Rules</td><td>Header fulfilment % (whole order) and item fulfilment % (each line)</td><td>Header 90, item 80</td></tr>
+<tr><td>7</td><td>Release check run</td><td>Runs the release rule over assigned orders. Orders that pass can get a delivery.</td><td>After each assignment run</td></tr>
+<tr><td>8</td><td>Adjust Supply Assignment (<code>ARUNITA</code>)</td><td>Manual corrections: assign, unassign, release, block, also in background</td><td>Daily exceptions</td></tr>
+</table></div>
+<p>The release check is optional. Without it, orders can be delivered as soon as stock is assigned.</p>
+</div></details>
+
+<details class="deep"><summary>App walkthrough: Release for Delivery (F1786)</summary><div>
+<h3>One-time setup</h3>
+<p><b>Configure Order Fulfillment Responsibilities</b> (F2246): create a responsibility for each dispatch manager, with selection criteria such as plant or product group. You can create several in one step. This decides what each manager sees.</p>
+<h3>Daily use</h3>
+<ol>
+<li>Open the app. It lists products in your responsibility that have orders due and not enough supply.</li>
+<li>Open a product. You see the due order lines with wanted and confirmed quantity, and the supply available for the day.</li>
+<li>Change confirmed quantities by typing or with the quick actions, for example confirm from the top of the list. The totals update as you go, so you cannot give out more than exists.</li>
+<li>You can protect a line from further change, or postpone it.</li>
+<li>Choose Release for Delivery. The orders are updated and delivery creation can pick them up.</li>
+</ol>
+</div></details>
+
+<details class="deep"><summary>Test script</summary><div>
+<p>Prepare: order with sizes 80, 85, 90, 95, 100 pieces each. Stock for 80 and 85. Production order for size 90 due in 6 days. Rule and release rule as above.</p>
+<div class="tw"><table>
+<tr><th>No.</th><th>Step</th><th>Expected result</th></tr>
+<tr><td>6.1</td><td>Run the assignment variant</td><td>80 and 85 fixed to stock; 90 reserved against the production order; 95 unassigned</td></tr>
+<tr><td>6.2</td><td>Run the release check</td><td>Order not released (50% ready, 90% needed)</td></tr>
+<tr><td>6.3</td><td>Try to create a delivery</td><td>No delivery for this order</td></tr>
+<tr><td>6.4</td><td>Receive sizes 90 and 95; rerun assignment and release check</td><td>All fixed; order released; delivery can be created</td></tr>
+<tr><td>6.5</td><td>Create a second, later order for size 80 and run again</td><td>It does not take the stock fixed to the first order</td></tr>
+<tr><td>6.6</td><td>In Adjust Supply Assignment, unassign one line by hand</td><td>Stock is free again and visible in Supply Demand Overview</td></tr>
+<tr><td>6.7</td><td>In Release for Delivery, move 50 from one due order to another and release</td><td>Both orders show the new confirmed quantities</td></tr>
+</table></div>
+</div></details>
+
+<details class="deep"><summary>Troubleshooting</summary><div>
+<div class="tw"><table>
+<tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
+<tr><td>Product ignored by the run</td><td>Not marked relevant for supply assignment in that plant</td><td>Set the field on the product</td></tr>
+<tr><td>Variant cannot be saved or run</td><td>No supply assignment rule entered</td><td>Create and enter a rule</td></tr>
+<tr><td>Order assigned but never delivered</td><td>Release check required but not run, or percentages not reached</td><td>Run the release check; review the rule</td></tr>
+<tr><td>Stock shows as free again after the delivery is created</td><td>The delivery's checking rule does not respect the assignment</td><td>Review the scope of check for the delivery rule; see SAP KBA 3682445</td></tr>
+<tr><td>Dispatch manager sees no products in Release for Delivery</td><td>No responsibility set up for that user</td><td>Configure Order Fulfillment Responsibilities</td></tr>
+</table></div>
+</div></details>
+
+<div class="quiz" data-quiz="supply-assignment"></div>
+</section>
+
+<!-- ============================ SBC ============================ -->
+<section class="ch" id="s-supply-creation" data-id="supply-creation" data-title="Supply creation">
+<p class="eyebrow">Chapter 7</p>
+<h1>Supply Creation-Based Confirmation</h1>
+<p class="lead">When stock and planned receipts are not enough, the system plans new production on the spot and confirms the order from that plan.</p>
+
+<div class="box scn"><b>Business scenario</b>
+An institutional buyer orders 1,000 custom-printed vests. Stock is 600. Nothing more is planned. The sales person wants to give a delivery date he can trust for the other 400 while the customer is still on the phone.</div>
+
+<h2>The idea</h2>
+<p>The availability check finds the gap. It then asks the production planning tool (PP/DS, the detailed scheduling part of S/4HANA) a real question: "Can you make 400, and by when?" PP/DS looks at free machine time and at components, and creates a planned order. The sales order is confirmed against that planned order.</p>
+
+<figure>
+<div class="sv"><svg class="dg" viewBox="0 0 760 130" role="img" aria-label="The order is short by 400. Production planning finds capacity and components, creates a planned order ready on day 9, and the remaining 400 are confirmed for day 9.">
+<defs><marker id="a7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+<rect class="b" x="10" y="30" width="160" height="60" rx="6"/><text x="90" y="55" text-anchor="middle" class="bd">Order 1,000</text><text x="90" y="73" text-anchor="middle" class="sm">stock gives 600</text>
+<rect class="bw" x="200" y="30" width="160" height="60" rx="6"/><text x="280" y="55" text-anchor="middle" class="bd">Short by 400</text><text x="280" y="73" text-anchor="middle" class="sm">ask production</text>
+<rect class="ba" x="390" y="30" width="170" height="60" rx="6"/><text x="475" y="55" text-anchor="middle" class="bd">Planning checks</text><text x="475" y="73" text-anchor="middle" class="sm">machines, components</text>
+<rect class="bg" x="590" y="30" width="160" height="60" rx="6"/><text x="670" y="55" text-anchor="middle" class="bd">Planned order</text><text x="670" y="73" text-anchor="middle" class="sm">400 ready on day 9</text>
+<line class="ln" x1="170" y1="60" x2="198" y2="60" marker-end="url(#a7)"/><line class="ln" x1="360" y1="60" x2="388" y2="60" marker-end="url(#a7)"/><line class="ln" x1="560" y1="60" x2="588" y2="60" marker-end="url(#a7)"/>
+<text x="10" y="118" class="sm">Result: 600 confirmed from stock now, 400 confirmed from the new planned order.</text>
+</svg></div>
+<figcaption>The planned order is temporary while the user is in the order. It becomes real when the order is saved.</figcaption>
+</figure>
+
+<h2>How it differs from replenishment lead time</h2>
+<div class="tw"><table>
+<tr><th></th><th>Replenishment lead time (Chapter 1)</th><th>Supply creation-based confirmation</th></tr>
+<tr><td>What it is</td><td>A fixed number of days on the product master</td><td>A real plan made at that moment</td></tr>
+<tr><td>Looks at capacity?</td><td>No</td><td>Yes</td></tr>
+<tr><td>Looks at components?</td><td>No</td><td>Yes</td></tr>
+<tr><td>Creates anything?</td><td>No. It only assumes.</td><td>Yes, a planned order</td></tr>
+<tr><td>How far to trust the date</td><td>Low when the factory is busy</td><td>High</td></tr>
+</table></div>
+
+<h2>Facts to remember</h2>
+<ul>
+<li>It arrived with the 2022 release. It replaces the older "capable-to-promise" function from SAP APO.</li>
+<li>It needs two licences: AATP and PP/DS.</li>
+<li>It is aimed mainly at make-to-order and assemble-to-order businesses, where each order drives production and capacity is the limit.</li>
+<li>It must be activated in customising, and PP/DS must be set up for the product.</li>
+</ul>
+
+<div class="box care"><b>Does an innerwear company need it?</b>
+Usually not for the main business. Standard vests and briefs are made to stock from a forecast and sold from depots. The earlier chapters cover that. It becomes interesting for made-to-order lines such as institutional or private-label orders.</div>
+<h2>Go deeper: configuration</h2>
+<details class="deep"><summary>Setup outline</summary><div>
+<p>This function is mostly a production planning project. The sales consultant needs to know the outline and who to involve.</p>
+<div class="tw"><table>
+<tr><th>No.</th><th>Area</th><th>What is needed</th></tr>
+<tr><td>1</td><td>Licence</td><td>AATP and PP/DS</td></tr>
+<tr><td>2</td><td>AATP customising</td><td>Activate supply creation-based confirmation. Use a checking group with Advanced ATP active and the supply creation option set.</td></tr>
+<tr><td>3</td><td>Check type</td><td>Choose one: the normal availability check followed by supply creation for the shortfall; or a production-planning-based check followed by supply creation</td></tr>
+<tr><td>4</td><td>PP/DS customising</td><td>The delivered heuristic SAP_PP_SBC is available and the strategy profile SAP_SBC is entered in the PP/DS global parameters</td></tr>
+<tr><td>5</td><td>Master data</td><td>Product is planned in PP/DS, with production version, resources with capacity, and components</td></tr>
+<tr><td>6</td><td>Test</td><td>Order with a shortfall; a temporary planned order appears; on save it becomes a real planned order and the order is confirmed against it</td></tr>
+</table></div>
+<div class="tw"><table>
+<tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
+<tr><td>Message that the check is not possible</td><td>Product not set up for PP/DS, or activation incomplete</td><td>Check steps 2 to 5 with the PP consultant</td></tr>
+<tr><td>No planned order is created</td><td>Heuristic not triggered</td><td>Check global parameters; see SAP KBA 3498199</td></tr>
+<tr><td>Date is far out</td><td>No free capacity or a component is missing</td><td>This is the real answer. Review capacity with planning.</td></tr>
+</table></div>
+</div></details>
+
+<div class="quiz" data-quiz="supply-creation"></div>
+</section>
+
+<!-- ============================ TOGETHER ============================ -->
+<section class="ch" id="s-putting-together" data-id="putting-together" data-title="Putting it together">
+<p class="eyebrow">Chapter 8</p>
+<h1>Putting it together</h1>
+<p class="lead">How the parts combine on one order, which part answers which business problem, and how to run an AATP project.</p>
+
+<h2>One order, all the checks</h2>
+<div class="box scn"><b>Business scenario</b>
+Diwali week. The Delhi depot has 10,000 premium briefs. 1,000 are protected for e-commerce. The North region has 3,000 left in this month's quota. A North general trade distributor orders 5,000.</div>
+
+<figure>
+<div class="sv"><svg class="dg" viewBox="0 0 760 220" role="img" aria-label="10,000 in stock, 9,000 after protection for e-commerce, 3,000 after the North quota. 3,000 is confirmed and 2,000 remain open.">
+<text x="10" y="42" class="bd">Stock in Delhi</text><rect class="b" x="230" y="24" width="500" height="28"/><text x="240" y="43" class="sm bd">10,000</text>
+<text x="10" y="88" class="bd">After protection</text><text x="10" y="104" class="sm mu">minus 1,000 for e-commerce</text><rect class="ba" x="230" y="72" width="450" height="28"/><text x="240" y="91" class="sm bd">9,000</text>
+<text x="10" y="138" class="bd">After quota</text><text x="10" y="154" class="sm mu">North has 3,000 left</text><rect class="ba" x="230" y="122" width="150" height="28"/><text x="240" y="141" class="sm bd">3,000</text>
+<text x="10" y="192" class="bd">Confirmed</text><rect class="bg" x="230" y="172" width="150" height="28"/><text x="240" y="191" class="sm bd">3,000</text><rect class="b ds" x="380" y="172" width="100" height="28"/><text x="390" y="191" class="sm">2,000 open</text>
+</svg></div>
+<figcaption>Availability gives 9,000. Allocation gives 3,000. The order gets the lower: 3,000. The other 2,000 wait for the alternative check, next month's quota, or the next backorder run.</figcaption>
+</figure>
+<p>What can happen to the open 2,000:</p>
+<ul>
+<li>If alternatives are allowed, the system tries another depot. The quota still applies there, so in this case it would not help.</li>
+<li>If forward consumption is allowed, the system uses next month's North quota and confirms a date next month.</li>
+<li>If neither, the 2,000 stay unconfirmed. A later backorder run will confirm them when quota or priority allows.</li>
+</ul>
+
+<h2>Which part for which problem</h2>
+<div class="tw"><table>
+<tr><th>The business says</th><th>Use</th></tr>
+<tr><td>"Orders are confirmed but stock is never there."</td><td>Availability check: review scope of check and replenishment lead time</td></tr>
+<tr><td>"One big customer takes everything."</td><td>Product Allocation</td></tr>
+<tr><td>"This channel must always find stock."</td><td>Supply Protection</td></tr>
+<tr><td>"Important orders that come late get nothing."</td><td>Backorder Processing</td></tr>
+<tr><td>"Stock is in the next depot but the order shows short."</td><td>Alternative-Based Confirmation</td></tr>
+<tr><td>"We ship half size ranges." / "Pre-booked orders lose their stock."</td><td>Supply Assignment with release check</td></tr>
+<tr><td>"Dispatch needs to shift stock between orders at the last minute."</td><td>Release for Delivery</td></tr>
+<tr><td>"We need a trustworthy date for made-to-order items."</td><td>Supply Creation-Based Confirmation</td></tr>
+</table></div>
+
+<h2>How to run an AATP project</h2>
+<ol>
+<li><b>Licence and scope.</b> Confirm the AATP licence. For supply assignment and supply creation, confirm those too.</li>
+<li><b>Pick the products.</b> Start with the products that are often short. Give them a new checking group with AATP active.</li>
+<li><b>Fix the basics.</b> Clean scope of check, lead times, routes and shipping point times. Advanced features cannot repair a wrong basic check.</li>
+<li><b>Get the priority rules in writing.</b> Who is a key account? Which channel comes first? Who decides quotas each month? This is a business decision, not an SAP one.</li>
+<li><b>Build in this order:</b> availability check, backorder processing, then allocation or protection, then alternatives. Each step is useful by itself.</li>
+<li><b>Simulate.</b> Run backorder processing in simulation with real orders and walk through the monitor with the sales head.</li>
+<li><b>Name the owners.</b> Someone must maintain quotas and protected quantities every cycle and read the backorder monitor every morning.</li>
+<li><b>Train the order desk</b> to read Review Availability Check Result, so they can explain a confirmation to a customer.</li>
+</ol>
+
+<div class="box care"><b>What goes wrong most often</b>
+<ul>
+<li>Old quotas and protections left active after the shortage ends.</li>
+<li>Rules too detailed for anyone to maintain.</li>
+<li>Nobody tells customers when the backorder run takes their confirmation away.</li>
+<li>Plant substitution switched on without checking GST and freight.</li>
+<li>Old rescheduling jobs left running, doing nothing for AATP products.</li>
+</ul></div>
+<p>Three pages are always open in the chapter list: the <a href="#worked-example">Worked example</a> (one full build with expected results), the <a href="#project-kit">Project kit</a> (workshop questions, design decisions, cutover and go-live checklist) and the <a href="#reference">Reference</a> (every app, transaction and term).</p>
+<div class="quiz" data-quiz="putting-together"></div>
+</section>
+
+<!-- ============================ FINAL EXAM ============================ -->
+<section class="ch" id="s-final-exam" data-id="final-exam" data-title="Final exam">
+<p class="eyebrow">After chapter 8</p>
+<h1>Final exam</h1>
+<p class="lead">New questions on the whole course. Part A is about business situations. Part B is about configuration and setup. None of them repeat the chapter tests.</p>
+<div class="box"><b>Before you begin</b>
+<ul>
+<li>Allow about 90 minutes. Answer every question, then check your answers once at the end.</li>
+<li>The pass mark is 70%.</li>
+<li>If you do not pass, you see which answers were wrong but not the right ones. Go back to those chapters and try again.</li>
+<li>Do not close or reload the page before checking. Selected answers are not saved until you check.</li>
+</ul></div>
+<div class="quiz" data-quiz="final-exam"></div>
+</section>
+
+<!-- ============================ WORKED EXAMPLE ============================ -->
+<section class="ch" id="s-worked-example" data-id="worked-example" data-title="Worked example">
+<p class="eyebrow">Always open</p>
+<h1>Worked example: from zero to a tested order</h1>
+<p class="lead">One complete build. Follow it in a sandbox system, in this order, and you will have used the availability check, a quota, protection and a backorder run together.</p>
+
+<h2>The case</h2>
+<div class="box scn"><b>Business scenario</b>
+Comfort Innerwear sells the premium brief PB-100 from its Delhi depot (plant 1000, sales organisation 1000). Diwali demand is far above supply. The sales head wants three rules: each region gets a fixed monthly share; e-commerce always finds 1,000 pieces a week; key modern trade accounts are served before everyone else, and blocked customers lose their stock.</div>
+<div class="tw"><table>
+<tr><th>Customer</th><th>Type</th><th>Channel</th><th>Customer group</th><th>Region</th></tr>
+<tr><td>D-NORTH</td><td>Distributor</td><td>10</td><td>GT</td><td>North</td></tr>
+<tr><td>D-SOUTH</td><td>Distributor</td><td>10</td><td>GT</td><td>South</td></tr>
+<tr><td>D-EAST</td><td>Distributor</td><td>10</td><td>GT</td><td>East</td></tr>
+<tr><td>D-WEST</td><td>Distributor</td><td>10</td><td>GT</td><td>West</td></tr>
+<tr><td>MT-01</td><td>Modern trade key account</td><td>20</td><td>MT</td><td>North</td></tr>
+<tr><td>EC-01</td><td>E-commerce site</td><td>30</td><td>EC</td><td>West</td></tr>
+</table></div>
+<p>Starting stock of PB-100 in plant 1000: <b>10,000</b>. No receipts planned.</p>
+
+<h2>Part A. Build</h2>
+<div class="tw"><table>
+<tr><th>No.</th><th>Where</th><th>Entries</th></tr>
+<tr><td>A1</td><td>Define Availability Check Group (<code>OVZ2</code>)</td><td>New group Z1 "AATP finished goods": TotalSales A, TotDlvReqs A, Block QtRq ticked, Advanced ATP Active</td></tr>
+<tr><td>A2</td><td>Configure Scope of Availability Check (<code>OVZ9</code>)</td><td>Z1 / A and Z1 / B: sales requirements, deliveries, released production orders and purchase orders included; "Check without RLT" ticked; supply protection option ticked</td></tr>
+<tr><td>A3</td><td>Requirement class (<code>OVZG</code>) and schedule line category (<code>VOV6</code>)</td><td>Availability, requirement transfer and product allocation ticked for the class and category your standard order uses</td></tr>
+<tr><td>A4</td><td>Product PB-100, plant 1000, MRP 3</td><td>Availability check = Z1</td></tr>
+<tr><td>A5</td><td>Manage Characteristic Catalogs</td><td>Product Allocation catalog: Sales Organization, Region. Supply Protection catalog: Distribution Channel. Backorder Processing catalog: Customer Group, Sold-to Party, Requested Delivery Date, Creation Date.</td></tr>
+<tr><td>A6</td><td>Activate Product Allocation (customising)</td><td>Activate = Yes; check date = requested delivery date</td></tr>
+<tr><td>A7</td><td>Configure Product Allocation</td><td>Object PAL_PB100_REGION: unit PC, period Month, sales orders, no collective allocation, characteristics Sales Organization + Region</td></tr>
+<tr><td>A8</td><td>Manage Product Allocation Planning Data</td><td>This month: 1000/North 3,000; 1000/South 3,000; 1000/West 2,000; 1000/East 2,000. Status restricted availability.</td></tr>
+<tr><td>A9</td><td>Manage Product Allocation Sequences</td><td>Sequence SEQ_PB100: backward 0, forward 0; group 10; one constraint with PAL_PB100_REGION, rate 1.0, valid this month and next</td></tr>
+<tr><td>A10</td><td>Assign Product to Product Allocation</td><td>PB-100, plant 1000, valid this month and next. Then set the object to active.</td></tr>
+<tr><td>A11</td><td>Manage Supply Protection</td><td>Object SUP_PB100_ECOM: PB-100, plant 1000, period Week, consumption by requested delivery date, characteristic Distribution Channel; group priority 1, value 30, protected 1,000 this week. Activate.</td></tr>
+<tr><td>A12</td><td>Configure BOP Segment</td><td>KEY_MT: Customer Group = MT, sort by requested date. BLOCKED: Sold-to Party = D-NORTH (in real life, use the credit status). ALL_OTHER: Customer Group is GT or EC, with exclusion Sold-to Party = D-NORTH, sort by requested date then creation date.</td></tr>
+<tr><td>A13</td><td>Configure BOP Variant</td><td>DIWALI_PB100: sales orders; availability check; Win = KEY_MT; Redistribute = ALL_OTHER; Lose = BLOCKED</td></tr>
+</table></div>
+<div class="box care"><b>Why the exclusion in A12</b>
+Without it, D-NORTH's order would match both ALL_OTHER and BLOCKED. Design segments so that every order has one clear home.</div>
+
+<h2>Part B. Test, in this exact order</h2>
+<p>All orders ask for delivery this week, part deliveries allowed. Check each result in Review Availability Check Result before saving.</p>
+<div class="tw"><table>
+<tr><th>No.</th><th>Order</th><th>Asked</th><th>Expected</th><th>Why</th></tr>
+<tr><td>B1</td><td>D-NORTH</td><td class="n">5,000</td><td class="n">3,000</td><td>Availability 9,000 (10,000 less 1,000 protected). North quota 3,000. Lower wins.</td></tr>
+<tr><td>B2</td><td>EC-01</td><td class="n">800</td><td class="n">800</td><td>Uses 800 of the protection (200 left) and 800 of the West quota (1,200 left)</td></tr>
+<tr><td>B3</td><td>D-SOUTH</td><td class="n">3,000</td><td class="n">3,000</td><td>Stock and South quota both allow it</td></tr>
+<tr><td>B4</td><td>D-EAST</td><td class="n">2,000</td><td class="n">2,000</td><td>Stock and East quota both allow it</td></tr>
+<tr><td>B5</td><td>D-WEST</td><td class="n">1,200</td><td class="n">1,000</td><td>West quota has 1,200 left, but stock is the limit now: 10,000 less 8,800 confirmed = 1,200, less 200 still protected = 1,000</td></tr>
+<tr><td>B6</td><td>MT-01</td><td class="n">2,500</td><td class="n">0</td><td>North quota was used up by D-NORTH. This is the problem the backorder run will solve.</td></tr>
+</table></div>
+<p>Checkpoint. Product Allocation Overview should show: North 3,000 of 3,000 used; South 3,000 of 3,000; East 2,000 of 2,000; West 1,800 of 2,000. The protection object should show 800 consumed.</p>
+
+<h3>B7. The backorder run</h3>
+<p>Run DIWALI_PB100 in simulation, check the monitor, then run it for real.</p>
+<div class="tw"><table>
+<tr><th>Order</th><th>Strategy</th><th>Before</th><th>After</th><th>Why</th></tr>
+<tr><td>D-NORTH</td><td>Lose</td><td class="n">3,000</td><td class="n">0</td><td>Gives up stock and North quota</td></tr>
+<tr><td>MT-01</td><td>Win</td><td class="n">0</td><td class="n">2,500</td><td>Served first; North quota is free again</td></tr>
+<tr><td>EC-01</td><td>Redistribute</td><td class="n">800</td><td class="n">800</td><td>Nothing to change</td></tr>
+<tr><td>D-SOUTH</td><td>Redistribute</td><td class="n">3,000</td><td class="n">3,000</td><td>Already full</td></tr>
+<tr><td>D-EAST</td><td>Redistribute</td><td class="n">2,000</td><td class="n">2,000</td><td>Already full</td></tr>
+<tr><td>D-WEST</td><td>Redistribute</td><td class="n">1,000</td><td class="n">1,200</td><td>Stock is free now (500 after protection); West quota has 200 left; it gets the missing 200</td></tr>
+</table></div>
+<p>End state: 9,500 confirmed, 500 free, of which 200 are still held for e-commerce. North quota shows 2,500 of 3,000 used.</p>
+
+<h2>Part C. What to show the client</h2>
+<ol>
+<li>B1 on the result screen: one order, two checks, the lower result wins.</li>
+<li>B5: a customer inside his quota still limited by protected stock.</li>
+<li>B6 and B7 together: the key account that came late, and how the night run corrects it without anyone touching an order.</li>
+<li>The monitor after B7: who gained, who lost. Ask the sales head who will call D-NORTH.</li>
+</ol>
+
+<h2>Part D. Try these changes yourself</h2>
+<ul>
+<li>Set forward consumption to 1 and repeat B1. What happens to the other 2,000, and on which date?</li>
+<li>Move ALL_OTHER from Redistribute to Fill and rerun B7. What changes for D-WEST?</li>
+<li>Let the protection week end and rerun the check for a general trade order.</li>
+<li>Add a second depot with stock and an alternative strategy for customer group MT only.</li>
+</ul>
+</section>
+
+<!-- ============================ PROJECT KIT ============================ -->
+<section class="ch" id="s-project-kit" data-id="project-kit" data-title="Project kit">
+<p class="eyebrow">Always open</p>
+<h1>Project kit</h1>
+<p class="lead">What to ask the client, what to decide, how to cut over and what to tick off before go-live.</p>
+
+<h2>Workshop questions for the client</h2>
+<details class="deep" open><summary>Today's situation</summary><div>
+<ul>
+<li>Which products are regularly short? In which months?</li>
+<li>How do you decide today who gets short stock? Who makes that call?</li>
+<li>How often are orders confirmed and then not delivered on the date? Do you measure it?</li>
+<li>Do you run any rescheduling job today? Does anyone trust its result?</li>
+<li>How do customers learn that a date has moved?</li>
+</ul></div></details>
+<details class="deep"><summary>Availability check</summary><div>
+<ul>
+<li>Should stock in quality inspection count as available? How often does it fail?</li>
+<li>Should planned production count, or only released production orders?</li>
+<li>Do you promise from a lead time when nothing is planned? Should you?</li>
+<li>Are transit times per route and handling times per depot correct in the system?</li>
+<li>Which customers accept part deliveries? Which insist on complete orders?</li>
+<li>Is stock promised by depot, or by storage location inside the depot?</li>
+</ul></div></details>
+<details class="deep"><summary>Sharing rules: quota and protection</summary><div>
+<ul>
+<li>By what do you want to share: region, channel, customer group, single customers?</li>
+<li>Is the rule "at most" for a group (quota) or "at least" for a group (protection)?</li>
+<li>Monthly or weekly numbers? Who sets them, from which plan, and by which day?</li>
+<li>May a group use quota it did not use last month? May it borrow from next month?</li>
+<li>What should a customer outside all rules receive?</li>
+<li>Do contracts with penalties exist for any channel? For what quantity and period?</li>
+<li>When does the shortage end, and who switches the rules off?</li>
+</ul></div></details>
+<details class="deep"><summary>Priorities for the backorder run</summary><div>
+<ul>
+<li>Name the customer groups from most to least important. Is there a written list of key accounts?</li>
+<li>Which orders must never lose a confirmation once given?</li>
+<li>What happens to orders of credit-blocked customers?</li>
+<li>Do stock transfers to depots rank above or below customer orders?</li>
+<li>Inside one group, what decides: delivery date, order date, delivery priority?</li>
+<li>When should the run happen, relative to planning, goods receipts and delivery creation?</li>
+<li>Who reads the result each morning, and who informs customers who lost?</li>
+</ul></div></details>
+<details class="deep"><summary>Alternatives, assignment and release</summary><div>
+<ul>
+<li>Which depots may supply in place of which? For which customers?</li>
+<li>Who pays extra freight? Is the GST difference between states handled in pricing and invoices?</li>
+<li>Which products may replace which? Does the customer need to agree?</li>
+<li>Do you pre-book orders before stock exists? Must their stock be held for them?</li>
+<li>What share of an order must be ready before you ship it?</li>
+<li>Does dispatch need to move stock between orders on the day? Who is allowed to?</li>
+</ul></div></details>
+
+<h2>Design decisions to record</h2>
+<div class="tw"><table>
+<tr><th>Decision</th><th>Options</th><th>How to decide</th></tr>
+<tr><td>Which products go on AATP</td><td>All; only short products; by product group</td><td>Start with short products. Add more after the first month.</td></tr>
+<tr><td>Replenishment lead time</td><td>On; off</td><td>Off for anything that is often short</td></tr>
+<tr><td>Receipts that count</td><td>Released production orders only; plus firmed planned orders; plus purchase orders</td><td>Count only what planning stands behind</td></tr>
+<tr><td>Quota or protection or both</td><td>See Chapter 3 table</td><td>Listen for "at most" and "at least"</td></tr>
+<tr><td>Quota split and period</td><td>Region, channel, customer group; week or month</td><td>The coarsest split the business accepts</td></tr>
+<tr><td>Catch-all quota</td><td>None; manual # line; system-made</td><td>Manual # line unless every value is planned</td></tr>
+<tr><td>Consumption periods</td><td>0 to n backward and forward</td><td>Start with 0 and 0; add only on request</td></tr>
+<tr><td>Check date for quota and protection</td><td>Material availability date; requested delivery date</td><td>The date the business plans by. Use the same for both.</td></tr>
+<tr><td>Segments and strategies</td><td>Seven strategies</td><td>Few orders in Win; most in Redistribute; blocked in Lose</td></tr>
+<tr><td>Exception handling</td><td>Stop product; stop run; fallback variant</td><td>Stop the product and use a fallback</td></tr>
+<tr><td>Run times</td><td>Nightly; plus midday</td><td>After planning and receipts, before delivery creation</td></tr>
+<tr><td>Alternatives</td><td>Off; plant; product; both. Inline or sub-items.</td><td>Only after GST, freight and master data are proven</td></tr>
+<tr><td>Owners</td><td>Named people</td><td>One for quota numbers, one for the morning monitor, one for customer calls</td></tr>
+</table></div>
+
+<h2>Cutover steps</h2>
+<ol>
+<li><b>Transports.</b> Move customising: checking group, scope of check, requirement class and schedule line settings, product allocation activation, item category entries.</li>
+<li><b>App content.</b> Catalogs, allocation objects, sequences, protection objects, segments and variants are created in the apps. Check whether your release can transport or export them. If not, re-create them in production from a written sheet and have a second person check each one.</li>
+<li><b>Roles.</b> Assign the business roles. Test that each named owner can open their apps.</li>
+<li><b>Stop the old jobs.</b> Remove <code>V_V2</code> and similar jobs for the products in scope.</li>
+<li><b>Load numbers.</b> Upload quota planning data and protected quantities for the current and next periods. Nothing is carried over from old allocation data.</li>
+<li><b>Switch the products.</b> Change the checking group on the products, by mass change, at a quiet time. Existing orders keep their old confirmations.</li>
+<li><b>First run in simulation.</b> Run the backorder variant in simulation over all open orders. Review the monitor with the sales head.</li>
+<li><b>First real run.</b> Run it for real. This brings all open orders under the new rules.</li>
+<li><b>Tell customers.</b> Send the list of orders that lost confirmation to the people who will call customers.</li>
+<li><b>Schedule.</b> Set up the recurring jobs.</li>
+</ol>
+<div class="box care"><b>Fallback plan</b>
+If results are wrong on day one, put the products back on the old checking group and stop the new jobs. Orders keep whatever confirmation they have. Product allocation activation itself cannot be reversed, so set all quota lines to unrestricted until the problem is fixed.</div>
+
+<h2>Go-live checklist</h2>
+<div class="tw"><table>
+<tr><th>Area</th><th>Check</th></tr>
+<tr><td>Licence</td><td>AATP licence confirmed in writing; PP/DS and fashion functions too, if used</td></tr>
+<tr><td>Scope</td><td>List of products and plants on AATP signed off</td></tr>
+<tr><td>Basics</td><td>Scope of check reviewed for rule A and B; lead time decision made; routes and shipping point times checked</td></tr>
+<tr><td>Order setup</td><td>Requirement class and schedule line category ticks verified for every order type in scope</td></tr>
+<tr><td>Catalogs</td><td>All needed fields present; unused fields removed</td></tr>
+<tr><td>Quota</td><td>Objects active; products assigned with end dates; numbers loaded for two periods; catch-all decided</td></tr>
+<tr><td>Protection</td><td>Objects active; quantities agreed; review date in the calendar</td></tr>
+<tr><td>Backorder</td><td>Segments do not overlap; variant simulated on real data; fallback variant set; jobs scheduled</td></tr>
+<tr><td>Alternatives</td><td>Invoice with correct GST tested from every alternative plant; freight rule agreed</td></tr>
+<tr><td>Old jobs</td><td>Old rescheduling jobs removed</td></tr>
+<tr><td>Testing</td><td>Every chapter's test script passed in the quality system; the worked example run end to end</td></tr>
+<tr><td>People</td><td>Owners named; order desk trained on the result screen; process for customer calls agreed</td></tr>
+<tr><td>Fallback</td><td>Steps written and tried once in the quality system</td></tr>
+</table></div>
+
+<h2>First two weeks after go-live</h2>
+<ul>
+<li>Read the backorder monitor every morning with the sales head.</li>
+<li>Check quota usage twice a week. Lines at zero with stock sitting are a warning.</li>
+<li>Count orders confirmed but not delivered on the date. It should fall.</li>
+<li>Collect every "why did I get only this much?" question. Each is a training point or a rule to adjust.</li>
+<li>Hold a review at the end of week two and adjust segments, numbers and run times.</li>
+</ul>
+</section>
+
+<!-- ============================ REFERENCE ============================ -->
+<section class="ch" id="s-reference" data-id="reference" data-title="Reference">
+<p class="eyebrow">Always open</p>
+<h1>Reference</h1>
+<p class="lead">Apps, transactions and terms from the whole course.</p>
+
+<h2>Fiori apps</h2>
+<div class="tw"><table>
+<tr><th>Area</th><th>App</th><th>App ID</th><th>Used for</th></tr>
+<tr><td>General</td><td>Review Availability Check Result</td><td class="n">F4719</td><td>Explains a confirmation step by step</td></tr>
+<tr><td>General</td><td>Manage Characteristic Catalogs</td><td class="n">F3829</td><td>Choose the fields rules can use</td></tr>
+<tr><td>General</td><td>Monitor Product Availability</td><td class="n">—</td><td>Availability outside an order (old CO09)</td></tr>
+<tr><td>Allocation</td><td>Configure Product Allocation</td><td class="n">F2119</td><td>Create the allocation object</td></tr>
+<tr><td>Allocation</td><td>Monitor Product Allocation Characteristic Value Combinations</td><td class="n">F3476</td><td>Quota usage as a list</td></tr>
+<tr><td>Allocation</td><td>Monitor Product Allocation Order Items</td><td class="n">F3477</td><td>Which orders used which quota</td></tr>
+<tr><td>Allocation</td><td>Manage Product Allocation Planning Data</td><td class="n">F2121</td><td>Enter quota quantities</td></tr>
+<tr><td>Allocation</td><td>Manage Product Allocation Sequences</td><td class="n">—</td><td>Alternatives and constraints</td></tr>
+<tr><td>Allocation</td><td>Assign Product to Product Allocation</td><td class="n">F2120</td><td>Link product and plant</td></tr>
+<tr><td>Allocation</td><td>Product Allocation Overview</td><td class="n">F3474</td><td>See quota usage</td></tr>
+<tr><td>Protection</td><td>Manage Supply Protection</td><td class="n">F4569</td><td>Protection objects, groups, quantities</td></tr>
+<tr><td>Backorder</td><td>Configure BOP Segment</td><td class="n">F2158</td><td>Filter and sort orders</td></tr>
+<tr><td>Backorder</td><td>Configure BOP Variant</td><td class="n">F2160</td><td>Segments under strategies</td></tr>
+<tr><td>Backorder</td><td>Schedule BOP Run</td><td class="n">F2665</td><td>Run or simulate</td></tr>
+<tr><td>Backorder</td><td>Monitor BOP Run</td><td class="n">F2159</td><td>Read the results</td></tr>
+<tr><td>Backorder</td><td>Configure Custom BOP Sorting</td><td class="n">F2983</td><td>Own sort order of values</td></tr>
+<tr><td>Alternatives</td><td>Configure Alternative Control</td><td class="n">F2698</td><td>Which orders get alternatives</td></tr>
+<tr><td>Alternatives</td><td>Configure Substitution Strategy</td><td class="n">F2699</td><td>How to choose between them</td></tr>
+<tr><td>Alternatives</td><td>Manage Characteristic Combinations</td><td class="n">F5303</td><td>Finer rules (newer releases)</td></tr>
+<tr><td>Alternatives</td><td>Configure Alternative Determination</td><td class="n">F5354</td><td>Finer rules (newer releases)</td></tr>
+<tr><td>Assignment</td><td>Configure Supply Assignment Rules</td><td class="n">—</td><td>How supply and orders match</td></tr>
+<tr><td>Assignment</td><td>Monitor Supply Assignment Runs</td><td class="n">F3684</td><td>Results of a run</td></tr>
+<tr><td>Assignment</td><td>Monitor Supply Assignment Demand</td><td class="n">—</td><td>Assignment per order</td></tr>
+<tr><td>Assignment</td><td>Adjust Supply Assignment (Insight to Action)</td><td class="n">—</td><td>Manual assign, unassign, release</td></tr>
+<tr><td>Release</td><td>Release for Delivery</td><td class="n">F1786</td><td>Manual re-sharing before shipping</td></tr>
+<tr><td>Release</td><td>Configure Order Fulfillment Responsibilities</td><td class="n">F2246</td><td>Who sees which products</td></tr>
+</table></div>
+<p>App names and IDs can change between releases. Search the SAP Fiori Apps Reference Library for your release.</p>
+
+<h2>Transactions</h2>
+<div class="tw"><table>
+<tr><th>Code</th><th>Purpose</th></tr>
+<tr><td class="n">OVZ2</td><td>Define checking groups; switch Advanced ATP to Active</td></tr>
+<tr><td class="n">OVZ9</td><td>Scope of check</td></tr>
+<tr><td class="n">ATP_IMG</td><td>Opens the AATP customising menu</td></tr>
+<tr><td class="n">SFW5</td><td>Check business function S4H_AATP</td></tr>
+<tr><td class="n">OVZG, OVZH, OVZI</td><td>Requirement classes, requirement types and how they are found</td></tr>
+<tr><td class="n">VOV6</td><td>Schedule line categories</td></tr>
+<tr><td class="n">OVLY</td><td>Scheduling by sales document type</td></tr>
+<tr><td class="n">OVLP</td><td>Delivery item categories</td></tr>
+<tr><td class="n">0VTC</td><td>Routes and transit time</td></tr>
+<tr><td class="n">ARUNITA</td><td>Insight to Action for supply assignment</td></tr>
+<tr><td class="n">V_V2, V_RA, CO06</td><td>Old rescheduling and backorder tools. Not usable for AATP products.</td></tr>
+</table></div>
+
+<h2>Glossary</h2>
+<dl>
+<dt>ATP quantity</dt><dd>Stock plus expected receipts minus what is already promised.</dd>
+<dt>Checking group</dt><dd>Field on the product that says how it is checked and whether AATP is on.</dd>
+<dt>Checking rule</dt><dd>Comes from the transaction: A for sales orders, B for deliveries.</dd>
+<dt>Scope of check</dt><dd>The tick-boxes that say which stock, receipts and issues count.</dd>
+<dt>Replenishment lead time</dt><dd>Days to make or buy the product. If on, anything is treated as available after that many days.</dd>
+<dt>Material availability date</dt><dd>The date stock must be ready in the plant so that the delivery date can be met.</dd>
+<dt>Characteristic</dt><dd>An order field used in rules: region, channel, customer group and so on.</dd>
+<dt>Product allocation object</dt><dd>The container for one quota plan.</dd>
+<dt>Backward and forward consumption</dt><dd>Using quota from earlier or later periods.</dd>
+<dt>Supply protection object</dt><dd>Holds protected quantities for a product in a plant.</dd>
+<dt>Segment</dt><dd>A filtered, sorted group of orders in backorder processing.</dd>
+<dt>Variant</dt><dd>The recipe for one backorder run: segments and their strategies.</dd>
+<dt>Confirmation strategy</dt><dd>Win, Gain, Improve, Redistribute, Fill, Lose or Skip.</dd>
+<dt>Alternative control</dt><dd>Decides which orders may use another plant or product.</dd>
+<dt>Substitution strategy</dt><dd>Decides how the system chooses between alternatives.</dd>
+<dt>Supply assignment (ARun)</dt><dd>A fixed link between one supply and one order line.</dd>
+<dt>Release check</dt><dd>Tests whether enough of an order is assigned before a delivery is allowed.</dd>
+<dt>PP/DS</dt><dd>Production Planning and Detailed Scheduling, the planning tool used by supply creation-based confirmation.</dd>
+</dl>
+
+<h2>Short names</h2>
+<div class="tw"><table>
+<tr><th>Short</th><th>Full</th></tr>
+<tr><td>ATP / AATP</td><td>Available-to-Promise / Advanced Available-to-Promise</td></tr>
+<tr><td>PAC</td><td>Product Availability Check</td></tr>
+<tr><td>PAL</td><td>Product Allocation</td></tr>
+<tr><td>SUP</td><td>Supply Protection</td></tr>
+<tr><td>BOP</td><td>Backorder Processing</td></tr>
+<tr><td>ABC</td><td>Alternative-Based Confirmation</td></tr>
+<tr><td>ARun</td><td>Supply Assignment</td></tr>
+<tr><td>RefDy</td><td>Release for Delivery</td></tr>
+<tr><td>SBC</td><td>Supply Creation-Based Confirmation</td></tr>
+</table></div>
+
+<h2>Official sources</h2>
+<ul>
+<li><a href="https://help.sap.com/docs/SAP_S4HANA_ON-PREMISE">SAP Help Portal, S/4HANA</a>: search for "Advanced Available-to-Promise".</li>
+<li><a href="https://learning.sap.com">SAP Learning</a>: free lessons on AATP inside the S/4HANA Sales learning journeys.</li>
+<li><a href="https://fioriappslibrary.hana.ondemand.com">SAP Fiori Apps Reference Library</a>: app details for each release.</li>
+</ul>
+</section>
+</main>
+</div>
+
+<script>
+var ORDER=["start","availability-check","product-allocation","supply-protection","backorder-processing","alternatives","supply-assignment","supply-creation","putting-together"];
+var OPEN=["worked-example","project-kit","reference"];
+var PASS=3;
+/* TRACKING SETUP: paste your pre-filled Microsoft Forms link between the quotes on the next line. */
+var FORM_LINK="";
+var SALT="aatp-course-2026";
+var HIDDEN=["register","verify"];
+var QUIZ={
+"start":[
+{q:"A client on S/4HANA on-premise wants AATP for only 20 fast-moving products. What is the right approach?",o:["Change the sales order type for those products","Create a checking group with Advanced ATP set to Active, assign it to those 20 products, and confirm the licence","Nothing is needed; AATP is always active on-premise","Switch on AATP for the whole client; it cannot be limited"],a:1,w:"AATP is switched on per checking group, so it can be limited to chosen products. On-premise it also needs an additional licence."},
+{q:"Which statement about the licence is correct?",o:["On-premise and private cloud need activation and an additional licence for AATP","AATP is free in every edition","Only public cloud customers can buy AATP","The licence is needed only for the basic availability check"],a:0,w:"On-premise and private cloud: activate it and buy the additional licence. Public cloud always runs the AATP code, with advanced features under the extra licence."},
+{q:"A sales user asks why an order for 1,000 was confirmed for only 300. Where do you look first?",o:["The pricing analysis screen","The Monitor BOP Run app","The Review Availability Check Result app","The customer master"],a:2,w:"Review Availability Check Result shows what each check returned for that order line."},
+{q:"After AATP is switched on for a checking group, the nightly V_V2 rescheduling job no longer improves those products' orders. Why?",o:["The job needs a new variant","V_V2 works only on weekends","The products are now blocked for sales","The old rescheduling tools do not work for AATP products; Backorder Processing must be set up"],a:3,w:"V_V2, V_RA and CO06 cannot be used for products on AATP. Backorder Processing replaces them."}
+],
+"availability-check":[
+{q:"Stock is 600. Production brings 400 on day 5. Another customer holds a confirmed order for 300 due on day 3. Replenishment lead time is off. A new order for 800 arrives today, part deliveries allowed. What is confirmed?",o:["600 today and 200 on day 5","300 today, 400 on day 5, 100 not confirmed","800 on day 5","600 today, 200 not confirmed"],a:1,w:"The 300 promised to the other customer is not free, even though it ships on day 3. Free today: 300. Day 5 adds 400. That makes 700; the last 100 has no supply."},
+{q:"An order for 5,000 was fully confirmed for 20 days ahead. On that day there was no stock and no production had been planned. What is the most likely cause?",o:["The customer's credit limit was too high","Safety stock was included in the check","Replenishment lead time is switched on in the scope of check","Transit time on the route was wrong"],a:2,w:"With replenishment lead time on, the system assumes any quantity can be had after that many days, whether or not anything is planned."},
+{q:"1,000 pieces will clear quality inspection tomorrow, but sales see zero available. The client asks you to make them count. What do you tell them?",o:["It is a scope of check setting; it can be changed, but if goods fail inspection you will have promised stock you cannot ship","It cannot be changed in SAP","Change the customer's partial delivery agreement","Switch off AATP for the product"],a:0,w:"Quality inspection stock is a tick-box in the scope of check. Including it helps availability but carries the risk of promising goods that fail."},
+{q:"Customer wants delivery on the 20th. Transit 3 days, loading 1 day, pick and pack 1 day. Stock is ready only on the 18th. Which delivery date is confirmed?",o:["The 20th","The 21st","The 18th","The 23rd"],a:3,w:"Backward: 20 − 3 − 1 − 1 = stock needed on the 15th, which fails. Forward from the 18th: 18 + 1 + 1 + 3 = the 23rd."}
+],
+"product-allocation":[
+{q:"North's quota is 15,000 a month, with no use of other periods. Stock is 50,000. A North distributor's first order of the month is for 40,000. What is confirmed?",o:["40,000","15,000","50,000","Nothing until the quota is raised"],a:1,w:"Availability says 50,000, allocation says 15,000. The order gets the lower."},
+{q:"Same quota of 15,000, but stock in the plant is only 10,000. A North order asks for 15,000. What is confirmed?",o:["10,000","15,000","5,000","25,000"],a:0,w:"Quota is a ceiling, not a guarantee. Stock is the lower number here."},
+{q:"A key account has its own quota of 5,000. When that is finished, the client wants the account to draw from the general region quota. How do you set this up?",o:["One object with two periods","A sequence with constraints (AND)","Supply protection for the key account","A sequence with alternatives (OR): customer object first, then region object"],a:3,w:"Alternatives let an order draw from one pot after another. Constraints would force it to fit in both at once."},
+{q:"South used only 12,000 of its 15,000 October quota. In November, South's orders exceed the November quota. The client wants the unused 3,000 to be usable. Which setting?",o:["Forward consumption","Replenishment lead time","Backward consumption","A second checking rule"],a:2,w:"Backward consumption lets the system use quota left over from earlier periods."}
+],
+"supply-protection":[
+{q:"Stock is 10,000, with 2,000 protected for e-commerce. A general trade distributor orders 9,000. What is confirmed?",o:["9,000","7,000","8,000","10,000"],a:2,w:"Everyone outside the protected group sees stock minus the protected quantity: 10,000 − 2,000."},
+{q:"Continuing: general trade has now taken the 8,000. E-commerce orders 1,500 and gets it. Then e-commerce orders another 1,000. What is confirmed for that second order?",o:["500","1,000","0","2,000"],a:0,w:"The first e-commerce order used 1,500 of the protected 2,000. Only 500 is left, and there is no open stock."},
+{q:"The client says: \"Modern trade must never take more than 30% of the month's production.\" Which feature fits?",o:["Supply Protection","Product Allocation","Backorder Processing with Lose","Alternative-Based Confirmation"],a:1,w:"\"Never more than\" is a maximum for the group itself. That is a quota. Protection sets a minimum."},
+{q:"General trade orders stay unconfirmed for weeks while 4,000 pieces sit in the warehouse untouched. Supply protection is active. What do you check first?",o:["Whether transit times are too long","Whether the customers are credit blocked","Whether the route is missing","Whether the protected quantity is set too high or was never reviewed"],a:3,w:"Stock held for a group that is not ordering stays invisible to everyone else. Protected quantities need regular review."}
+],
+"backorder-processing":[
+{q:"Stock is 1,000. Before the run: A wants 400, has 0 (Win). B wants 500, has 500 (Redistribute). C wants 300, has 300 (Fill). D wants 200, has 200 (Lose). What does each have after the run?",o:["A 0, B 500, C 300, D 200","A 400, B 300, C 300, D 0","A 400, B 500, C 100, D 0","A 400, B 500, C 0, D 100"],a:2,w:"D loses 200. A is served first with 400. B keeps 500. That uses 900, so C, which cannot gain and is served last, gets the remaining 100."},
+{q:"A customer's confirmed quantity must never go down, you want it to go up when possible, and you want the run to flag it if the confirmation cannot be kept. Which strategy?",o:["Gain","Improve","Fill","Redistribute"],a:0,w:"Gain keeps at least the current confirmation and reports a problem if it cannot. Improve also tries, but may lose quietly."},
+{q:"A planner complains that when production arrives early, order dates never get better. No backorder job exists. Why?",o:["Early receipts are ignored by the scope of check","The orders are in the Fill strategy","Saved orders are never rechecked on their own; a backorder run must be scheduled","Replenishment lead time is switched off"],a:2,w:"A saved order keeps its confirmation until something rechecks it. That is the job of backorder processing."},
+{q:"Before go-live you want to show the sales head what a new variant would do, without changing any order. How?",o:["Run it for one customer only","Run it in simulation and read the result in Monitor BOP Run","Put every segment under Skip","Export the orders to a spreadsheet"],a:1,w:"A simulation run calculates the outcome and shows it in the monitor without updating the orders."}
+],
+"alternatives":[
+{q:"Order for 2,000 asked from Chennai. Chennai has 500, Bengaluru has 3,000. The strategy prefers one full delivery from a single plant. What happens?",o:["500 confirmed from Chennai, rest unconfirmed","2,000 confirmed from Chennai on a later date","The order is rejected","2,000 confirmed from Bengaluru"],a:3,w:"With a rule that prefers full delivery from one plant, the whole line moves to the plant that can do it."},
+{q:"Before allowing plant substitution across states in India, which point needs the most care?",o:["The delivering plant changes the GST type and the freight cost, so pricing and invoicing must handle it","The customer's language key","The number range of the sales order","The colour of the Fiori theme"],a:0,w:"Supply from another state means IGST instead of CGST and SGST, and usually higher freight. The product must also be set up in that plant."},
+{q:"The client wants alternatives offered only to modern trade customers. Where is that decided?",o:["In the scope of check","In alternative control, using a characteristic such as customer group","In the BOP variant","In the product allocation sequence"],a:1,w:"Alternative control uses characteristic values to say which orders may use which substitution strategy."},
+{q:"A line is split: 500 from Chennai and 1,500 from Bengaluru. How does it appear in the order?",o:["Two separate sales orders","One line with two schedule lines in the same plant","Sub-items under the main line, one for each plant","A line with a delivery block"],a:2,w:"A split across plants creates sub-items, each with its own plant, quantity and date."}
+],
+"supply-assignment":[
+{q:"What is the main difference between a confirmation and a supply assignment?",o:["They are the same thing with different names","A confirmation is a quantity and date from the total pool; an assignment ties one specific supply to one order line until delivery","An assignment is only for purchase orders","A confirmation can never change"],a:1,w:"Confirmation works on the pool. Assignment creates a fixed link between a particular stock or receipt and a particular order line."},
+{q:"An order has four sizes, 100 each. Two sizes are assigned to warehouse stock. The release rule needs 90% for the whole order. What happens?",o:["A delivery is created for the two sizes","The order is cancelled","The other two sizes are substituted","No delivery yet: only 50% is ready, so the order is held"],a:3,w:"200 of 400 is 50%, below the 90% needed. The release check holds the order."},
+{q:"The backorder variant and assignment rule look right, but one product is never picked up by the assignment run. What do you check?",o:["Whether the product is marked as relevant for supply assignment in that plant","Whether the customer has a quota","Whether the route has a transit time","Whether the product has a batch"],a:0,w:"Only products flagged as relevant for supply assignment in the plant take part."},
+{q:"At 5 pm the dispatch manager wants to move 200 confirmed pieces from an order leaving next week to one leaving tonight. Which tool?",o:["Configure BOP Segment","Manage Product Allocation Planning Data","Release for Delivery","Scope of check"],a:2,w:"Release for Delivery lets a manager shift confirmed quantity between due orders by hand and then release them."}
+],
+"supply-creation":[
+{q:"How does supply creation-based confirmation differ from replenishment lead time?",o:["There is no difference","It makes a real production plan that looks at capacity and components; lead time is only a fixed number of days","It ignores stock","It works only for purchased goods"],a:1,w:"Lead time assumes. Supply creation asks PP/DS to plan and creates a planned order."},
+{q:"What must the client have to use it?",o:["Only the standard S/4HANA licence","A product allocation object","Supply protection for every product","Both the AATP licence and the PP/DS licence, with PP/DS set up for the product"],a:3,w:"It joins AATP and PP/DS, so both are needed."},
+{q:"Which business is the best fit?",o:["A make-to-order manufacturer where each order drives production and capacity is the limit","A trader that only resells purchased stock","A depot selling standard items from stock","A service company"],a:0,w:"It is aimed at make-to-order and assemble-to-order, where the date depends on what the factory can do."},
+{q:"Order for 1,000. Stock 600. Supply creation is active and PP/DS finds capacity and components to finish 400 on day 9. What is the result?",o:["1,000 confirmed today","Nothing confirmed","600 confirmed from stock and 400 confirmed against a new planned order for day 9","600 confirmed and 400 rejected"],a:2,w:"The gap is covered by a planned order that PP/DS creates, and the order is confirmed against it."}
+],
+"putting-together":[
+{q:"Depot stock 10,000. 1,000 protected for e-commerce. North has 3,000 quota left. A North general trade order asks for 5,000. What is confirmed?",o:["5,000","9,000","4,000","3,000"],a:3,w:"Availability after protection is 9,000. Allocation allows 3,000. The lower wins."},
+{q:"\"Key account orders that arrive late should take stock from small orders overnight.\" Which part?",o:["Backorder Processing","Supply Protection","Product Allocation","Supply Creation-Based Confirmation"],a:0,w:"Re-sharing existing confirmations by priority is what the backorder run does."},
+{q:"\"The next depot has stock, but the order shows short and nobody notices.\" Which part?",o:["Replenishment lead time","Alternative-Based Confirmation","Release check","Product Allocation"],a:1,w:"Alternative-based confirmation checks other plants automatically."},
+{q:"What should be settled before any configuration starts?",o:["The colour of the launchpad tiles","The number of BOP segments","The licence, the products in scope, and the business priority rules in writing","The names of the Fiori roles"],a:2,w:"Licence and scope decide what is possible. The priority rules are a business decision that every later setting depends on."}
+]
+};
+
+
+var EXAM_ID="final-exam";
+var EXAM=[
+{h:"Part A. Business process",q:"PB-100 uses checking group Z1 (AATP active) in the Delhi plant but still has the old group in the Chennai plant. A customer orders from Chennai. Which check runs?",o:["AATP, because the product is on AATP","The classic check, because the checking group is set for each plant","No check at all","Both checks, and the lower result wins"],a:1,w:"The checking group sits on the product's plant data, so each plant decides for itself."},
+{q:"A customer says: send everything together, no part shipments. The full quantity will be available in 6 days. Which result should the user accept?",o:["One-time delivery","Complete delivery","Delivery proposal","Reject the order"],a:1,w:"Complete delivery confirms the whole quantity on the first date it is all available."},
+{q:"A customer says: send whatever you have on my date, I do not need the rest. Which result fits?",o:["One-time delivery","Complete delivery","Delivery proposal","Backorder processing"],a:0,w:"One-time delivery confirms what is available on the wanted date and nothing later."},
+{q:"Planning has a planned order for 2,000 that may still move, and a released production order for 500. The business wants to promise only what is reliable. What should the check count?",o:["Both, to promise as much as possible","Only the planned order","Only the released production order","Neither; only stock in hand ever counts"],a:2,w:"A released production order is firm. A planned order is still only a plan."},
+{q:"An order was confirmed against a production order due tomorrow. Today the warehouse cannot create the delivery. Nothing is broken. Why?",o:["The customer is on credit block","The quota is used up","Backorder processing removed the confirmation","The delivery is checked with a stricter rule that counts only goods really in stock"],a:3,w:"Orders use rule A and deliveries rule B. Rule B normally ignores receipts that have not arrived."},
+{q:"The sales head says: the North quota of 15,000 guarantees that North will get 15,000. Is that right?",o:["No. A quota is only a ceiling. A guarantee needs supply protection.","Yes. A quota reserves stock for the region.","Yes, as long as backward consumption is on","No. A quota only works for stock transfer orders."],a:0,w:"Quota limits a group. It holds nothing back from others. Protection does that."},
+{q:"North's October quota is used up. Forward consumption is 1 period. A North order asks for delivery in October. What happens?",o:["Nothing is confirmed","It is confirmed from November's quota, with a date in November","It is confirmed in October from another region's quota","It is confirmed in October and North's quota goes negative"],a:1,w:"Forward consumption borrows from the next period, and the confirmed date moves into that period."},
+{q:"Consumption periods are 0 backward and 0 forward. East used 6,000 of its 10,000 October quota. What happens to the other 4,000 on 1 November?",o:["It is added to East's November quota","It is shared among the other regions","It is no longer usable","It becomes protected stock"],a:2,w:"With no consumption periods each month stands alone."},
+{q:"A sequence group holds two constraints: a region quota and a channel quota. The region has 500 left and the channel has 200 left. Stock is plentiful. An order asks for 400. What is confirmed?",o:["400","500","700","200"],a:3,w:"Constraints in one group must all be met, so the smallest remaining quota decides."},
+{q:"A new distributor in a region that has no quota line orders 1,000. The allocation object has no collective allocation. What is confirmed?",o:["Nothing","1,000, because no quota applies to him","Whatever stock allows","The average of the other regions"],a:0,w:"Without a matching line and without a catch-all line there is no quota to draw from."},
+{q:"Three products are assigned to one allocation object that gives North 15,000. How much can North order?",o:["15,000 of each product","15,000 in total across the three products","45,000 of any one product","5,000 of each product, fixed"],a:1,w:"The planned numbers belong to the object. Every product assigned to it draws from the same pot."},
+{q:"E-commerce has 2,000 protected. Open stock is 3,000 and nobody else has ordered. E-commerce orders 4,000. What is confirmed?",o:["2,000","3,000","4,000","5,000"],a:2,w:"The protected group uses its protection first and can then take open stock."},
+{q:"One protection object ranks e-commerce as priority 1 with 1,000 and modern trade as priority 2 with 1,000. Stock is 2,000. E-commerce orders 1,800. What is confirmed?",o:["1,000","0","800","1,800"],a:3,w:"A higher-priority group may use stock protected for lower groups."},
+{q:"Protection without ranking: group A has 1,000 and group B has 1,000. Stock is 3,000. Group A orders 2,500. What is confirmed?",o:["2,000","2,500","1,000","3,000"],a:0,w:"A must leave B's 1,000 untouched: 3,000 less 1,000."},
+{q:"A weekly protection period ended yesterday with 700 pieces never ordered by the protected group. What happens to them?",o:["They stay protected until someone deletes the object","They become free for everyone","They are moved to next week's protection","They are scrapped in the system"],a:1,w:"Unused protection expires when its period ends."},
+{q:"E-commerce has 2,000 protected this week. A stock transfer order to another depot asks for all 10,000 pieces. What does it get?",o:["10,000, because transfers ignore protection","Nothing","8,000","2,000"],a:2,w:"Stock transfer orders respect protection like sales orders."},
+{q:"How do protection and quota work together on one order?",o:["Only the one created first applies","Quota is checked and protection is ignored","They cannot be active for the same product","Protection lowers what is available to others, quota then caps the result; the order gets the lower figure"],a:3,w:"Both apply. The order receives the smaller of the two results."},
+{q:"The sales head wants good customers helped when possible, but no alarm and no stopped run if they lose stock to key accounts. Which strategy?",o:["Improve","Gain","Win","Skip"],a:0,w:"Improve tries to keep and better the confirmation, may lose, and raises no exception."},
+{q:"A small retailer's order under Fill dropped from 300 to 100 last night. Today 500 pieces arrived. What does tonight's run do for it?",o:["Raises it back to 300","Leaves it at 100","Raises it to 600","Deletes it"],a:1,w:"Fill never gains, even when stock is free."},
+{q:"Free sample orders must keep exactly the confirmation they have, whatever else happens. Which strategy?",o:["Lose","Fill","Skip","Win"],a:2,w:"Skip leaves the orders out of the run."},
+{q:"Which strategy suits the bulk of normal orders, where the system may move confirmations up or down?",o:["Win","Gain","Lose","Redistribute"],a:3,w:"Redistribute can end better, the same or worse."},
+{q:"After go-live, sales moves 60% of all orders into the Win segment. What is the likely result?",o:["Many exceptions and no real priority, because Win orders compete for the same stock","All of them are confirmed in full","The run becomes faster","Quota no longer applies"],a:0,w:"Win demands full confirmation. If most orders are Win, many cannot be met."},
+{q:"When should the nightly backorder run be placed?",o:["Before the planning run","After planning and goods receipts, before delivery creation","After delivery creation","Only at month end"],a:1,w:"It should see the newest supply and finish before the warehouse starts picking."},
+{q:"The morning monitor shows 40 order lines that lost their confirmation. What must happen next?",o:["Nothing; the system informs customers","Rerun until the lines come back","A named person passes the list to those who call the customers","Delete those orders"],a:2,w:"The system changes the order. People must tell the customer."},
+{q:"A modern trade customer accepts only one shipment from one depot. How should alternatives be set for him?",o:["Split across as many depots as needed","Product substitution only","No availability check","A rule that confirms the full quantity from a single plant, with no split"],a:3,w:"The Full Confirmation rule gives all or nothing from one plant."},
+{q:"An old 3-piece pack is replaced by a new pack with a new article number. Old stock runs out. What lets orders for the old pack be confirmed with the new one?",o:["Product substitution in alternative-based confirmation","Forward consumption","Supply protection","A higher quota"],a:0,w:"Product substitution replaces one product with another that is listed as its substitute."},
+{q:"Chennai is short. Bengaluru has stock, but the customer's quota for this product is used up. Alternatives are active. What happens?",o:["The order switches to Bengaluru in full","No switch; the quota applies in the alternative plant too","The quota is ignored for alternatives","The order is split equally"],a:1,w:"Every alternative runs through the full set of checks."},
+{q:"Before depots are switched automatically, which question belongs to the business and not to the system?",o:["Which table stores the plant","How the hash of the order is built","Who pays the extra freight, and whether customers accept another depot","Which Fiori theme to use"],a:2,w:"Freight and customer acceptance are commercial decisions."},
+{q:"In supply assignment, an order line is linked to a production order that has not been received yet. What is its status?",o:["Fixed","On hold","Released","Reserved"],a:3,w:"A link to future supply is reserved. A link to warehouse stock is fixed."},
+{q:"What does the status fixed mean in supply assignment?",o:["The line is tied to stock in the warehouse and is ready for delivery","The price can no longer change","The order is blocked","The line is tied to a planned order"],a:0,w:"Fixed means real stock is tied to the line."},
+{q:"A client uses supply assignment without the release check. When can an order be delivered?",o:["Never","As soon as stock is assigned","Only when 100% is assigned","Only after month end"],a:1,w:"The release check is optional. Without it, assigned lines can be delivered."},
+{q:"With supply creation-based confirmation, what is the planned order while the user is still inside the sales order?",o:["A released production order","A purchase requisition","Temporary; it becomes real when the order is saved","A stock transfer order"],a:2,w:"The plan is firmed only on save."},
+{q:"The business says: we ship half size ranges, and distributors complain. Which part of AATP answers this?",o:["Supply assignment with a release check","Product allocation","Replenishment lead time","Supply protection"],a:0,w:"The release check holds an order until enough of it can ship together."},
+{q:"In which order should a project build the parts?",o:["Alternatives first, then everything else","Availability check, then backorder processing, then quota or protection, then alternatives","Quota first, availability check last","All at once on the go-live weekend"],a:1,w:"Each step is useful alone, and the later ones depend on a clean basic check."},
+{q:"On day one the results are wrong and the client wants to step back. What is the fallback?",o:["Deactivate product allocation in customising","Delete all open orders","Put the products back on the old checking group and stop the new jobs; set quota lines to unrestricted","Uninstall the Fiori apps"],a:2,w:"The checking group can be changed back. Product allocation activation cannot be reversed, so open the quotas instead."},
+{q:"Products are switched to the AATP checking group on Saturday. What happens to orders that were already open?",o:["They are deleted","They are rechecked at once","They lose all confirmations","They keep their old confirmations until the first backorder run"],a:3,w:"Saved orders are not rechecked on their own. The first run brings them under the new rules."},
+{q:"Which measure tells you in the first weeks whether AATP is helping?",o:["Orders confirmed but not delivered on the promised date should fall","The number of Fiori tiles in use","The count of checking groups","The size of the result log"],a:0,w:"Reliable promises are the purpose. Broken promises should go down."},
+{h:"Part B. Configuration and setup",q:"Which transaction opens the AATP customising menu directly?",o:["ATP_IMG","VA01","MM41","SM37"],a:0,w:"ATP_IMG jumps to the AATP node of the customising menu."},
+{q:"In the checking group, which value of TotalSales suits AATP?",o:["B, one total per day","A, each order line as its own record","Blank","X"],a:1,w:"AATP needs each requirement separately."},
+{q:"What does the field Block QtRq in the checking group do?",o:["Blocks the product for sales","Blocks the customer","Holds the checked quantity while a user is in the order, so two users cannot promise the same pieces","Switches the check off"],a:2,w:"It is the quantity block during the check."},
+{q:"Where is the checking group put on a product, and what must you remember?",o:["Basic data; it is valid for all plants","Sales text; one per language","Customer master; one per customer","MRP 3, field Availability check; it must be set for each plant"],a:3,w:"The field is plant data."},
+{q:"A scope of check entry is defined for which combination?",o:["Checking group and checking rule","Plant and storage location","Sales organisation and channel","Customer and product"],a:0,w:"For example Z1 with rule A, and Z1 with rule B."},
+{q:"In the scope of check, what does a tick in Check without RLT mean?",o:["Replenishment lead time is used","Replenishment lead time is ignored; only real stock and receipts count","The check is switched off","Safety stock is included"],a:1,w:"Ticked means the lead time assumption is not used."},
+{q:"In the scope of check, Incl. production orders is set to F. What counts?",o:["All production orders","No production orders","Only released production orders","Only planned orders"],a:2,w:"F limits it to released orders."},
+{q:"In the scope of check, Incl. planned orders is set to P. What counts?",o:["All planned orders","No planned orders","Purchase orders","Only firmed planned orders"],a:3,w:"P limits it to firmed planned orders."},
+{q:"Someone leaves Include sales reqmts empty in the scope of check. What is the effect?",o:["The same stock is promised to several orders","Orders are never confirmed","Deliveries cannot be created","Quota stops working"],a:0,w:"Other orders are no longer counted as already promised."},
+{q:"An order line is confirmed in full although there is no stock and no receipt. Lead time is not in use. Where do you look first?",o:["The customer's price list","The schedule line category: availability check and transfer of requirements must be ticked","The route","The output type"],a:1,w:"If the schedule line category does not ask for the check, the line is simply confirmed."},
+{q:"Where are transit time, and loading and pick and pack time maintained?",o:["All three on the product","All three on the customer","Transit time on the route; loading and pick and pack time on the shipping point","All three in the scope of check"],a:2,w:"Route for transit, shipping point for handling times."},
+{q:"Where do you switch delivery scheduling on for an order type?",o:["In the checking group","In the scope of check","On the product master","Define Scheduling by Sales Document Type (OVLY)"],a:3,w:"Scheduling is controlled by sales document type."},
+{q:"Where is it recorded whether a customer accepts part deliveries?",o:["Customer master, sales area data, Shipping tab","Product master, MRP 3","Checking group","Schedule line category"],a:0,w:"The partial delivery agreement is on the customer's shipping data."},
+{q:"When should Manage Characteristic Catalogs be done?",o:["After go-live","Before any quota, protection, backorder or alternative setup, because those apps pick their fields from it","Only for stock transfer orders","Never; it is display only"],a:1,w:"Fields added to a catalog appear in the selection lists of the other apps."},
+{q:"A custom order field does not appear in the characteristic catalog. What is missing?",o:["A quota line","A backorder variant","It must first be created in Custom Fields and Logic and enabled for the right business context","A scope of check entry"],a:2,w:"Only enabled custom fields are offered."},
+{q:"A user cannot see the AATP configuration apps. Which business role does he need?",o:["Warehouse Clerk","Accounts Payable Accountant","Billing Clerk","Order Fulfillment Manager (R0226)"],a:3,w:"That role carries the AATP configuration apps."},
+{q:"At which level is AATP product allocation activated, and can it be undone?",o:["For the whole client; it cannot be undone","Per plant; it can be undone any time","Per product; it can be undone","Per user; it resets every night"],a:0,w:"Activation is client-wide and replaces the old SD product allocation for good."},
+{q:"Besides activation, which ticks are needed so that an order line asks for a quota check?",o:["A tick on the customer master","Prod. allocation in the requirement class and in the schedule line category","A tick in the route","A tick in the shipping point"],a:1,w:"Both must say yes, as for the availability check."},
+{q:"How many period types can one allocation object have?",o:["Any number","Two: one for planning and one for checking","One","One per characteristic"],a:2,w:"Day, week, month, quarter or year: one type for the object."},
+{q:"The object's collective allocation is set to Managed manually. What must you do for all the values that have no own line?",o:["Nothing; the system creates lines","Create one object per value","Deactivate the object","Maintain a catch-all line, shown with #, and give it a quantity"],a:3,w:"With manual collective allocation you maintain the # line yourself."},
+{q:"A region's line is set to the status Unrestricted availability. What is the effect?",o:["Orders for that line are not limited by quota, while the numbers stay stored","Nothing is confirmed","The line is deleted","The constraint is skipped for every region"],a:0,w:"It opens that line without removing the planning data."},
+{q:"In a product allocation sequence, how do sequence groups and the constraints inside one group behave?",o:["Groups must all be met; constraints are tried one after another","Groups are tried one after another; constraints inside a group must all be met","Both are tried one after another","Both must all be met"],a:1,w:"Groups are the alternatives. Constraints in a group work together."},
+{q:"Which allocation rate should a constraint normally have?",o:["0","100","1.0","0.5"],a:2,w:"1.0 means one order piece uses one quota piece."},
+{q:"Which app shows which order lines used which quota?",o:["Configure Product Allocation","Monitor BOP Run","Manage Supply Protection","Monitor Product Allocation Order Items"],a:3,w:"It lists order items with the quota they consumed."},
+{q:"A supply protection object is created for what?",o:["One product in one plant","One customer","One sales organisation","One order type"],a:0,w:"Each object protects one product in one plant."},
+{q:"How many core characteristics does a supply protection object take?",o:["None","One is required, and two are allowed","Exactly five","As many as you like"],a:1,w:"Characteristic 1 is mandatory. A second is optional."},
+{q:"A protection object was created with correct values, but general trade orders still take all the stock. The scope of check option is on. What is most likely missing?",o:["A quota line","A backorder variant","The object was not activated","A route"],a:2,w:"Only an active object takes part in the check."},
+{q:"What are the three parts of a backorder segment?",o:["Stock, receipts, issues","Header, item, schedule line","Plant, route, shipping point","Selection criteria, exclusion conditions, prioritizers"],a:3,w:"Filter in, filter out, then sort."},
+{q:"A segment should cover 200 named key accounts. The condition editor does not take an uploaded list. What is the clean way?",o:["Create a value group in the characteristic catalog and filter on the group","Create 200 segments","Use the Lose strategy","Put the customers in the route"],a:0,w:"A value group holds the list once and can be reused."},
+{q:"Inside one segment the business wants customer B before customer A before customer C. Ascending and descending cannot do this. Which app helps?",o:["Configure Alternative Control","Configure Custom BOP Sorting","Assign Product to Product Allocation","Release for Delivery"],a:1,w:"It defines your own order of values, which the segment then uses as a prioritizer."},
+{q:"In a variant, what do exception behaviour and fallback variant do together?",o:["They speed up the run","They choose the document types","They say what happens when a Win or Gain order cannot be met, and run a simpler variant for the affected products","They delete old runs"],a:2,w:"The affected product and plant are taken out and handled by the fallback, instead of being left untouched."},
+{q:"What is the global filter in a variant for?",o:["It sorts the orders","It sets the strategy","It names the job","It limits the whole run, for example to certain plants"],a:3,w:"It is an optional segment that restricts everything the variant selects."},
+{q:"The monitor shows a confirmed quantity for an order, but the order has no confirmed schedule line. What is the usual cause?",o:["The order failed the credit check when the result was written back","The monitor is wrong","The quota was unrestricted","The route was missing"],a:0,w:"Release the credit block and run again."},
+{q:"On-premise, what must exist so that alternative-based confirmation can create sub-items?",o:["A second checking group","Item category assignment entries with the usages ABC0 to ABC2","A release rule","A protection object"],a:1,w:"Without them the system cannot determine item categories for main item and sub-items."},
+{q:"In Configure Alternative Control you enter order type OR and nothing happens. What should you try?",o:["Deactivate AATP","Use a different plant","Enter the internal key TA, and give numeric keys their full length with leading zeros","Delete the strategy"],a:2,w:"The app compares internal values."},
+{q:"An order matches two lines in alternative control, each with a different strategy. What happens?",o:["The first strategy is used","Both are applied","The stricter one is used","Nothing is substituted; exactly one strategy must be found"],a:3,w:"Make the control lines unambiguous."},
+{q:"What does the delivered alternative determination Full Confirmation prefer?",o:["The full quantity or nothing; among equal choices the smallest delay and fewest plants","The largest quantity, even if partial","Only what is available on the wanted date","The cheapest plant"],a:0,w:"It never confirms a partial quantity."},
+{q:"Which two values does a release rule for supply assignment hold?",o:["Stock and quota","Header fulfilment % and item fulfilment %","Plant and route","Win and Lose"],a:1,w:"One percentage for the whole order and one for each line."},
+{q:"A dispatch manager opens Release for Delivery and sees no products. What is missing?",o:["A quota","A protection object","A responsibility for him in Configure Order Fulfillment Responsibilities","A sequence"],a:2,w:"Responsibilities decide which products and plants each manager sees."},
+{q:"Which production planning settings does supply creation-based confirmation rely on?",o:["Routes and shipping points","Pricing procedures","Output types","The heuristic SAP_PP_SBC and the strategy profile SAP_SBC in the PP/DS global parameters"],a:3,w:"These are the delivered PP/DS objects for this function."},
+{q:"At cutover, what is special about segments, variants, allocation objects and protection objects?",o:["They are created in the apps, so check whether your release can transport them; otherwise re-create them in production and have them checked","They always travel in the customising transport","They are created automatically at go-live","They are stored on each user's laptop"],a:0,w:"Plan for manual re-creation from a written sheet unless your release offers a transport or export."}
+];
+QUIZ[EXAM_ID]=EXAM;
+function needFor(id){return id===EXAM_ID?Math.ceil(QUIZ[id].length*0.7):PASS;}
+function allChapters(){for(var i=0;i<ORDER.length;i++){if(!state.passed[ORDER[i]])return false;}return true;}
+var state={passed:{},attempts:{},user:null};
+var memOnly=false;
+function load(){try{var s=localStorage.getItem("aatpCourseV1");if(s){var o=JSON.parse(s);if(o&&o.passed){state=o;if(!state.attempts)state.attempts={};if(!state.user)state.user=null;}}}catch(e){memOnly=true;}}
+function save(){try{localStorage.setItem("aatpCourseV1",JSON.stringify(state));}catch(e){memOnly=true;}}
+function isOpen(id){if(id===EXAM_ID)return allChapters();if(OPEN.indexOf(id)>=0||HIDDEN.indexOf(id)>=0)return true;var i=ORDER.indexOf(id);if(i<=0)return i===0;return !!state.passed[ORDER[i-1]];}
+function title(id){var s=document.getElementById("s-"+id);return s?s.getAttribute("data-title"):id;}
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+
+function renderNav(cur){
+  var ol=document.getElementById("navlist");ol.innerHTML="";
+  ORDER.concat([EXAM_ID]).concat(OPEN).forEach(function(id){
+    var li=el("li");var b=el("button");b.type="button";
+    var i=ORDER.indexOf(id);var done=!!state.passed[id];var open=isOpen(id);
+    var st=el("span","st",done?"✓":(i>=0?String(i):(id===EXAM_ID?"E":"i")));
+    b.appendChild(st);b.appendChild(el("span",null,title(id)+(open?"":" (locked)")));
+    if(done)b.className="done";else if(!open)b.className="locked";
+    if(id===cur)b.setAttribute("aria-current","true");
+    b.addEventListener("click",function(){go(id);});
+    li.appendChild(b);ol.appendChild(li);
+  });
+  var n=ORDER.filter(function(id){return state.passed[id];}).length;
+  document.getElementById("ptext").textContent=n+" of "+ORDER.length+" chapters passed"+(state.passed[EXAM_ID]?" · final exam passed":"");
+  document.getElementById("pbar").style.width=(100*n/ORDER.length)+"%";
+}
+function go(id){if(location.hash==="#"+id){show(id);}else{location.hash=id;}}
+function current(){var h=location.hash.replace("#","");if(ORDER.indexOf(h)>=0||OPEN.indexOf(h)>=0||h==="verify"||h===EXAM_ID)return h;return null;}
+function mkcode(parts){var s=SALT+"|"+parts.map(function(p){return String(p).toLowerCase().replace(/\s+/g," ").trim();}).join("|");var x=5381;for(var i=0;i<s.length;i++){x=((x*33)^s.charCodeAt(i))>>>0;}return x.toString(36).toUpperCase();}
+function formUrl(d){var u=FORM_LINK;var m={XXNAMEXX:d.name,XXEMPIDXX:d.empid,XXEMAILXX:d.email,XXCHAPTERXX:d.chapter,XXSCOREXX:d.score,XXATTEMPTXX:d.attempt,XXANSWERSXX:d.answers,XXCODEXX:d.code};for(var k in m){u=u.split(k).join(encodeURIComponent(m[k]));}return u;}
+function record(d){d.name=state.user.name;d.empid=state.user.empid;d.email=state.user.email;d.code=mkcode([d.empid,d.chapter,d.score,d.attempt,d.answers]);return d;}
+function sendBlock(d,label,after){
+  var w=el("div");
+  var line=d.name+" | "+d.empid+" | "+d.chapter+" | "+d.score+" | attempt "+d.attempt+" | "+d.answers+" | code "+d.code;
+  if(FORM_LINK){
+    w.appendChild(el("p",null,"Step 1. Send this to your trainer. A form opens with everything filled in. Press Submit there, then come back to this tab."));
+    var a=el("a","btn",label);a.href=formUrl(d);a.target="_blank";a.rel="noopener";a.style.display="inline-block";a.style.textDecoration="none";
+    var done=false;a.addEventListener("click",function(){if(done)return;done=true;setTimeout(function(){w.appendChild(el("p",null,"Step 2. Continue."));after(w);},600);});
+    w.appendChild(a);
+  }else{
+    w.appendChild(el("p",null,"Tracking is not set up on this copy. Your result line, if your trainer asks for it:"));
+    var c=el("p","path",line);w.appendChild(c);
+    after(w);
+  }
+  return w;
+}
+function firstOpen(){for(var i=0;i<ORDER.length;i++){if(!state.passed[ORDER[i]])return ORDER[i];}return ORDER[ORDER.length-1];}
+function show(id){
+  if(!state.user&&id!=="verify")id="register";
+  document.getElementById("who").textContent=state.user?(state.user.name+" ("+state.user.empid+") · "):"";
+  var secs=document.querySelectorAll("section.ch");
+  for(var i=0;i<secs.length;i++)secs[i].hidden=true;
+  var lock=document.getElementById("lockmsg");
+  if(isOpen(id)){lock.hidden=true;document.getElementById("s-"+id).hidden=false;}
+  else{
+    var need=firstOpen();
+    document.getElementById("locktext").textContent="\""+title(id)+"\" opens after you pass the test in \""+title(need)+"\".";
+    document.getElementById("lockgo").onclick=function(){go(need);};
+    lock.hidden=false;
+  }
+  renderNav(id);
+  window.scrollTo(0,0);
+}
+
+function buildQuiz(box){
+  var id=box.getAttribute("data-quiz");var qs=QUIZ[id];box.innerHTML="";
+  var NEED=needFor(id);
+  box.appendChild(el("h2",null,id===EXAM_ID?"Exam questions":"Chapter test"));
+  box.appendChild(el("p",null,id===EXAM_ID?("Answer all "+qs.length+" questions. You need "+NEED+" correct (70%) to pass. You can try again as often as you like."):("Answer all four. You need "+PASS+" correct to open the next chapter. You can try again as often as you like.")));
+  var form=el("form");form.noValidate=true;
+  qs.forEach(function(q,i){
+    if(q.h)form.appendChild(el("h3",null,q.h));
+    var fs=el("fieldset");fs.appendChild(el("legend",null,"Question "+(i+1)));
+    fs.appendChild(el("p","qt",q.q));
+    q.o.forEach(function(opt,j){
+      var lab=el("label");var inp=document.createElement("input");
+      inp.type="radio";inp.name="q-"+id+"-"+i;inp.id="q-"+id+"-"+i+"-"+j;inp.value=String(j);
+      lab.setAttribute("for",inp.id);lab.appendChild(inp);lab.appendChild(el("span",null,opt));fs.appendChild(lab);
+    });
+    form.appendChild(fs);
+  });
+  var msg=el("p","msg");msg.hidden=true;form.appendChild(msg);
+  var sub=el("button","btn","Check my answers");sub.type="submit";form.appendChild(sub);
+  var res=el("div");res.setAttribute("aria-live","polite");
+  form.addEventListener("submit",function(ev){
+    ev.preventDefault();
+    var picks=[];
+    for(var i=0;i<qs.length;i++){var c=form.querySelector('input[name="q-'+id+'-'+i+'"]:checked');if(!c){msg.textContent="Please answer question "+(i+1)+" before checking.";msg.hidden=false;return;}picks.push(Number(c.value));}
+    msg.hidden=true;var score=0;
+    var sets=form.querySelectorAll("fieldset");
+    qs.forEach(function(q,i){
+      var right=picks[i]===q.a;if(right)score++;
+      var labs=sets[i].querySelectorAll("label");
+      for(var j=0;j<labs.length;j++){labs[j].classList.remove("ok","no");labs[j].querySelector("input").disabled=true;}
+      labs[picks[i]].classList.add(right?"ok":"no");
+      var old=sets[i].querySelector(".why");if(old)old.remove();
+      var passNow=true;
+      sets[i]._right=right;
+    });
+    var passed=score>=NEED;
+    qs.forEach(function(q,i){
+      var right=sets[i]._right;
+      var w=el("p","why "+(right?"ok":"no"));
+      if(right){w.textContent="Correct. "+q.w;}
+      else if(passed){w.textContent="Not correct. The answer is: "+q.o[q.a]+". "+q.w;}
+      else{w.textContent="Not correct. Read this part of the chapter again before you retry.";}
+      sets[i].appendChild(w);
+    });
+    sub.hidden=true;res.innerHTML="";
+    state.attempts[id]=(state.attempts[id]||0)+1;save();
+    var d=record({chapter:(id===EXAM_ID?"Final exam":ORDER.indexOf(id)+" "+title(id)),score:score+"/"+qs.length,attempt:String(state.attempts[id]),answers:picks.map(function(p,i){return (i+1)+"ABCD".charAt(p);}).join(" ")});
+    var r=el("div","res "+(passed?"pass":"fail"));
+    r.appendChild(el("div",null,"You scored "+score+" of "+qs.length+". "+(passed?"Passed.":"You need "+NEED+" to pass.")));
+    r.appendChild(sendBlock(d,"Send my result",function(w){
+      var b=el("button","btn");b.type="button";
+      if(passed){
+        state.passed[id]=true;save();
+        var k=ORDER.indexOf(id);
+        if(id===EXAM_ID){b.textContent="Final exam passed. Open the reference";b.onclick=function(){go("reference");};}
+        else if(k<ORDER.length-1){b.textContent="Open the next chapter: "+title(ORDER[k+1]);b.onclick=function(){go(ORDER[k+1]);};}
+        else{b.textContent="All chapters passed. Open the final exam";b.onclick=function(){go(EXAM_ID);};}
+        renderNav(id);
+      }else{
+        b.textContent="Try again";b.onclick=function(){buildQuiz(box);box.scrollIntoView();};
+      }
+      w.appendChild(b);
+    }));
+    res.appendChild(r);
+  });
+  box.appendChild(form);box.appendChild(res);
+}
+
+var resetArmed=false;
+document.getElementById("reset").addEventListener("click",function(){
+  if(!resetArmed){resetArmed=true;this.textContent="Click again to erase progress";var t=this;setTimeout(function(){resetArmed=false;t.textContent="Reset my progress";},4000);return;}
+  resetArmed=false;this.textContent="Reset my progress";state={passed:{},attempts:state.attempts||{},user:state.user};save();
+  var qb=document.querySelectorAll(".quiz");for(var i=0;i<qb.length;i++)buildQuiz(qb[i]);
+  go("start");
+});
+
+document.getElementById("regform").addEventListener("submit",function(ev){
+  ev.preventDefault();
+  var n=document.getElementById("reg-name").value.trim(),e=document.getElementById("reg-emp").value.trim(),m=document.getElementById("reg-email").value.trim();
+  var msg=document.getElementById("regmsg");
+  if(!n||!e||m.indexOf("@")<1){msg.textContent="Please fill in your name, employee ID and a valid email.";msg.hidden=false;return;}
+  msg.hidden=true;state.user={name:n,empid:e,email:m};save();
+  var box=document.getElementById("regnext");box.innerHTML="";
+  var r=el("div","res pass");r.appendChild(el("div",null,"Details saved."));
+  r.appendChild(sendBlock(record({chapter:"Registration",score:"-",attempt:"0",answers:"-"}),"Send my registration",function(w){
+    var b=el("button","btn","Start the course");b.type="button";b.onclick=function(){go("start");};w.appendChild(b);
+  }));
+  box.appendChild(r);this.hidden=true;
+});
+document.getElementById("verform").addEventListener("submit",function(ev){
+  ev.preventDefault();
+  var g=function(i){return document.getElementById(i).value.trim();};
+  var ok=mkcode([g("v-emp"),g("v-ch"),g("v-sc"),g("v-at"),g("v-an")])===g("v-co").toUpperCase();
+  var o=document.getElementById("verres");o.innerHTML="";
+  o.appendChild(el("div","res "+(ok?"pass":"fail"),ok?"The code matches. This row was produced by the course page.":"The code does not match. A value in this row was changed, or it was typed by hand."));
+});
+load();
+var qb=document.querySelectorAll(".quiz");for(var i=0;i<qb.length;i++)buildQuiz(qb[i]);
+window.addEventListener("hashchange",function(){show(current()||firstOpen());});
+show(current()||firstOpen());
+</script>
+</body>
+</html>
