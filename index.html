@@ -10,9 +10,9 @@
 <style>
 /* Layout idea: fixed chapter list on the left, one chapter at a time on the right, test at the foot of each chapter. */
 :root{
-  --bg:#edf3fa; --panel:#ffffff; --ink:#14233a; --muted:#4f6079; --line:#cbd8e8;
-  --accent:#0a5fb4; --accent-soft:#dbe9f9;
-  --head-bg:#0b4f97; --head-ink:#ffffff; --head-muted:#d5e4f6; --head-line:rgba(255,255,255,.38);
+  --bg:#ebf4fe; --panel:#ffffff; --ink:#1d2d3e; --muted:#556b82; --line:#c9daee;
+  --accent:#0070f2; --accent-soft:#d6e9fe; --accent-text:#0057d2;
+  --head-bg:#0070f2; --head-ink:#ffffff; --head-muted:#ffffff; --head-line:rgba(255,255,255,.45);
   --warn:#a45a00; --warn-soft:#fbeed9;
   --good:#22744a; --good-soft:#def2e6;
   --bad:#a8322d; --bad-soft:#f8e1df;
@@ -21,9 +21,9 @@
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0f1722; --panel:#172231; --ink:#e6edf5; --muted:#9bb0c6; --line:#2a394c;
-    --accent:#6db3f2; --accent-soft:#17365a;
-    --head-bg:#131d2b; --head-ink:#e6edf5; --head-muted:#9bb0c6; --head-line:#32455d;
+    --bg:#12171c; --panel:#1d232a; --ink:#eaecee; --muted:#a9b4be; --line:#2e3742;
+    --accent:#4db1ff; --accent-soft:#16344f; --accent-text:#4db1ff;
+    --head-bg:#1d232a; --head-ink:#eaecee; --head-muted:#a9b4be; --head-line:#3a4653;
     --warn:#e0a44c; --warn-soft:#3d2e14;
     --good:#6fcf97; --good-soft:#173826;
     --bad:#f08a84; --bad-soft:#43201e;
@@ -31,9 +31,9 @@
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0f1722; --panel:#172231; --ink:#e6edf5; --muted:#9bb0c6; --line:#2a394c;
-  --accent:#6db3f2; --accent-soft:#17365a;
-  --head-bg:#131d2b; --head-ink:#e6edf5; --head-muted:#9bb0c6; --head-line:#32455d;
+  --bg:#12171c; --panel:#1d232a; --ink:#eaecee; --muted:#a9b4be; --line:#2e3742;
+  --accent:#4db1ff; --accent-soft:#16344f; --accent-text:#4db1ff;
+  --head-bg:#1d232a; --head-ink:#eaecee; --head-muted:#a9b4be; --head-line:#3a4653;
   --warn:#e0a44c; --warn-soft:#3d2e14;
   --good:#6fcf97; --good-soft:#173826;
   --bad:#f08a84; --bad-soft:#43201e;
@@ -47,7 +47,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
-a{color:var(--accent)}
+a{color:var(--accent-text)}
 button{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 
@@ -75,7 +75,7 @@ nav{position:sticky;top:calc(var(--headh,96px) + 16px);background:var(--panel);b
 nav li{margin:0}
 .navhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 2px 10px 6px}
 .navhead h2{margin:0}
-.navbtn{font-size:.85rem;background:none;border:1px solid var(--line);border-radius:8px;padding:4px 10px;cursor:pointer;color:var(--accent);font-weight:600}
+.navbtn{font-size:.85rem;background:none;border:1px solid var(--line);border-radius:8px;padding:4px 10px;cursor:pointer;color:var(--accent-text);font-weight:600}
 .navbtn:hover{background:var(--accent-soft)}
 #navshow{margin:0 0 16px}
 body.nav-hidden .wrap{grid-template-columns:minmax(0,1fr)}
@@ -94,7 +94,7 @@ nav .locked{color:var(--muted)}
 
 main{min-width:0}
 section.ch{max-width:780px}
-.eyebrow{font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0}
+.eyebrow{font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-text);font-weight:700;margin:0}
 h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.2}
 h1{font-size:2rem;margin:.15em 0 .4em}
 h2{font-size:1.35rem;margin:1.9em 0 .5em}
@@ -105,7 +105,7 @@ ul,ol{padding-left:1.3em}
 li{margin:.3em 0}
 .box{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:14px 18px;margin:1em 0}
 .box>b:first-child{display:block;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
-.scn{border-left:5px solid var(--accent)} .scn>b:first-child{color:var(--accent)}
+.scn{border-left:5px solid var(--accent)} .scn>b:first-child{color:var(--accent-text)}
 .care{border-left:5px solid var(--warn);background:var(--warn-soft)} .care>b:first-child{color:var(--warn)}
 .tw{overflow-x:auto;margin:1em 0}
 table{border-collapse:collapse;width:100%;font-size:.96rem;background:var(--panel)}
@@ -134,7 +134,7 @@ figcaption{font-size:.93rem;color:var(--muted);margin-top:8px}
 .dg .la{stroke:var(--accent);stroke-width:2;fill:none}
 .dg .ah{fill:currentColor}
 .dg .aha{fill:var(--accent)}
-.dg .ta{fill:var(--accent);font-weight:700}
+.dg .ta{fill:var(--accent-text);font-weight:700}
 .dg .tg{fill:var(--good);font-weight:700}
 .dg .ico{color:var(--ink)} .dg .ico-a{color:var(--accent)} .dg .ico-g{color:var(--good)} .dg .ico-w{color:var(--warn)} .dg .ico-m{color:var(--muted)}
 .dg .band{fill:var(--bg);stroke:var(--line);stroke-width:1}
@@ -156,7 +156,7 @@ figcaption{font-size:.93rem;color:var(--muted);margin-top:8px}
 .why{margin:.6em 0 0;padding:8px 10px;border-radius:6px;font-size:.96rem}
 .why.ok{border-left:4px solid var(--good)} .why.no{border-left:4px solid var(--bad)}
 .btn{background:var(--accent);color:var(--panel);border:0;border-radius:8px;padding:10px 18px;font-weight:700;cursor:pointer}
-.btn.alt{background:none;color:var(--accent);border:1.5px solid var(--accent)}
+.btn.alt{background:none;color:var(--accent-text);border:1.5px solid var(--accent)}
 .res{margin:14px 0;padding:14px 18px;border-radius:10px;font-weight:600}
 .res.pass{background:var(--good-soft);border:1px solid var(--good)}
 .res.fail{background:var(--bad-soft);border:1px solid var(--bad)}
@@ -1566,7 +1566,7 @@ Distributors book the winter thermal range three months ahead, before it is made
 <div class="sv"><svg class="dg" viewBox="0 0 760 345" role="img" aria-label="An order with four sizes. Sizes 80 and 85 are tied to cartons in the depot, size 90 is booked against production due in 6 days, size 95 has nothing. Only half is ready, so the dispatch gate keeps the order waiting.">
 <defs><marker id="d8-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d8-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d8-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d8-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
 <text x="14" y="22" class="bd">Where the vests are</text>
-<text x="520" y="22" class="bd">Kumar Hosiery&#x27;s winter order</text>
+<text x="520" y="22" class="bd">Winter order of Kumar Traders</text>
 <rect class="bg" x="14" y="36" width="270" height="40" rx="8"/>
 <use href="#ic-warehouse" x="20" y="40" width="32" height="32" class="ico-g"/>
 <text x="60" y="61" class="sm">Size 80: cartons in the depot</text>
