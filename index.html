@@ -10734,19 +10734,29 @@ function current(){var h=location.hash.replace("#","");if(courseOf(h)||h==="veri
 function mkcode(parts){var s=SALT+"|"+parts.map(function(p){return String(p).toLowerCase().replace(/\s+/g," ").trim();}).join("|");var x=5381;for(var i=0;i<s.length;i++){x=((x*33)^s.charCodeAt(i))>>>0;}return x.toString(36).toUpperCase();}
 function formUrl(d){var u=FORM_LINK;var m={XXNAMEXX:d.name,XXCHAPTERXX:d.chapter,XXSCOREXX:d.score,XXATTEMPTXX:d.attempt,XXANSWERSXX:d.answers,XXCODEXX:d.code};for(var k in m){u=u.split(k).join(encodeURIComponent(m[k]));}return u;}
 function record(d){d.name=state.user.name;d.code=mkcode([d.name,d.chapter,d.score,d.attempt,d.answers]);return d;}
+var RESULTS_URL="https://course-results.infrabeatsd.workers.dev/";
+function pendingLoad(){try{return JSON.parse(localStorage.getItem("aatpCoursePending")||"[]");}catch(e){return [];}}
+function pendingSave(q){try{localStorage.setItem("aatpCoursePending",JSON.stringify(q));}catch(e){}}
+function postResult(d){
+  if(!RESULTS_URL||!window.fetch)return Promise.resolve(false);
+  try{
+    return window.fetch(RESULTS_URL,{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({name:d.name,chapter:d.chapter,score:d.score,attempt:d.attempt,answers:d.answers,code:d.code})})
+      .then(function(r){return !!(r&&r.ok);},function(){return false;});
+  }catch(e){return Promise.resolve(false);}
+}
+function keepPending(d){var q=pendingLoad();q.push(d);pendingSave(q);}
+function flushPending(){
+  var p=pendingLoad();if(!p.length)return;pendingSave([]);
+  p.forEach(function(d){postResult(d).then(function(ok){if(!ok)keepPending(d);});});
+}
 function sendBlock(d,label,after){
-  var w=el("div");
-  var line=d.name+" | "+d.chapter+" | "+d.score+" | attempt "+d.attempt+" | "+d.answers+" | code "+d.code;
-  if(FORM_LINK){
-    w.appendChild(el("p",null,"Step 1. Send this to your trainer. A form opens with everything filled in. Press Submit there, then come back to this tab."));
-    var a=el("a","btn",label);a.href=formUrl(d);a.target="_blank";a.rel="noopener";a.style.display="inline-block";a.style.textDecoration="none";
-    var done=false;a.addEventListener("click",function(){if(done)return;done=true;setTimeout(function(){w.appendChild(el("p",null,"Step 2. Continue."));after(w);},600);});
-    w.appendChild(a);
-  }else{
-    w.appendChild(el("p",null,"Tracking is not set up on this copy. Your result line, if your trainer asks for it:"));
-    var c=el("p","path",line);w.appendChild(c);
-    after(w);
-  }
+  var w=el("div");var s=el("p","sendst","Saving your result for your trainer\u2026");w.appendChild(s);
+  postResult(d).then(function(ok){
+    if(ok){s.textContent="\u2713 Result saved for your trainer.";}
+    else{keepPending(d);s.textContent="The results service could not be reached just now. Your result is kept on this device and will be sent automatically the next time you open the course.";}
+  });
+  after(w);
   return w;
 }
 function firstOpen(c){c=c||curCourse();for(var i=0;i<c.order.length;i++){if(!state.passed[c.order[i]])return c.order[i];}return c.order[c.order.length-1];}
@@ -10911,6 +10921,7 @@ document.getElementById("switch").addEventListener("click",function(){
   document.getElementById("reg-name").focus();
 });
 load();
+flushPending();
 setHead();
 rebuildQuizzes();
 window.addEventListener("hashchange",function(){var h=current()||firstOpen();if(h!==shown)show(h);});
