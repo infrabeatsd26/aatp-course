@@ -176,11 +176,10 @@ details.deep table{font-size:.93rem}
 <section class="ch" id="s-register" data-id="register" data-title="Register">
 <p class="eyebrow">Before you start</p>
 <h1>Register for the course</h1>
-<p class="lead">Enter your details once. They are sent with each test result so your trainer can follow your progress.</p>
+<p class="lead">Enter your name and work email once. They are sent with each test result so your trainer can follow your progress. Everything else is filled in by the course.</p>
 <form id="regform" class="quiz" style="border-top:0;margin-top:0">
 <fieldset><legend>Your details</legend>
 <p class="qt"><label for="reg-name" style="display:block;padding:0">Full name</label><input id="reg-name" type="text" autocomplete="name" style="width:100%;padding:8px;font:inherit"></p>
-<p class="qt"><label for="reg-emp" style="display:block;padding:0">Employee ID</label><input id="reg-emp" type="text" style="width:100%;padding:8px;font:inherit"></p>
 <p class="qt"><label for="reg-email" style="display:block;padding:0">Work email</label><input id="reg-email" type="email" autocomplete="email" style="width:100%;padding:8px;font:inherit"></p>
 </fieldset>
 <p class="msg" id="regmsg" hidden></p>
@@ -195,7 +194,7 @@ details.deep table{font-size:.93rem}
 <p class="lead">Copy the values from one row of your results sheet. The page tells you whether the check code matches.</p>
 <form id="verform" class="quiz" style="border-top:0;margin-top:0">
 <fieldset><legend>Row from the sheet</legend>
-<p class="qt"><label for="v-emp" style="display:block;padding:0">Employee ID</label><input id="v-emp" type="text" style="width:100%;padding:8px;font:inherit"></p>
+<p class="qt"><label for="v-emp" style="display:block;padding:0">Email</label><input id="v-emp" type="text" style="width:100%;padding:8px;font:inherit"></p>
 <p class="qt"><label for="v-ch" style="display:block;padding:0">Chapter</label><input id="v-ch" type="text" style="width:100%;padding:8px;font:inherit"></p>
 <p class="qt"><label for="v-sc" style="display:block;padding:0">Score</label><input id="v-sc" type="text" style="width:100%;padding:8px;font:inherit"></p>
 <p class="qt"><label for="v-at" style="display:block;padding:0">Attempt</label><input id="v-at" type="text" style="width:100%;padding:8px;font:inherit"></p>
@@ -1989,11 +1988,11 @@ function renderNav(cur){
 function go(id){if(location.hash==="#"+id){show(id);}else{location.hash=id;}}
 function current(){var h=location.hash.replace("#","");if(ORDER.indexOf(h)>=0||OPEN.indexOf(h)>=0||h==="verify"||h===EXAM_ID)return h;return null;}
 function mkcode(parts){var s=SALT+"|"+parts.map(function(p){return String(p).toLowerCase().replace(/\s+/g," ").trim();}).join("|");var x=5381;for(var i=0;i<s.length;i++){x=((x*33)^s.charCodeAt(i))>>>0;}return x.toString(36).toUpperCase();}
-function formUrl(d){var u=FORM_LINK;var m={XXNAMEXX:d.name,XXEMPIDXX:d.empid,XXEMAILXX:d.email,XXCHAPTERXX:d.chapter,XXSCOREXX:d.score,XXATTEMPTXX:d.attempt,XXANSWERSXX:d.answers,XXCODEXX:d.code};for(var k in m){u=u.split(k).join(encodeURIComponent(m[k]));}return u;}
-function record(d){d.name=state.user.name;d.empid=state.user.empid;d.email=state.user.email;d.code=mkcode([d.empid,d.chapter,d.score,d.attempt,d.answers]);return d;}
+function formUrl(d){var u=FORM_LINK;var m={XXNAMEXX:d.name,XXEMAILXX:d.email,XXCHAPTERXX:d.chapter,XXSCOREXX:d.score,XXATTEMPTXX:d.attempt,XXANSWERSXX:d.answers,XXCODEXX:d.code};for(var k in m){u=u.split(k).join(encodeURIComponent(m[k]));}return u;}
+function record(d){d.name=state.user.name;d.email=state.user.email;d.code=mkcode([d.email,d.chapter,d.score,d.attempt,d.answers]);return d;}
 function sendBlock(d,label,after){
   var w=el("div");
-  var line=d.name+" | "+d.empid+" | "+d.chapter+" | "+d.score+" | attempt "+d.attempt+" | "+d.answers+" | code "+d.code;
+  var line=d.name+" | "+d.email+" | "+d.chapter+" | "+d.score+" | attempt "+d.attempt+" | "+d.answers+" | code "+d.code;
   if(FORM_LINK){
     w.appendChild(el("p",null,"Step 1. Send this to your trainer. A form opens with everything filled in. Press Submit there, then come back to this tab."));
     var a=el("a","btn",label);a.href=formUrl(d);a.target="_blank";a.rel="noopener";a.style.display="inline-block";a.style.textDecoration="none";
@@ -2009,7 +2008,7 @@ function sendBlock(d,label,after){
 function firstOpen(){for(var i=0;i<ORDER.length;i++){if(!state.passed[ORDER[i]])return ORDER[i];}return ORDER[ORDER.length-1];}
 function show(id){
   if(!state.user&&id!=="verify")id="register";
-  document.getElementById("who").textContent=state.user?(state.user.name+" ("+state.user.empid+") · "):"";
+  document.getElementById("who").textContent=state.user?(state.user.name+" · "):"";
   var secs=document.querySelectorAll("section.ch");
   for(var i=0;i<secs.length;i++)secs[i].hidden=true;
   var lock=document.getElementById("lockmsg");
@@ -2096,16 +2095,16 @@ var resetArmed=false;
 document.getElementById("reset").addEventListener("click",function(){
   if(!resetArmed){resetArmed=true;this.textContent="Click again to erase progress";var t=this;setTimeout(function(){resetArmed=false;t.textContent="Reset my progress";},4000);return;}
   resetArmed=false;this.textContent="Reset my progress";state={passed:{},attempts:state.attempts||{},user:state.user};save();
-  var qb=document.querySelectorAll(".quiz");for(var i=0;i<qb.length;i++)buildQuiz(qb[i]);
+  var qb=document.querySelectorAll(".quiz[data-quiz]");for(var i=0;i<qb.length;i++)buildQuiz(qb[i]);
   go("start");
 });
 
 document.getElementById("regform").addEventListener("submit",function(ev){
   ev.preventDefault();
-  var n=document.getElementById("reg-name").value.trim(),e=document.getElementById("reg-emp").value.trim(),m=document.getElementById("reg-email").value.trim();
+  var n=document.getElementById("reg-name").value.trim(),m=document.getElementById("reg-email").value.trim();
   var msg=document.getElementById("regmsg");
-  if(!n||!e||m.indexOf("@")<1){msg.textContent="Please fill in your name, employee ID and a valid email.";msg.hidden=false;return;}
-  msg.hidden=true;state.user={name:n,empid:e,email:m};save();
+  if(!n||m.indexOf("@")<1||m.indexOf(".")<0){msg.textContent="Please fill in your name and a valid email address.";msg.hidden=false;return;}
+  msg.hidden=true;state.user={name:n,email:m};save();
   var box=document.getElementById("regnext");box.innerHTML="";
   var r=el("div","res pass");r.appendChild(el("div",null,"Details saved."));
   r.appendChild(sendBlock(record({chapter:"Registration",score:"-",attempt:"0",answers:"-"}),"Send my registration",function(w){
@@ -2121,7 +2120,7 @@ document.getElementById("verform").addEventListener("submit",function(ev){
   o.appendChild(el("div","res "+(ok?"pass":"fail"),ok?"The code matches. This row was produced by the course page.":"The code does not match. A value in this row was changed, or it was typed by hand."));
 });
 load();
-var qb=document.querySelectorAll(".quiz");for(var i=0;i<qb.length;i++)buildQuiz(qb[i]);
+var qb=document.querySelectorAll(".quiz[data-quiz]");for(var i=0;i<qb.length;i++)buildQuiz(qb[i]);
 window.addEventListener("hashchange",function(){show(current()||firstOpen());});
 show(current()||firstOpen());
 </script>
