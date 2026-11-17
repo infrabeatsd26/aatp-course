@@ -296,13 +296,13 @@ details.deep table{font-size:.93rem}
 </table></div>
 
 <figure>
-<div class="sv"><svg class="dg" viewBox="0 0 760 345" role="img" aria-label="A distributor orders 5,000 briefs. Riya saves the order. The system checks the depot and the region&#x27;s quota, takes the lower answer, and promises 3,000. At night the system re-shares stock, ties cartons to orders and dispatch releases them.">
+<div class="sv"><svg class="dg" viewBox="0 0 760 345" role="img" aria-label="A distributor orders 5,000 gift boxes. Riya saves the order. The system checks the depot and the region&#x27;s quota, takes the lower answer, and promises 3,000. At night the system re-shares stock, ties cartons to orders and dispatch releases them.">
 <defs><marker id="d1-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d1-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d1-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d1-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
 <circle class="num" cx="42" cy="34" r="10"/>
 <text x="42" y="38" text-anchor="middle" class="numt">1</text>
 <use href="#ic-shop" x="55" y="28" width="46" height="46" class="ico"/>
 <text x="78" y="91" text-anchor="middle" class="bd">Sharma Distributors</text>
-<text x="78" y="107" text-anchor="middle" class="sm">order 5,000 briefs</text>
+<text x="78" y="107" text-anchor="middle" class="sm">order 5,000 gift boxes</text>
 <line class="ln" x1="112" y1="52" x2="179" y2="52" marker-end="url(#d1-k)"/>
 <circle class="num" cx="193" cy="34" r="10"/>
 <text x="193" y="38" text-anchor="middle" class="numt">2</text>
@@ -328,7 +328,7 @@ details.deep table{font-size:.93rem}
 <text x="646" y="38" text-anchor="middle" class="numt">5</text>
 <use href="#ic-truck" x="659" y="28" width="46" height="46" class="ico-g"/>
 <text x="682" y="91" text-anchor="middle" class="tg">The promise</text>
-<text x="682" y="107" text-anchor="middle" class="sm">3,000 briefs</text>
+<text x="682" y="107" text-anchor="middle" class="sm">3,000 gift boxes</text>
 <text x="682" y="122" text-anchor="middle" class="sm">on 20 October</text>
 <polyline class="la" points="330,158 330,168 581,168 581,158"/>
 <text x="455" y="186" text-anchor="middle" class="ta">The system takes the lower of these two answers</text>
@@ -382,7 +382,7 @@ Once a product uses AATP, the old rescheduling transactions (<code>V_V2</code>, 
 </dl>
 
 <h2>The example used in this course</h2>
-<p>All scenarios use an innerwear company. It makes vests and briefs, stores them in depots (Chennai, Bengaluru, Delhi) and sells to distributors (general trade), big retail chains (modern trade) and e-commerce sites.</p>
+<p>All scenarios use a chocolate company. It makes chocolate bars and festive gift boxes, stores them in depots (Chennai, Bengaluru, Delhi) and sells to distributors (general trade), big retail chains (modern trade) and e-commerce sites.</p>
 <h2>Go deeper: foundation setup</h2>
 <p class="deepnote">The sections below are the hands-on level. They follow S/4HANA 2023 (on-premise and private cloud). Field labels and menu positions can differ a little in other releases, so read the screen in front of you. Open each section when you are ready for it.</p>
 
@@ -458,7 +458,7 @@ Once a product uses AATP, the old rescheduling transactions (<code>V_V2</code>, 
 <p class="lead">The base of everything. It decides how much stock is free to promise, and on which date.</p>
 
 <div class="box scn"><b>Business scenario</b>
-A distributor orders 800 vests today. The plant has 600 in stock. Production will bring 400 more on day 5. Another customer already holds a confirmed order for 300, to be delivered on day 3. How much can we promise the new order?</div>
+A distributor orders 800 cartons of milk chocolate bars today. The plant has 600 in stock. Production will bring 400 more on day 5. Another customer already holds a confirmed order for 300, to be delivered on day 3. How much can we promise the new order?</div>
 
 <h2>The basic sum</h2>
 <p><b>Free to promise = stock + expected receipts − already promised</b></p>
@@ -470,10 +470,10 @@ A distributor orders 800 vests today. The plant has 600 in stock. Production wil
 <p>Stock promised to someone else is gone, even if their delivery is a few days away.</p>
 
 <figure>
-<div class="sv"><svg class="dg" viewBox="0 0 760 300" role="img" aria-label="The depot has 600 vests but 300 are held for another customer, so 300 are free today. The factory sends 400 on day 5. A new order for 800 gets 300 today, 400 on day 5, and 100 must wait.">
+<div class="sv"><svg class="dg" viewBox="0 0 760 300" role="img" aria-label="The depot has 600 cartons of chocolate bars but 300 are held for another customer, so 300 are free today. The factory sends 400 on day 5. A new order for 800 gets 300 today, 400 on day 5, and 100 must wait.">
 <defs><marker id="d2-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d2-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d2-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d2-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
 <use href="#ic-warehouse" x="16" y="20" width="48" height="48" class="ico-a"/>
-<text x="78" y="34" class="bd">In the Delhi depot today: 600 vests</text>
+<text x="78" y="34" class="bd">In the Delhi depot today: 600 cartons</text>
 <rect class="bg" x="78" y="48" width="44" height="44" rx="3"/>
 <text x="100" y="74" text-anchor="middle" class="sm">100</text>
 <rect class="bg" x="128" y="48" width="44" height="44" rx="3"/>
@@ -502,7 +502,7 @@ A distributor orders 800 vests today. The plant has 600 in stock. Production wil
 <text x="514" y="110" class="ta sm">400 arrive on day 5</text>
 <line class="ln ds" x1="20" y1="146" x2="740" y2="146"/>
 <use href="#ic-order" x="16" y="162" width="48" height="48" class="ico"/>
-<text x="78" y="178" class="bd">Sharma Distributors asks for 800 vests today</text>
+<text x="78" y="178" class="bd">Sharma Distributors asks for 800 cartons today</text>
 <text x="78" y="196" class="sm mu">What Riya can promise him:</text>
 <rect class="bg" x="78" y="212" width="32" height="32" rx="3"/>
 <rect class="bg" x="115" y="212" width="32" height="32" rx="3"/>
@@ -516,7 +516,7 @@ A distributor orders 800 vests today. The plant has 600 in stock. Production wil
 <rect class="b ds" x="470" y="212" width="32" height="32" rx="3"/>
 <text x="512" y="233" class="tw2">100 cannot be promised yet</text>
 <text x="512" y="250" class="sm">nothing is free or coming for them</text>
-<text x="78" y="284" class="sm mu">Each box is 100 vests. Stock held for another customer is not free, even before it ships.</text>
+<text x="78" y="284" class="sm mu">Each box is 100 cartons. Stock held for another customer is not free, even before it ships.</text>
 </svg></div>
 <figcaption>The new order for 800 gets 300 today and 400 on day 5. The last 100 cannot be confirmed yet.</figcaption>
 </figure>
@@ -576,7 +576,7 @@ A distributor orders 800 vests today. The plant has 600 in stock. Production wil
 <use href="#ic-truck" x="470" y="163" width="28" height="28" class="ico"/>
 <text x="590" y="182" text-anchor="middle" class="sm">on the road, 3 days</text>
 <use href="#ic-warehouse" x="250" y="154" width="44" height="44" class="ico-a"/>
-<text x="188" y="214" class="sm">vests reach the</text>
+<text x="188" y="214" class="sm">cartons reach the</text>
 <text x="188" y="229" class="sm">shelf on the 18th</text>
 <use href="#ic-shop" x="698" y="154" width="44" height="44" class="ico-g"/>
 <text x="720" y="214" text-anchor="middle" class="tg sm">delivered</text>
@@ -731,16 +731,16 @@ A distributor orders 800 vests today. The plant has 600 in stock. Production wil
 <p class="lead">A quota. It sets the most that each region, channel or customer may take in a period, even when stock is there.</p>
 
 <div class="box scn"><b>Business scenario</b>
-Before Diwali, a new premium brief is in high demand. The factory can make 50,000 pieces a month. On day one, a big distributor in the North orders 40,000. If the system confirms it, the South, West and East get almost nothing, and those distributors move to a competitor.</div>
+Before Diwali, a new festive gift box is in high demand. The factory can make 50,000 boxes a month. On day one, a big distributor in the North orders 40,000. If the system confirms it, the South, West and East get almost nothing, and those distributors move to a competitor.</div>
 
 <h2>The idea</h2>
 <p>You decide in advance how the month's supply is shared. The availability check may say "50,000 available", but the allocation check says "North may take 15,000 this month". The order gets the <b>lower</b> of the two.</p>
 
 <figure>
-<div class="sv"><svg class="dg" viewBox="0 0 760 320" role="img" aria-label="The month&#x27;s 50,000 briefs are shared by quota: North 15,000, South 15,000, West 10,000, East 10,000. A North distributor asks for 40,000 and gets only North&#x27;s 15,000. The other regions keep their shares.">
+<div class="sv"><svg class="dg" viewBox="0 0 760 320" role="img" aria-label="The month&#x27;s 50,000 gift boxes are shared by quota: North 15,000, South 15,000, West 10,000, East 10,000. A North distributor asks for 40,000 and gets only North&#x27;s 15,000. The other regions keep their shares.">
 <defs><marker id="d4-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d4-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d4-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d4-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
 <use href="#ic-factory" x="14" y="22" width="46" height="46" class="ico-a"/>
-<text x="70" y="38" class="bd">The factory can make 50,000 briefs this month.</text>
+<text x="70" y="38" class="bd">The factory can make 50,000 gift boxes this month.</text>
 <text x="70" y="56" class="sm">The sales head shares them out before the month starts:</text>
 <rect class="ba" x="170" y="118" width="120" height="110" rx="6"/>
 <text x="230" y="173" text-anchor="middle" class="bd">15,000</text>
@@ -784,7 +784,7 @@ Before Diwali, a new premium brief is in high demand. The factory can make 50,00
 <h2>The building blocks</h2>
 <dl>
 <dt>Product allocation object</dt>
-<dd>The container for one quota plan, for example "Premium brief, by region". It holds the characteristics and the time period type (day, week or month).</dd>
+<dd>The container for one quota plan, for example "Festive gift box, by region". It holds the characteristics and the time period type (day, week or month).</dd>
 <dt>Characteristics</dt>
 <dd>What the quota is split by: sales organisation, region, customer group, customer, and so on. You can combine them, for example region and channel.</dd>
 <dt>Planning data</dt>
@@ -859,7 +859,7 @@ Before Diwali, a new premium brief is in high demand. The factory can make 50,00
 <p>Choose Create and fill the header.</p>
 <div class="tw"><table>
 <tr><th>Field</th><th>What it means</th><th>Example</th></tr>
-<tr><td>Name and description</td><td>Your name for the object</td><td>PAL_BRIEF_REGION, "Premium brief by region"</td></tr>
+<tr><td>Name and description</td><td>Your name for the object</td><td>PAL_GIFTBOX_REGION, "Festive gift box by region"</td></tr>
 <tr><td>Quantity unit</td><td>Unit of the quota numbers</td><td>PC</td></tr>
 <tr><td>Period type</td><td>Day, week, month, quarter or year. One type only.</td><td>Month</td></tr>
 <tr><td>Time zone and factory calendar</td><td>Decide where a period starts and ends</td><td>India, your sales calendar</td></tr>
@@ -873,7 +873,7 @@ Before Diwali, a new premium brief is in high demand. The factory can make 50,00
 
 <details class="deep"><summary>App walkthrough 2: Manage Product Allocation Planning Data (F2121)</summary><div>
 <ol>
-<li>Open the object PAL_BRIEF_REGION.</li>
+<li>Open the object PAL_GIFTBOX_REGION.</li>
 <li>Add one line for each value combination: 1000 / North, 1000 / South, 1000 / West, 1000 / East, and 1000 / # for all others.</li>
 <li>Enter the planned quantity for each period: North 15,000 for October, 15,000 for November, and so on.</li>
 <li>For many lines, download the grid to a spreadsheet, fill it and upload it.</li>
@@ -893,9 +893,9 @@ Before Diwali, a new premium brief is in high demand. The factory can make 50,00
 <p>The sequence is the top object. It links products to one or more allocation objects.</p>
 <div class="tw"><table>
 <tr><th>Level</th><th>Fields</th><th>Example</th></tr>
-<tr><td>Sequence header</td><td>Name, unit, backward consumption periods, forward consumption periods</td><td>SEQ_BRIEF, PC, backward 1, forward 0</td></tr>
+<tr><td>Sequence header</td><td>Name, unit, backward consumption periods, forward consumption periods</td><td>SEQ_GIFTBOX, PC, backward 1, forward 0</td></tr>
 <tr><td>Sequence group</td><td>Number (order of trying), optional own consumption periods. Groups are the <b>alternatives</b>: the system tries group 10 first, then 20.</td><td>10 = key account quota; 20 = region quota</td></tr>
-<tr><td>Constraint inside a group</td><td>Number, description, one allocation object, allocation rate, validity from and to, constraint status. All constraints in one group must be met together.</td><td>Object PAL_BRIEF_REGION, rate 1.0, valid 1 Oct to 31 Dec, restricted availability</td></tr>
+<tr><td>Constraint inside a group</td><td>Number, description, one allocation object, allocation rate, validity from and to, constraint status. All constraints in one group must be met together.</td><td>Object PAL_GIFTBOX_REGION, rate 1.0, valid 1 Oct to 31 Dec, restricted availability</td></tr>
 </table></div>
 <ul>
 <li>One group with one constraint is the simple case from this chapter.</li>
@@ -967,7 +967,7 @@ The plant has 10,000 pieces. Your contract with an e-commerce site says you must
 <div class="sv"><svg class="dg" viewBox="0 0 760 300" role="img" aria-label="Of 10 pallets of 1,000, two are roped off for the e-commerce site and eight are open. The e-commerce site can use both. A distributor asking for 9,000 gets only the open 8,000.">
 <defs><marker id="d5-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d5-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d5-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d5-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
 <use href="#ic-warehouse" x="14" y="14" width="44" height="44" class="ico-a"/>
-<text x="68" y="30" class="bd">Delhi depot: 10 pallets, 1,000 briefs on each</text>
+<text x="68" y="30" class="bd">Delhi depot: 10 pallets, 1,000 gift boxes on each</text>
 <rect class="ba ds" x="60" y="62" width="132" height="82" rx="10"/>
 <rect class="ba" x="68" y="74" width="54" height="54" rx="5"/>
 <text x="95" y="106" text-anchor="middle" class="sm">1,000</text>
@@ -1071,8 +1071,8 @@ The plant has 10,000 pieces. Your contract with an e-commerce site says you must
 <p>Choose Create.</p>
 <div class="tw"><table>
 <tr><th>Field</th><th>What it means</th><th>Example</th></tr>
-<tr><td>Name and description</td><td>Your name for the object</td><td>SUP_BRIEF_ECOM</td></tr>
-<tr><td>Material and plant</td><td>One object protects one product in one plant</td><td>PB-100, plant 1000</td></tr>
+<tr><td>Name and description</td><td>Your name for the object</td><td>SUP_GIFTBOX_ECOM</td></tr>
+<tr><td>Material and plant</td><td>One object protects one product in one plant</td><td>GB-100, plant 1000</td></tr>
 <tr><td>Unit</td><td>Unit of the protected quantity</td><td>PC</td></tr>
 <tr><td>Planning period type</td><td>Day, week, month or quarter. One type for each object.</td><td>Week</td></tr>
 <tr><td>Planning start and end</td><td>The horizon the protection covers. The number of periods is limited (SAP KBA 3649071), so do not plan years ahead in days.</td><td>This week to end of the festival month</td></tr>
@@ -1180,7 +1180,7 @@ Yesterday a small retailer's order took 300 of the last pieces. Today a key mode
 <p>The run serves Win first, then Gain, then the middle groups, then Fill. Stock freed from Lose orders goes to the groups above.</p>
 
 <figure>
-<div class="sv"><svg class="dg" viewBox="0 0 760 345" role="img" aria-label="Before and after the night run with 1,000 vests. The key account goes from 0 to 400. The normal order stays at 500. The small retailer drops from 300 to 100. The credit-blocked customer drops from 200 to 0.">
+<div class="sv"><svg class="dg" viewBox="0 0 760 345" role="img" aria-label="Before and after the night run with 1,000 cartons. The key account goes from 0 to 400. The normal order stays at 500. The small retailer drops from 300 to 100. The credit-blocked customer drops from 200 to 0.">
 <defs><marker id="d6-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d6-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d6-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d6-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
 <text x="322" y="26" class="bd">Last evening</text>
 <text x="580" y="26" class="bd">This morning</text>
@@ -1238,7 +1238,7 @@ Yesterday a small retailer's order took 300 of the last pieces. Today a key mode
 <text x="322" y="292" class="sm">has 200 of 200</text>
 <text x="580" y="292" class="tw2 sm">has 0 of 200  ▼ lost</text>
 <line class="ln ds" x1="470" y1="265" x2="568" y2="265" marker-end="url(#d6-k)"/>
-<text x="12" y="326" class="sm mu">Each box is 100 vests. Dashed box = wanted but not promised. The depot still holds the same 1,000 vests;</text>
+<text x="12" y="326" class="sm mu">Each box is 100 cartons. Dashed box = wanted but not promised. The depot still holds the same 1,000 cartons;</text>
 <text x="12" y="340" class="sm mu">only who gets them has changed.</text>
 </svg></div>
 <figcaption>The stock did not change. Gupta Stores gives up 200, Big Mart takes 400 first, Sharma keeps 500, and Corner Store gets the 100 that is left.</figcaption>
@@ -1303,7 +1303,7 @@ Yesterday a small retailer's order took 300 of the last pieces. Today a key mode
 <tr><td>Fallback variant</td><td>A second, simpler variant that then runs for the stopped products, so they are not left untouched</td><td>Variant FALLBACK_REDISTRIBUTE with everything under Redistribute</td></tr>
 <tr><td>Strategies</td><td>Drag each segment under Win, Gain, Improve, Redistribute, Fill, Lose or Skip. Several segments can sit under one strategy; they are processed top to bottom.</td><td>See the sample below</td></tr>
 </table></div>
-<h3>Sample variant for the innerwear company</h3>
+<h3>Sample variant for the chocolate company</h3>
 <div class="tw"><table>
 <tr><th>Strategy</th><th>Segment</th><th>Sort</th></tr>
 <tr><td>Win</td><td>Rush orders; e-commerce orders due in 2 days</td><td>Requested date</td></tr>
@@ -1383,7 +1383,7 @@ A customer near Chennai orders 2,000 pieces. The Chennai depot has 500. The Beng
 <use href="#ic-shop" x="45" y="104" width="50" height="50" class="ico"/>
 <text x="70" y="171" text-anchor="middle" class="bd">Lakshmi Retail</text>
 <text x="70" y="187" text-anchor="middle" class="sm">Chennai</text>
-<text x="70" y="202" text-anchor="middle" class="sm">orders 2,000 vests</text>
+<text x="70" y="202" text-anchor="middle" class="sm">orders 2,000 cartons</text>
 <use href="#ic-warehouse" x="300" y="20" width="50" height="50" class="ico-w"/>
 <text x="360" y="38" class="bd">Chennai depot</text>
 <text x="360" y="55" class="tw2 sm">only 500 on the shelf</text>
@@ -1429,7 +1429,7 @@ A customer near Chennai orders 2,000 pieces. The Chennai depot has 500. The Beng
 <dt>Plant substitution</dt>
 <dd>Same product, different plant or depot.</dd>
 <dt>Product substitution</dt>
-<dd>Different product, for example the new pack that replaces an old one, or the same vest under a new article number. Which product may replace which is kept as substitution master data.</dd>
+<dd>Different product, for example the new pack that replaces an old one, or the same bar under a new article number. Which product may replace which is kept as substitution master data.</dd>
 </dl>
 <p>Newer releases can combine both: another product from another plant.</p>
 
@@ -1551,7 +1551,7 @@ A customer near Chennai orders 2,000 pieces. The Chennai depot has 500. The Beng
 <p class="lead">Confirmation says "you will get 400". Assignment says "these exact 400 pieces are yours". Release decides when the order is complete enough to ship.</p>
 
 <div class="box scn"><b>Business scenario</b>
-Distributors book the winter thermal range three months ahead, before it is made. One order has four sizes: 80, 85, 90 and 95, 100 pieces each. Sizes 80 and 85 are in the warehouse. Size 90 comes from production in six days. Size 95 is not planned yet. The warehouse ships the two sizes it has. The distributor is unhappy: half a size range does not sell.</div>
+Distributors book the Diwali festive range three months ahead, before it is made. One order has four flavours: Milk, Dark, Hazelnut and Almond, 100 cartons each. Milk and Dark are in the warehouse. Hazelnut comes from production in six days. Almond is not planned yet. The warehouse ships the two flavours it has. The distributor is unhappy: half a festive range does not fill his shelves.</div>
 
 <h2>Confirmation and assignment are different things</h2>
 <div class="tw"><table>
@@ -1560,52 +1560,52 @@ Distributors book the winter thermal range three months ahead, before it is made
 <tr><td>Result</td><td>A quantity and a date</td><td>A fixed link: this stock or this production order belongs to this order line</td></tr>
 <tr><td>How long it holds</td><td>Until someone rechecks</td><td>Until the delivery is made, unless you remove it</td></tr>
 </table></div>
-<p>Supply assignment came from SAP's fashion solutions, where it was called the allocation run. That is why its short name is still ARun.</p>
+<p>Supply assignment came from SAP's fashion solutions, where it was called the allocation run. That is why its short name is still ARun. The idea works the same way for any seasonal range that customers book before it is made.</p>
 
 <figure>
-<div class="sv"><svg class="dg" viewBox="0 0 760 345" role="img" aria-label="An order with four sizes. Sizes 80 and 85 are tied to cartons in the depot, size 90 is booked against production due in 6 days, size 95 has nothing. Only half is ready, so the dispatch gate keeps the order waiting.">
+<div class="sv"><svg class="dg" viewBox="0 0 760 345" role="img" aria-label="An order with four flavours. Milk and Dark are tied to cartons in the depot, Hazelnut is booked against production due in 6 days, Almond has nothing. Only half is ready, so the dispatch gate keeps the order waiting.">
 <defs><marker id="d8-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d8-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d8-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d8-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
-<text x="14" y="22" class="bd">Where the vests are</text>
-<text x="520" y="22" class="bd">Winter order of Kumar Traders</text>
+<text x="14" y="22" class="bd">Where the chocolates are</text>
+<text x="520" y="22" class="bd">Diwali order of Kumar Traders</text>
 <rect class="bg" x="14" y="36" width="270" height="40" rx="8"/>
 <use href="#ic-warehouse" x="20" y="40" width="32" height="32" class="ico-g"/>
-<text x="60" y="61" class="sm">Size 80: cartons in the depot</text>
+<text x="60" y="61" class="sm">Milk: cartons in the depot</text>
 <rect class="card" x="520" y="36" width="226" height="40" rx="8"/>
 <use href="#ic-order" x="526" y="41" width="30" height="30" class="ico"/>
-<text x="564" y="61" class="sm">Size 80  ×  100 vests</text>
+<text x="564" y="61" class="sm">Milk  ×  100 cartons</text>
 <line class="lg" x1="284" y1="56" x2="520" y2="56"/>
 <text x="402" y="50" text-anchor="middle" class="tg sm">tied to these cartons</text>
 <rect class="bg" x="14" y="88" width="270" height="40" rx="8"/>
 <use href="#ic-warehouse" x="20" y="92" width="32" height="32" class="ico-g"/>
-<text x="60" y="113" class="sm">Size 85: cartons in the depot</text>
+<text x="60" y="113" class="sm">Dark: cartons in the depot</text>
 <rect class="card" x="520" y="88" width="226" height="40" rx="8"/>
 <use href="#ic-order" x="526" y="93" width="30" height="30" class="ico"/>
-<text x="564" y="113" class="sm">Size 85  ×  100 vests</text>
+<text x="564" y="113" class="sm">Dark  ×  100 cartons</text>
 <line class="lg" x1="284" y1="108" x2="520" y2="108"/>
 <text x="402" y="102" text-anchor="middle" class="tg sm">tied to these cartons</text>
 <rect class="ba" x="14" y="140" width="270" height="40" rx="8"/>
 <use href="#ic-factory" x="20" y="144" width="32" height="32" class="ico-a"/>
-<text x="60" y="165" class="sm">Size 90: being stitched, 6 days</text>
+<text x="60" y="165" class="sm">Hazelnut: being made, 6 days</text>
 <rect class="card" x="520" y="140" width="226" height="40" rx="8"/>
 <use href="#ic-order" x="526" y="145" width="30" height="30" class="ico"/>
-<text x="564" y="165" class="sm">Size 90  ×  100 vests</text>
+<text x="564" y="165" class="sm">Hazelnut  ×  100 cartons</text>
 <line class="la ds" x1="284" y1="160" x2="520" y2="160"/>
 <text x="402" y="154" text-anchor="middle" class="ta sm">booked, not here yet</text>
 <rect class="b ds" x="14" y="192" width="270" height="40" rx="8"/>
 <use href="#ic-order" x="20" y="196" width="32" height="32" class="ico-m"/>
-<text x="60" y="217" class="sm">Size 95: not planned yet</text>
+<text x="60" y="217" class="sm">Almond: not planned yet</text>
 <rect class="card" x="520" y="192" width="226" height="40" rx="8"/>
 <use href="#ic-order" x="526" y="197" width="30" height="30" class="ico"/>
-<text x="564" y="217" class="sm">Size 95  ×  100 vests</text>
+<text x="564" y="217" class="sm">Almond  ×  100 cartons</text>
 <text x="402" y="206" text-anchor="middle" class="tw2 sm">nothing to tie</text>
 <rect class="band" x="14" y="256" width="732" height="78" rx="10"/>
 <use href="#ic-truck" x="26" y="270" width="46" height="46" class="ico-w"/>
 <line class="lw" x1="84" y1="266" x2="84" y2="324"/>
 <rect class="bw" x="84" y="284" width="96" height="10" rx="3"/>
 <text x="132" y="310" text-anchor="middle" class="sm tw2">dispatch gate</text>
-<text x="200" y="280" class="bd">Ready to ship today: 2 of 4 sizes, which is 50% of the order.</text>
+<text x="200" y="280" class="bd">Ready to ship today: 2 of 4 flavours, which is 50% of the order.</text>
 <text x="200" y="299" class="sm">The release rule says an order may leave only when 90% is ready.</text>
-<text x="200" y="317" class="sm">So the truck waits, and the distributor gets a full size range later.</text>
+<text x="200" y="317" class="sm">So the truck waits, and the distributor gets the full range later.</text>
 </svg></div>
 <figcaption>Stock is tied to the order, but the order is held back until enough of it can ship together.</figcaption>
 </figure>
@@ -1648,10 +1648,10 @@ At 5 pm the dispatch manager learns that a key customer's truck leaves tonight. 
 <details class="deep"><summary>Setup steps for supply assignment, in order</summary><div>
 <div class="tw"><table>
 <tr><th>No.</th><th>Where</th><th>What to do</th><th>Example</th></tr>
-<tr><td>1</td><td>Product master, plant data</td><td>Mark the product as relevant for supply assignment in the plant</td><td>Thermal vest, plant 1000</td></tr>
-<tr><td>2</td><td>Configure Supply Assignment Rules</td><td>Create a rule: which supply may be used (warehouse stock, purchase orders, production orders, inbound deliveries) and in what order; tick "Release check required" if you want step 6. A rule is mandatory from release 2020.</td><td>Rule SA_WINTER: stock first, then production orders by date; release check required</td></tr>
-<tr><td>3</td><td>Configure BOP Segment</td><td>Segments that pick and sort the orders, as in Chapter 4</td><td>Pre-booked winter orders, by delivery priority then requested date</td></tr>
-<tr><td>4</td><td>Configure BOP Variant</td><td>Execution method = Supply assignment; enter the rule; put segments under strategies</td><td>Variant SA_WINTER_NIGHTLY</td></tr>
+<tr><td>1</td><td>Product master, plant data</td><td>Mark the product as relevant for supply assignment in the plant</td><td>Festive range products, plant 1000</td></tr>
+<tr><td>2</td><td>Configure Supply Assignment Rules</td><td>Create a rule: which supply may be used (warehouse stock, purchase orders, production orders, inbound deliveries) and in what order; tick "Release check required" if you want step 6. A rule is mandatory from release 2020.</td><td>Rule SA_DIWALI: stock first, then production orders by date; release check required</td></tr>
+<tr><td>3</td><td>Configure BOP Segment</td><td>Segments that pick and sort the orders, as in Chapter 4</td><td>Pre-booked Diwali orders, by delivery priority then requested date</td></tr>
+<tr><td>4</td><td>Configure BOP Variant</td><td>Execution method = Supply assignment; enter the rule; put segments under strategies</td><td>Variant SA_DIWALI_NIGHTLY</td></tr>
 <tr><td>5</td><td>Schedule BOP Run</td><td>Run it. Results: Monitor Supply Assignment Runs (F3684) and Monitor Supply Assignment Demand.</td><td>Nightly</td></tr>
 <tr><td>6</td><td>Maintain Release Rules</td><td>Header fulfilment % (whole order) and item fulfilment % (each line)</td><td>Header 90, item 80</td></tr>
 <tr><td>7</td><td>Release check run</td><td>Runs the release rule over assigned orders. Orders that pass can get a delivery.</td><td>After each assignment run</td></tr>
@@ -1674,14 +1674,14 @@ At 5 pm the dispatch manager learns that a key customer's truck leaves tonight. 
 </div></details>
 
 <details class="deep"><summary>Test script</summary><div>
-<p>Prepare: order with sizes 80, 85, 90, 95, 100 pieces each. Stock for 80 and 85. Production order for size 90 due in 6 days. Rule and release rule as above.</p>
+<p>Prepare: order with four flavours, Milk, Dark, Hazelnut and Almond, 100 cartons each. Stock for Milk and Dark. Production order for Hazelnut due in 6 days. Rule and release rule as above.</p>
 <div class="tw"><table>
 <tr><th>No.</th><th>Step</th><th>Expected result</th></tr>
-<tr><td>6.1</td><td>Run the assignment variant</td><td>80 and 85 fixed to stock; 90 reserved against the production order; 95 unassigned</td></tr>
+<tr><td>6.1</td><td>Run the assignment variant</td><td>Milk and Dark fixed to stock; Hazelnut reserved against the production order; Almond unassigned</td></tr>
 <tr><td>6.2</td><td>Run the release check</td><td>Order not released (50% ready, 90% needed)</td></tr>
 <tr><td>6.3</td><td>Try to create a delivery</td><td>No delivery for this order</td></tr>
-<tr><td>6.4</td><td>Receive sizes 90 and 95; rerun assignment and release check</td><td>All fixed; order released; delivery can be created</td></tr>
-<tr><td>6.5</td><td>Create a second, later order for size 80 and run again</td><td>It does not take the stock fixed to the first order</td></tr>
+<tr><td>6.4</td><td>Receive Hazelnut and Almond; rerun assignment and release check</td><td>All fixed; order released; delivery can be created</td></tr>
+<tr><td>6.5</td><td>Create a second, later order for Milk and run again</td><td>It does not take the stock fixed to the first order</td></tr>
 <tr><td>6.6</td><td>In Adjust Supply Assignment, unassign one line by hand</td><td>Stock is free again and visible in Supply Demand Overview</td></tr>
 <tr><td>6.7</td><td>In Release for Delivery, move 50 from one due order to another and release</td><td>Both orders show the new confirmed quantities</td></tr>
 </table></div>
@@ -1708,20 +1708,20 @@ At 5 pm the dispatch manager learns that a key customer's truck leaves tonight. 
 <p class="lead">When stock and planned receipts are not enough, the system plans new production on the spot and confirms the order from that plan.</p>
 
 <div class="box scn"><b>Business scenario</b>
-An institutional buyer orders 1,000 custom-printed vests. Stock is 600. Nothing more is planned. The sales person wants to give a delivery date he can trust for the other 400 while the customer is still on the phone.</div>
+A corporate buyer orders 1,000 custom-printed gift boxes. Stock is 600. Nothing more is planned. The sales person wants to give a delivery date he can trust for the other 400 while the customer is still on the phone.</div>
 
 <h2>The idea</h2>
 <p>The availability check finds the gap. It then asks the production planning tool (PP/DS, the detailed scheduling part of S/4HANA) a real question: "Can you make 400, and by when?" PP/DS looks at free machine time and at components, and creates a planned order. The sales order is confirmed against that planned order.</p>
 
 <figure>
-<div class="sv"><svg class="dg" viewBox="0 0 760 215" role="img" aria-label="A buyer phones for 1,000 printed vests. The depot has 600. Production planning finds a free machine slot and cloth, and plans 400 for day 9. Riya promises 600 now and 400 on day 9.">
+<div class="sv"><svg class="dg" viewBox="0 0 760 215" role="img" aria-label="A corporate buyer phones for 1,000 printed gift boxes. The depot has 600. Production planning finds a free machine slot and cocoa, and plans 400 for day 9. Riya promises 600 now and 400 on day 9.">
 <defs><marker id="d9-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d9-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d9-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d9-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
 <circle class="num" cx="42" cy="34" r="10"/>
 <text x="42" y="38" text-anchor="middle" class="numt">1</text>
 <use href="#ic-phone" x="55" y="28" width="46" height="46" class="ico"/>
-<text x="78" y="91" text-anchor="middle" class="bd">School buyer</text>
+<text x="78" y="91" text-anchor="middle" class="bd">Corporate buyer</text>
 <text x="78" y="107" text-anchor="middle" class="sm">phones: I need 1,000</text>
-<text x="78" y="122" text-anchor="middle" class="sm">printed vests</text>
+<text x="78" y="122" text-anchor="middle" class="sm">printed gift boxes</text>
 <line class="ln" x1="112" y1="52" x2="179" y2="52" marker-end="url(#d9-k)"/>
 <circle class="num" cx="193" cy="34" r="10"/>
 <text x="193" y="38" text-anchor="middle" class="numt">2</text>
@@ -1742,7 +1742,7 @@ An institutional buyer orders 1,000 custom-printed vests. Stock is 600. Nothing 
 <use href="#ic-factory" x="508" y="28" width="46" height="46" class="ico-a"/>
 <text x="531" y="91" text-anchor="middle" class="bd">Factory planning</text>
 <text x="531" y="107" text-anchor="middle" class="sm">finds a free machine</text>
-<text x="531" y="122" text-anchor="middle" class="sm">and cloth: 400 by day 9</text>
+<text x="531" y="122" text-anchor="middle" class="sm">and cocoa: 400 by day 9</text>
 <line class="ln" x1="565" y1="52" x2="632" y2="52" marker-end="url(#d9-k)"/>
 <circle class="num" cx="646" cy="34" r="10"/>
 <text x="646" y="38" text-anchor="middle" class="numt">5</text>
@@ -1775,8 +1775,8 @@ An institutional buyer orders 1,000 custom-printed vests. Stock is 600. Nothing 
 <li>It must be activated in customising, and PP/DS must be set up for the product.</li>
 </ul>
 
-<div class="box care"><b>Does an innerwear company need it?</b>
-Usually not for the main business. Standard vests and briefs are made to stock from a forecast and sold from depots. The earlier chapters cover that. It becomes interesting for made-to-order lines such as institutional or private-label orders.</div>
+<div class="box care"><b>Does a chocolate company need it?</b>
+Usually not for the main business. Standard bars and gift boxes are made to stock from a forecast and sold from depots. The earlier chapters cover that. It becomes interesting for made-to-order lines such as corporate gifting or private-label orders.</div>
 <h2>Go deeper: configuration</h2>
 <details class="deep"><summary>Setup outline</summary><div>
 <p>This function is mostly a production planning project. The sales consultant needs to know the outline and who to involve.</p>
@@ -1808,16 +1808,16 @@ Usually not for the main business. Standard vests and briefs are made to stock f
 
 <h2>One order, all the checks</h2>
 <div class="box scn"><b>Business scenario</b>
-Diwali week. The Delhi depot has 10,000 premium briefs. 1,000 are protected for e-commerce. The North region has 3,000 left in this month's quota. A North general trade distributor orders 5,000.</div>
+Diwali week. The Delhi depot has 10,000 festive gift boxes. 1,000 are protected for e-commerce. The North region has 3,000 left in this month's quota. A North general trade distributor orders 5,000.</div>
 
 <figure>
 <div class="sv"><svg class="dg" viewBox="0 0 760 330" role="img" aria-label="Ten pallets in the depot. One is kept for e-commerce, leaving nine for the distributor. North&#x27;s quota allows three. Three are promised and two of his five must wait.">
 <defs><marker id="d10-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker><marker id="d10-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="aha"/></marker><marker id="d10-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahw"/></marker><marker id="d10-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahg"/></marker></defs>
 <use href="#ic-order" x="14" y="8" width="34" height="34" class="ico"/>
-<text x="56" y="22" class="bd">Sharma Distributors (North, general trade) orders 5,000 briefs in Diwali week</text>
+<text x="56" y="22" class="bd">Sharma Distributors (North, general trade) orders 5,000 gift boxes in Diwali week</text>
 <text x="56" y="39" class="sm mu">Each square is a pallet of 1,000.</text>
 <text x="14" y="80" class="bd">1. In the Delhi depot</text>
-<text x="14" y="97" class="sm">10,000 briefs</text>
+<text x="14" y="97" class="sm">10,000 gift boxes</text>
 <rect class="ba" x="250" y="62" width="42" height="42" rx="5"/>
 <rect class="b" x="299" y="62" width="42" height="42" rx="5"/>
 <rect class="b" x="348" y="62" width="42" height="42" rx="5"/>
@@ -1883,7 +1883,7 @@ Diwali week. The Delhi depot has 10,000 premium briefs. 1,000 are protected for 
 <tr><td>"This channel must always find stock."</td><td>Supply Protection</td></tr>
 <tr><td>"Important orders that come late get nothing."</td><td>Backorder Processing</td></tr>
 <tr><td>"Stock is in the next depot but the order shows short."</td><td>Alternative-Based Confirmation</td></tr>
-<tr><td>"We ship half size ranges." / "Pre-booked orders lose their stock."</td><td>Supply Assignment with release check</td></tr>
+<tr><td>"We ship half the festive range." / "Pre-booked orders lose their stock."</td><td>Supply Assignment with release check</td></tr>
 <tr><td>"Dispatch needs to shift stock between orders at the last minute."</td><td>Release for Delivery</td></tr>
 <tr><td>"We need a trustworthy date for made-to-order items."</td><td>Supply Creation-Based Confirmation</td></tr>
 </table></div>
@@ -1935,7 +1935,7 @@ Diwali week. The Delhi depot has 10,000 premium briefs. 1,000 are protected for 
 
 <h2>The case</h2>
 <div class="box scn"><b>Business scenario</b>
-Comfort Innerwear sells the premium brief PB-100 from its Delhi depot (plant 1000, sales organisation 1000). Diwali demand is far above supply. The sales head wants three rules: each region gets a fixed monthly share; e-commerce always finds 1,000 pieces a week; key modern trade accounts are served before everyone else, and blocked customers lose their stock.</div>
+Cocoa Crest Chocolates sells the festive gift box GB-100 from its Delhi depot (plant 1000, sales organisation 1000). Diwali demand is far above supply. The sales head wants three rules: each region gets a fixed monthly share; e-commerce always finds 1,000 pieces a week; key modern trade accounts are served before everyone else, and blocked customers lose their stock.</div>
 <div class="tw"><table>
 <tr><th>Customer</th><th>Type</th><th>Channel</th><th>Customer group</th><th>Region</th></tr>
 <tr><td>D-NORTH</td><td>Distributor</td><td>10</td><td>GT</td><td>North</td></tr>
@@ -1945,7 +1945,7 @@ Comfort Innerwear sells the premium brief PB-100 from its Delhi depot (plant 100
 <tr><td>MT-01</td><td>Modern trade key account</td><td>20</td><td>MT</td><td>North</td></tr>
 <tr><td>EC-01</td><td>E-commerce site</td><td>30</td><td>EC</td><td>West</td></tr>
 </table></div>
-<p>Starting stock of PB-100 in plant 1000: <b>10,000</b>. No receipts planned.</p>
+<p>Starting stock of GB-100 in plant 1000: <b>10,000</b>. No receipts planned.</p>
 
 <h2>Part A. Build</h2>
 <div class="tw"><table>
@@ -1953,16 +1953,16 @@ Comfort Innerwear sells the premium brief PB-100 from its Delhi depot (plant 100
 <tr><td>A1</td><td>Define Availability Check Group (<code>OVZ2</code>)</td><td>New group Z1 "AATP finished goods": TotalSales A, TotDlvReqs A, Block QtRq ticked, Advanced ATP Active</td></tr>
 <tr><td>A2</td><td>Configure Scope of Availability Check (<code>OVZ9</code>)</td><td>Z1 / A and Z1 / B: sales requirements, deliveries, released production orders and purchase orders included; "Check without RLT" ticked; supply protection option ticked</td></tr>
 <tr><td>A3</td><td>Requirement class (<code>OVZG</code>) and schedule line category (<code>VOV6</code>)</td><td>Availability, requirement transfer and product allocation ticked for the class and category your standard order uses</td></tr>
-<tr><td>A4</td><td>Product PB-100, plant 1000, MRP 3</td><td>Availability check = Z1</td></tr>
+<tr><td>A4</td><td>Product GB-100, plant 1000, MRP 3</td><td>Availability check = Z1</td></tr>
 <tr><td>A5</td><td>Manage Characteristic Catalogs</td><td>Product Allocation catalog: Sales Organization, Region. Supply Protection catalog: Distribution Channel. Backorder Processing catalog: Customer Group, Sold-to Party, Requested Delivery Date, Creation Date.</td></tr>
 <tr><td>A6</td><td>Activate Product Allocation (customising)</td><td>Activate = Yes; check date = requested delivery date</td></tr>
-<tr><td>A7</td><td>Configure Product Allocation</td><td>Object PAL_PB100_REGION: unit PC, period Month, sales orders, no collective allocation, characteristics Sales Organization + Region</td></tr>
+<tr><td>A7</td><td>Configure Product Allocation</td><td>Object PAL_GB100_REGION: unit PC, period Month, sales orders, no collective allocation, characteristics Sales Organization + Region</td></tr>
 <tr><td>A8</td><td>Manage Product Allocation Planning Data</td><td>This month: 1000/North 3,000; 1000/South 3,000; 1000/West 2,000; 1000/East 2,000. Status restricted availability.</td></tr>
-<tr><td>A9</td><td>Manage Product Allocation Sequences</td><td>Sequence SEQ_PB100: backward 0, forward 0; group 10; one constraint with PAL_PB100_REGION, rate 1.0, valid this month and next</td></tr>
-<tr><td>A10</td><td>Assign Product to Product Allocation</td><td>PB-100, plant 1000, valid this month and next. Then set the object to active.</td></tr>
-<tr><td>A11</td><td>Manage Supply Protection</td><td>Object SUP_PB100_ECOM: PB-100, plant 1000, period Week, consumption by requested delivery date, characteristic Distribution Channel; group priority 1, value 30, protected 1,000 this week. Activate.</td></tr>
+<tr><td>A9</td><td>Manage Product Allocation Sequences</td><td>Sequence SEQ_GB100: backward 0, forward 0; group 10; one constraint with PAL_GB100_REGION, rate 1.0, valid this month and next</td></tr>
+<tr><td>A10</td><td>Assign Product to Product Allocation</td><td>GB-100, plant 1000, valid this month and next. Then set the object to active.</td></tr>
+<tr><td>A11</td><td>Manage Supply Protection</td><td>Object SUP_GB100_ECOM: GB-100, plant 1000, period Week, consumption by requested delivery date, characteristic Distribution Channel; group priority 1, value 30, protected 1,000 this week. Activate.</td></tr>
 <tr><td>A12</td><td>Configure BOP Segment</td><td>KEY_MT: Customer Group = MT, sort by requested date. BLOCKED: Sold-to Party = D-NORTH (in real life, use the credit status). ALL_OTHER: Customer Group is GT or EC, with exclusion Sold-to Party = D-NORTH, sort by requested date then creation date.</td></tr>
-<tr><td>A13</td><td>Configure BOP Variant</td><td>DIWALI_PB100: sales orders; availability check; Win = KEY_MT; Redistribute = ALL_OTHER; Lose = BLOCKED</td></tr>
+<tr><td>A13</td><td>Configure BOP Variant</td><td>DIWALI_GB100: sales orders; availability check; Win = KEY_MT; Redistribute = ALL_OTHER; Lose = BLOCKED</td></tr>
 </table></div>
 <div class="box care"><b>Why the exclusion in A12</b>
 Without it, D-NORTH's order would match both ALL_OTHER and BLOCKED. Design segments so that every order has one clear home.</div>
@@ -1981,7 +1981,7 @@ Without it, D-NORTH's order would match both ALL_OTHER and BLOCKED. Design segme
 <p>Checkpoint. Product Allocation Overview should show: North 3,000 of 3,000 used; South 3,000 of 3,000; East 2,000 of 2,000; West 1,800 of 2,000. The protection object should show 800 consumed.</p>
 
 <h3>B7. The backorder run</h3>
-<p>Run DIWALI_PB100 in simulation, check the monitor, then run it for real.</p>
+<p>Run DIWALI_GB100 in simulation, check the monitor, then run it for real.</p>
 <div class="tw"><table>
 <tr><th>Order</th><th>Strategy</th><th>Before</th><th>After</th><th>Why</th></tr>
 <tr><td>D-NORTH</td><td>Lose</td><td class="n">3,000</td><td class="n">0</td><td>Gives up stock and North quota</td></tr>
@@ -2273,7 +2273,7 @@ var QUIZ={
 ],
 "supply-assignment":[
 {q:"What is the main difference between a confirmation and a supply assignment?",o:["They are the same thing with different names","A confirmation is a quantity and date from the total pool; an assignment ties one specific supply to one order line until delivery","An assignment is only for purchase orders","A confirmation can never change"],a:1,w:"Confirmation works on the pool. Assignment creates a fixed link between a particular stock or receipt and a particular order line."},
-{q:"An order has four sizes, 100 each. Two sizes are assigned to warehouse stock. The release rule needs 90% for the whole order. What happens?",o:["A delivery is created for the two sizes","The order is cancelled","The other two sizes are substituted","No delivery yet: only 50% is ready, so the order is held"],a:3,w:"200 of 400 is 50%, below the 90% needed. The release check holds the order."},
+{q:"An order has four flavours, 100 cartons each. Two flavours are assigned to warehouse stock. The release rule needs 90% for the whole order. What happens?",o:["A delivery is created for the two flavours","The order is cancelled","The other two flavours are substituted","No delivery yet: only 50% is ready, so the order is held"],a:3,w:"200 of 400 is 50%, below the 90% needed. The release check holds the order."},
 {q:"The backorder variant and assignment rule look right, but one product is never picked up by the assignment run. What do you check?",o:["Whether the product is marked as relevant for supply assignment in that plant","Whether the customer has a quota","Whether the route has a transit time","Whether the product has a batch"],a:0,w:"Only products flagged as relevant for supply assignment in the plant take part."},
 {q:"At 5 pm the dispatch manager wants to move 200 confirmed pieces from an order leaving next week to one leaving tonight. Which tool?",o:["Configure BOP Segment","Manage Product Allocation Planning Data","Release for Delivery","Scope of check"],a:2,w:"Release for Delivery lets a manager shift confirmed quantity between due orders by hand and then release them."}
 ],
@@ -2294,7 +2294,7 @@ var QUIZ={
 
 var EXAM_ID="final-exam";
 var EXAM=[
-{h:"Part A. Business process",q:"PB-100 uses checking group Z1 (AATP active) in the Delhi plant but still has the old group in the Chennai plant. A customer orders from Chennai. Which check runs?",o:["AATP, because the product is on AATP","The classic check, because the checking group is set for each plant","No check at all","Both checks, and the lower result wins"],a:1,w:"The checking group sits on the product's plant data, so each plant decides for itself."},
+{h:"Part A. Business process",q:"GB-100 uses checking group Z1 (AATP active) in the Delhi plant but still has the old group in the Chennai plant. A customer orders from Chennai. Which check runs?",o:["AATP, because the product is on AATP","The classic check, because the checking group is set for each plant","No check at all","Both checks, and the lower result wins"],a:1,w:"The checking group sits on the product's plant data, so each plant decides for itself."},
 {q:"A customer says: send everything together, no part shipments. The full quantity will be available in 6 days. Which result should the user accept?",o:["One-time delivery","Complete delivery","Delivery proposal","Reject the order"],a:1,w:"Complete delivery confirms the whole quantity on the first date it is all available."},
 {q:"A customer says: send whatever you have on my date, I do not need the rest. Which result fits?",o:["One-time delivery","Complete delivery","Delivery proposal","Backorder processing"],a:0,w:"One-time delivery confirms what is available on the wanted date and nothing later."},
 {q:"Planning has a planned order for 2,000 that may still move, and a released production order for 500. The business wants to promise only what is reliable. What should the check count?",o:["Both, to promise as much as possible","Only the planned order","Only the released production order","Neither; only stock in hand ever counts"],a:2,w:"A released production order is firm. A planned order is still only a plan."},
@@ -2326,7 +2326,7 @@ var EXAM=[
 {q:"What does the status fixed mean in supply assignment?",o:["The line is tied to stock in the warehouse and is ready for delivery","The price can no longer change","The order is blocked","The line is tied to a planned order"],a:0,w:"Fixed means real stock is tied to the line."},
 {q:"A client uses supply assignment without the release check. When can an order be delivered?",o:["Never","As soon as stock is assigned","Only when 100% is assigned","Only after month end"],a:1,w:"The release check is optional. Without it, assigned lines can be delivered."},
 {q:"With supply creation-based confirmation, what is the planned order while the user is still inside the sales order?",o:["A released production order","A purchase requisition","Temporary; it becomes real when the order is saved","A stock transfer order"],a:2,w:"The plan is firmed only on save."},
-{q:"The business says: we ship half size ranges, and distributors complain. Which part of AATP answers this?",o:["Supply assignment with a release check","Product allocation","Replenishment lead time","Supply protection"],a:0,w:"The release check holds an order until enough of it can ship together."},
+{q:"The business says: we ship half the festive range, and distributors complain. Which part of AATP answers this?",o:["Supply assignment with a release check","Product allocation","Replenishment lead time","Supply protection"],a:0,w:"The release check holds an order until enough of it can ship together."},
 {q:"In which order should a project build the parts?",o:["Alternatives first, then everything else","Availability check, then backorder processing, then quota or protection, then alternatives","Quota first, availability check last","All at once on the go-live weekend"],a:1,w:"Each step is useful alone, and the later ones depend on a clean basic check."},
 {q:"On day one the results are wrong and the client wants to step back. What is the fallback?",o:["Deactivate product allocation in customising","Delete all open orders","Put the products back on the old checking group and stop the new jobs; set quota lines to unrestricted","Uninstall the Fiori apps"],a:2,w:"The checking group can be changed back. Product allocation activation cannot be reversed, so open the quotas instead."},
 {q:"Products are switched to the AATP checking group on Saturday. What happens to orders that were already open?",o:["They are deleted","They are rechecked at once","They lose all confirmations","They keep their old confirmations until the first backorder run"],a:3,w:"Saved orders are not rechecked on their own. The first run brings them under the new rules."},
